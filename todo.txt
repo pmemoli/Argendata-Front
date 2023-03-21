@@ -1,0 +1,4 @@
+- Crear Api y que ande rapido.
+- Robustez y sizing consistente.
+
+- Datos analiticos restantes: Dolar, IPC, Emision, Pobreza, PBI, Crimen
