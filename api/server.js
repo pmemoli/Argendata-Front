@@ -20,13 +20,22 @@ app.get('/', (req, res) => {
 })
 
 // Routing
-const datosRoute = require('./routes/datos')
-app.use('/datos', datosRoute)
+const datosRouter = require('./routes/datos')
+app.use('/datos', datosRouter)
 
-app.listen(3001)
+async function forceDolarUpdate() {
+  try {
+    const res = await actualizadores.actualizarDolar()
+    console.log(res)
+  }
 
-// Actualizar datos cuando corresponda
-cron.schedule('0 */2 * * *', async () => {
+  catch(e) {console.log(e)}
+} 
+
+//forceDolarUpdate()
+
+// Actualiza datos cuando corresponda
+cron.schedule('10 12,17,20 * * *', async () => {
   try {
     const res = await actualizadores.actualizarDolar()
     console.log(res)
@@ -34,3 +43,6 @@ cron.schedule('0 */2 * * *', async () => {
 
   catch(e) {console.log(e)}
 })
+
+
+app.listen(3001)

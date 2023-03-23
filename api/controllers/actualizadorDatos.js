@@ -1,4 +1,5 @@
 const Dolar = require('../models/Dolar')
+const axios = require('axios')
 
 const dolarHistoricoApi = axios.create({
   baseURL: 'https://api.bluelytics.com.ar/v2/evolution.json',
@@ -7,6 +8,8 @@ const dolarHistoricoApi = axios.create({
 const dolarActualApi = axios.create({
   baseURL: 'https://www.dolarsi.com/api/api.php?type=valoresprincipales',
 })
+
+const wholePartRegex = /\d+/
 
 async function actualizarDolar() {
   try {
@@ -58,14 +61,14 @@ async function actualizarDolar() {
 
     const dolares = await Dolar.find()
     if (dolares.length === 0) {
-      await Dolar.insert(datosDolar)
+      await Dolar.create(datosDolar)
     }
     else {
       await Dolar.findOneAndReplace({}, datosDolar)
     }
 
     return 'updated'
-  }
+  } 
   
   catch(e) {
     console.log(e)

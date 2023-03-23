@@ -1,4 +1,5 @@
-- Crear Api y que ande rapido.
-- Robustez y sizing consistente.
+- Robustez y sizing consistente (datos analiticos)
+- Links en la side y topbar
+- Cambiar icono 
 
-- Datos analiticos restantes: Dolar, IPC, Emision, Pobreza, PBI, Crimen
+- Datos analiticos restantes: Emision, Pobreza, PBI, Crimen

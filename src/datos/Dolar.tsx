@@ -5,13 +5,9 @@ import {useEffect, useState, useRef} from 'react'
 import LineChart from '../components/LineChart'
 import axios from 'axios'
 
-const dolarHistoricoApi = axios.create({
-  baseURL: 'https://api.bluelytics.com.ar/v2/evolution.json',
+const api = axios.create({
+  baseURL: 'http://localhost:3001',
 });
-
-const dolarActualApi = axios.create({
-  baseURL: 'https://www.dolarsi.com/api/api.php?type=valoresprincipales',
-})
 
 const datosInterface = {
   'fechas': [],
@@ -36,7 +32,10 @@ const datosInterface = {
   },
 }
 
-const wholePartRegex = /\d+/;
+function colorBoton(dolarBoton: string, dolar): string {
+  if (dolarBoton === dolar) return 'bg-slate-700';
+  else return '';
+}
 
 const hoy = new Date();
 
@@ -53,58 +52,11 @@ export default function Dolar({modo}) {
 
   async function getDolar() {
     try {
-      const resHistorico = await dolarHistoricoApi.get('');
-      const datosHistoricosApi = resHistorico.data;
-
-      const resActual = await dolarActualApi.get('');
-      const datosActualesApi = resActual.data;
-
-      const fechas = [];
-      const valoresBlue = []; 
-      const valoresOficial = [];
-
-      const valorCcl = {
-        'venta': parseInt(wholePartRegex.exec(datosActualesApi[3].casa.venta)[0]),
-        'compra': parseInt(wholePartRegex.exec(datosActualesApi[3].casa.compra)[0]),
-      };
-      
-      const valorTurista = {
-        'venta': parseInt(wholePartRegex.exec(datosActualesApi[6].casa.venta)[0]),
-      };
-
-      for (let i = 0; i < datosHistoricosApi.length; i++) {
-        if (datosHistoricosApi[i].source === 'Blue') {
-          valoresBlue.push({
-            'venta': datosHistoricosApi[i].value_sell,
-            'compra': datosHistoricosApi[i].value_buy,  
-          });
-        
-          fechas.push(datosHistoricosApi[i].date.substring(2));
-        }
-
-        if (datosHistoricosApi[i].source === 'Oficial') {
-          valoresOficial.push({
-            'venta': datosHistoricosApi[i].value_sell,
-            'compra': datosHistoricosApi[i].value_buy,  
-          });
-        }
-      }
-      
-      setDatosDolar({
-        'fechas': fechas.reverse(),
-        'blue': valoresBlue.reverse(),
-        'oficial': valoresOficial.reverse(),
-        'ccl': valorCcl,
-        'turista': valorTurista,
-      });
+      const res = await api.get('/datos/dolar')
+      setDatosDolar(res.data.datosDolar)
     }
 
-    catch(e) {console.log(e);}
-  }
-
-  function colorBoton(dolarBoton: string): string {
-    if (dolarBoton === dolar) return 'bg-slate-700';
-    else return '';
+    catch(e) {console.log(e)}
   }
 
   function setIndices(fechaDesde, fechaHasta, tipo='blue') {
@@ -148,7 +100,7 @@ export default function Dolar({modo}) {
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = "datosDolar.txt";
+    link.download = "datosDolar.json";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -199,17 +151,17 @@ export default function Dolar({modo}) {
       
       <div className='mb-3 overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar'>
         <div className="flex justify-between">
-          <button onClick={() => setDolar('blue')} className={`${colorBoton('blue')} p-1 pb-0 rounded-sm z-[1]`}>
+          <button onClick={() => setDolar('blue')} className={`${colorBoton('blue', dolar)} p-1 rounded-sm z-[1]`}>
             <h3>Blue: {datosDolar.blue[datosDolar.blue.length - 1][tipoTransaccion]}$</h3>
           </button>
 
-          <button onClick={() => setDolar('oficial')} className={`${colorBoton('oficial')} p-1 pb-0 rounded-sm z-[1]`}>
+          <button onClick={() => setDolar('oficial')} className={`${colorBoton('oficial', dolar)} p-1 rounded-sm z-[1]`}>
             <h3>Oficial: {datosDolar.oficial[datosDolar.oficial.length - 1][tipoTransaccion]}$</h3>
           </button>
 
-          <h3 className='p-1 pb-0 z-[1]'>CCL: {datosDolar.ccl[tipoTransaccion]}$</h3>
+          <h3 className='p-1 z-[1]'>CCL: {datosDolar.ccl[tipoTransaccion]}$</h3>
 
-          <h3 className='p-1 pb-0 z-[1]'>Tarjeta: {datosDolar.turista['venta']}$</h3>
+          <h3 className='p-1 z-[1]'>Tarjeta: {datosDolar.turista['venta']}$</h3>
         </div>
       </div>
 

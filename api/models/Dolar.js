@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const dolarDatoSchema = new mongoose.Schema({
-    venta: [Number],
-    compra: [Number],
+    venta: Number,
+    compra: Number,
 })
 
 const dolarSchema = new mongoose.Schema({
