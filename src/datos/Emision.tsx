@@ -1,64 +1,66 @@
-import {useState, useEffect} from 'react'
-import {Link} from "react-router-dom"
-import axios from 'axios'
-import LineChart from '../components/LineChart'
+import {useState, useEffect} from 'react';
+import axios, {AxiosInstance} from 'axios';
+import DatosAnaliticos from './components/DatosAnaliticos';
 
-const api = axios.create({
+const api: AxiosInstance = axios.create({
   baseURL: 'http://apis.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21&format=json&start_date=2015-01',
 });
 
-const datosEmisionInterface = {
-  fechas: [],
-  emision: [],
-}
+interface datosEmisionInterface {
+  fechas: string[],
+  datosHistoricos: {emision: number[]},
+  datosActuales: {},
+};
 
-const hoy = new Date()
-const fechaComienzoDatos = new Date('2015/01/01')
+const hoy: Date = new Date();
+const fechaComienzoDatos: Date = new Date('2015/01/01');
 
-export default function Emision({modo}) {
-  const [datosEmision, setDatosEmision] = useState(datosEmisionInterface)
-  const [rangoHistorico, setRangoHistorico] = useState([hoy, fechaComienzoDatos]);
+export default function Emision({modo}): JSX.Element {
+  const [datosEmision, setDatosEmision] = useState<datosEmisionInterface>();
 
-  useEffect(() => {getDatosEmision()}, [])
+  useEffect(() => {getDatosEmision()}, []);
 
   async function getDatosEmision() {
     try {
-      const res = await api.get('')
-      const datosApi = res.data.data     
+      const res: any = await api.get('');
+      const datosApi: any = res.data.data;     
     
-      const fechas = datosApi.map(dato => dato[0])
-      const baseMonetaria = datosApi.map(dato => dato[1])
-
-      console.log(fechas)
+      const fechas: string[] = datosApi.map(dato => dato[0]);
+      const baseMonetaria: number[] = datosApi.map(dato => dato[1] / 1000000);
 
       setDatosEmision({
         'fechas': fechas,
-        'emision': baseMonetaria
-      })
+        'datosHistoricos': {'emision': baseMonetaria},
+        'datosActuales': {}
+      });
     }
 
-    catch(e) {console.log(e)}
+    catch(e) {console.log(e);}
   }
 
-  const chartData = {
-    labels: datosEmision.fechas,
-    datasets: [{
-      label: 'Emision',
-      data: datosEmision.emision.map(val => val / 1000000),
-    }]
+  function renderContent(): JSX.Element {
+    if (datosEmision === undefined) return (
+      <div>
+        Cargando...
+      </div>
+    )
+    else return (
+    <div>
+      <DatosAnaliticos 
+      nombre='Emision'
+      modo={modo}
+      datos={datosEmision}
+      rangoInicial={[fechaComienzoDatos, hoy]}
+      unidad=''
+      mostrarValores={false}
+      manejoEstados={{}}/>
+    </div>
+    )
   }
 
   return (
-    <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1]'>
-
-    <Link to='/emision'>
-      <h2 className="text-xl flex justify-center mt-1 mb-2">Emision</h2>    
-    </Link>
-
-    <div className='mb-2'>
-      <LineChart chartData={chartData}/>
-    </div>
-
-    </div>
+  <div className='z-[1]'>
+    {renderContent()}
+  </div>
   )
-}
+};

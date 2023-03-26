@@ -10,7 +10,7 @@ function App() {
   return (
     <div className='flex flex-col justify-between min-h-screen bg-slate-800 text-gray-200 font-fira font-thin'>
       <Header/>
-
+    
       <div className='flex-grow mt-9'>
         <Routes>
           <Route path='/' element={<Home/>}></Route>

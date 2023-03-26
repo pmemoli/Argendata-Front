@@ -3,8 +3,8 @@ import {useState} from 'react';
 import TopMenu from './TopMenu';
 import MobileSidebar from './MobileSidebar';
 
-export default function Header() {
-  const [toggled, setHeaderToggle] = useState(false);
+export default function Header(): JSX.Element {
+  const [toggled, setHeaderToggle] = useState<boolean>(false);
 
   return (
     <div className=''>

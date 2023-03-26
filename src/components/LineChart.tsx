@@ -20,6 +20,6 @@ const options: any = {
 }
 
 
-export default function LineChart({chartData}) {
+export default function LineChart({chartData}): JSX.Element {
   return <Line data={chartData} options={options}/>
 }

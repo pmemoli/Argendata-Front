@@ -2,4 +2,4 @@
 - Links en la side y topbar
 - Cambiar icono 
 
-- Datos analiticos restantes: Emision, Pobreza, PBI, Crimen
+- Datos analiticos restantes: Pobreza, PBI, Crimen
