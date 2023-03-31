@@ -3,3 +3,13 @@
 - Cambiar icono 
 
 - Datos analiticos restantes: Pobreza, PBI, Crimen
+
+
+Se accede a los datasets con la api http://datos.gob.ar/api/3/action/package_show?id=<id_del_dataset>
+
+-   Desempleo: https://www.datos.gob.ar/dataset/sspm-principales-variables-ocupacionales-eph-continua-desempleo
+    Actividad: https://www.datos.gob.ar/dataset/sspm-principales-variables-ocupacionales-eph-continua-actividad
+
+-   Homicidios: https://www.datos.gob.ar/dataset/seguridad-estadisticas-criminales-historicas-homicidios-dolosos
+    Robos: https://www.datos.gob.ar/dataset/seguridad-estadisticas-criminales-historicas-robos-tentativas-robo
+

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import LineChart from '../../components/LineChart';
+import Select from 'react-select';
+import DropdownMenu from '../../components/DropdownMenu';
 
 interface DataAnalitica {
   fechas: string[],
@@ -22,7 +24,10 @@ interface ParametrosAceptados {
   manejoEstados: {
     estadosPosibles?: string[],
     setEstado?: React.Dispatch<React.SetStateAction<string>>,
-  }
+    slider?: boolean,
+    estado?: string,
+  },
+  round: number,
 };
 
 interface Chart {
@@ -51,7 +56,7 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
   return tipos;
 }
 
-export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados}: ParametrosAceptados): JSX.Element {
+export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round}: ParametrosAceptados): JSX.Element {
   const tipos: TiposDatos[] = getTipos(datos);
 
   const [indiceEstado, setIndiceEstado] = useState<number>(0);
@@ -64,8 +69,13 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     let indiceHasta: number = fechas.length - 1;
 
     for (let i = 0; i < fechas.length - 1; i++) {
-      const fechaDate1: Date = new Date(fechas[i]);
-      const fechaDate2: Date = new Date(fechas[i + 1]);
+      let prefix = '';
+      if (nombre === 'Dolar') {
+        prefix = '20';
+      }
+
+      const fechaDate1: Date = new Date(prefix + fechas[i]);
+      const fechaDate2: Date = new Date(prefix + fechas[i + 1]);
 
       if (fechaDate1 < fechaDesde && fechaDesde <= fechaDate2) {
         indiceDesde = i + 1;
@@ -102,11 +112,24 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
   };
 
   function renderEstadoButton(): JSX.Element {
-    if (manejoEstados.estadosPosibles !== undefined) return (
-      <button onClick={() => {}}>
-        {manejoEstados.estadosPosibles[indiceEstado]}
-      </button>
-    );
+    if (manejoEstados.estadosPosibles !== undefined) {
+      if (manejoEstados.slider === false) {
+        return (
+          <button onClick={() => {
+            manejoEstados.setEstado(manejoEstados.estadosPosibles[(indiceEstado + 1) % (manejoEstados.estadosPosibles.length)]);
+            setIndiceEstado((indiceEstado + 1) % (manejoEstados.estadosPosibles.length));
+            }} className='absolute ml-1'>
+            {manejoEstados.estadosPosibles[indiceEstado].charAt(0).toUpperCase() + manejoEstados.estadosPosibles[indiceEstado].slice(1)}
+          </button>
+        );
+      }
+
+      else {
+        return (
+          <DropdownMenu optionArray={manejoEstados.estadosPosibles} selectedOption={manejoEstados.estado} setOption={manejoEstados.setEstado}/>
+        );
+      }
+    }
 
     else return <></>;
   };
@@ -136,7 +159,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
   }
 
   return (
-    <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1]'>
+    <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative'>
 
     {renderEstadoButton()}
 
@@ -154,7 +177,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
               <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
                 <h3>
                   {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
-                  : {datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1].toFixed(1)}{unidad}
+                  : {datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1].toFixed(round)}{unidad}
                   </h3>
               </button>
             )
@@ -162,7 +185,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
 
           else {
             return (
-              <h3 className='p-1 z-[1]'>{val.nombreDatos}: {datos[val.cronologia][val.nombreDatos]}{unidad}</h3>                
+              <h3 className='p-1 z-[1]'>{val.nombreDatos}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}{unidad}</h3>                
             )
           }
         })}

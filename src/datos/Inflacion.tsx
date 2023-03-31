@@ -77,7 +77,8 @@ export default function Inflacion({modo}): JSX.Element {
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad='%'
       mostrarValores={true}
-      manejoEstados={{}}/>
+      manejoEstados={{}}
+      round={1}/>
     </div>
     )
   }

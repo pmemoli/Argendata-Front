@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Dolar from './datos/Dolar';
 import Inflacion from './datos/Inflacion';
 import Emision from './datos/Emision';
+import Crimen from './datos/Crimen';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/dolar' element={<Dolar modo='pagina'/>}></Route>
           <Route path='/inflacion' element={<Inflacion modo='pagina'/>}></Route>
           <Route path='/emision' element={<Emision modo='pagina'/>}></Route>
+          <Route path='/crimen' element={<Crimen modo='pagina'/>}></Route>
         </Routes>
       </div>
 

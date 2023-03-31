@@ -53,7 +53,8 @@ export default function Emision({modo}): JSX.Element {
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad=''
       mostrarValores={false}
-      manejoEstados={{}}/>
+      manejoEstados={{}}
+      round={0}/>
     </div>
     )
   }
