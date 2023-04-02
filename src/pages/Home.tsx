@@ -1,7 +1,10 @@
-import Crimen from "../datos/Crimen"
-import Dolar from "../datos/Dolar"
-import Emision from "../datos/Emision"
-import Inflacion from "../datos/Inflacion"
+import Crimen from "../datos/Crimen";
+import Dolar from "../datos/Dolar";
+import Emision from "../datos/Emision";
+import Empleo from "../datos/Empleo";
+import Inflacion from "../datos/Inflacion";
+import Pobreza from "../datos/Pobreza";
+import Producto from "../datos/Producto";
 
 export default function Home() {
   return (
@@ -9,6 +12,9 @@ export default function Home() {
       <Dolar modo='carta'/>
       <Inflacion modo='carta'/>
       <Crimen modo='carta'/>
+      <Pobreza modo='carta'/>
+      <Empleo modo='carta'/>
+      <Producto modo='carta'/>
       <Emision modo='carta'/>
     </div>
   )

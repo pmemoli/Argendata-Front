@@ -127,7 +127,7 @@ export default function Crimen({modo}): JSX.Element {
       modo={modo}
       datos={datosTotales[provincia]}
       rangoInicial={[fechaComienzoDatos, hoy]}
-      unidad=''
+      unidad='/100K'
       mostrarValores={true}
       manejoEstados={{
         estadosPosibles: metadata.map(data => data.nombre),

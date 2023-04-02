@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import LineChart from '../../components/LineChart';
-import Select from 'react-select';
 import DropdownMenu from '../../components/DropdownMenu';
 
 interface DataAnalitica {
@@ -20,6 +19,7 @@ interface ParametrosAceptados {
   datos: DataAnalitica,
   rangoInicial: Date[],
   unidad: string,
+  unidades?: {[nombreDato: string]: string},
   mostrarValores: boolean,
   manejoEstados: {
     estadosPosibles?: string[],
@@ -56,7 +56,7 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
   return tipos;
 }
 
-export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round}: ParametrosAceptados): JSX.Element {
+export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round, unidades}: ParametrosAceptados): JSX.Element {
   const tipos: TiposDatos[] = getTipos(datos);
 
   const [indiceEstado, setIndiceEstado] = useState<number>(0);
@@ -65,6 +65,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
 
   function setIndices(fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
     const fechas: string[] = datos.fechas;
+
     let indiceDesde: number = 0;
     let indiceHasta: number = fechas.length - 1;
 
@@ -86,7 +87,16 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
       }
     }
 
-    if (fechaHasta === rangoInicial[1]) return [indiceDesde];
+    const extremoInvalido: boolean = datos.datosHistoricos[tipo][indiceHasta] === 0 || datos.datosHistoricos[tipo][indiceHasta] === null;
+
+    if (extremoInvalido) {
+      indiceHasta -= 1;
+    }
+    if (datos.datosHistoricos[tipo][indiceDesde] === 0 || datos.datosHistoricos[tipo][indiceDesde] === null) {
+      indiceDesde += 1;
+    }
+
+    if (fechaHasta === rangoInicial[1] && !extremoInvalido) return [indiceDesde];
     else return [indiceDesde, indiceHasta + 1];
   }
 
@@ -103,10 +113,19 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     document.body.removeChild(link);
   }
 
+  function currentValue(val): number {
+    let ultDato: number = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1];
+    if (ultDato === 0 || ultDato === null) {
+      ultDato = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 2];
+    }
+
+    return ultDato;
+  }
+
   const chartData: Chart = {
     labels: datos.fechas.slice(...setIndices(...rangoHistorico)),
     datasets: [{
-      label: nombre,
+      label: tipo,
       data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
     }]
   };
@@ -177,7 +196,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
               <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
                 <h3>
                   {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
-                  : {datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1].toFixed(round)}{unidad}
+                  : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}
                   </h3>
               </button>
             )
@@ -185,7 +204,9 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
 
           else {
             return (
-              <h3 className='p-1 z-[1]'>{val.nombreDatos}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}{unidad}</h3>                
+              <h3 className='p-1 z-[1]'>
+              {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}
+              {unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}</h3>                
             )
           }
         })}

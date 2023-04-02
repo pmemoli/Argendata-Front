@@ -6,6 +6,9 @@ import Dolar from './datos/Dolar';
 import Inflacion from './datos/Inflacion';
 import Emision from './datos/Emision';
 import Crimen from './datos/Crimen';
+import Empleo from './datos/Empleo';
+import Pobreza from './datos/Pobreza';
+import Producto from './datos/Producto';
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
           <Route path='/inflacion' element={<Inflacion modo='pagina'/>}></Route>
           <Route path='/emision' element={<Emision modo='pagina'/>}></Route>
           <Route path='/crimen' element={<Crimen modo='pagina'/>}></Route>
+          <Route path='/empleo' element={<Empleo modo='pagina'/>}></Route>
+          <Route path='/pobreza' element={<Pobreza modo='pagina'/>}></Route>
+          <Route path='/producto' element={<Producto modo='pagina'/>}></Route>
         </Routes>
       </div>
 

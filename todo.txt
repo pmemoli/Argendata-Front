@@ -1,15 +1,12 @@
-- Robustez y sizing consistente (datos analiticos)
-- Links en la side y topbar
-- Cambiar icono 
+- Sizing consistente (datos analiticos)
 
-- Datos analiticos restantes: Pobreza, PBI, Crimen
+- Datos analiticos restantes: Bolsa (merval y riesgo pais)
+- Api y botones
+- Robustez
 
+- Mapas (Barrios populares, cortes de luz, incendios, mapa crimen)
+- Robustez y seguridad
 
-Se accede a los datasets con la api http://datos.gob.ar/api/3/action/package_show?id=<id_del_dataset>
+- Opcion de contribucion y analytics
 
--   Desempleo: https://www.datos.gob.ar/dataset/sspm-principales-variables-ocupacionales-eph-continua-desempleo
-    Actividad: https://www.datos.gob.ar/dataset/sspm-principales-variables-ocupacionales-eph-continua-actividad
-
--   Homicidios: https://www.datos.gob.ar/dataset/seguridad-estadisticas-criminales-historicas-homicidios-dolosos
-    Robos: https://www.datos.gob.ar/dataset/seguridad-estadisticas-criminales-historicas-robos-tentativas-robo
-
+- Publicar!

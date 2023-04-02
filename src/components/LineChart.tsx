@@ -13,7 +13,7 @@ const options: any = {
     x: {
       ticks: {
         maxTicksLimit: 4,
-        align: 'start',
+        align: 'center',
       }
     },
   }

@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 import Sidebar from "react-sidebar";
 
 function setVisible(toggled: boolean): string {
@@ -6,13 +7,19 @@ function setVisible(toggled: boolean): string {
   else return 'invisible';
 }
 
+interface datoItem {
+  nombre: string,
+  path: string,
+}
+
+const datosPosibles: datoItem[] = [
+  {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
+  {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
+  {nombre: 'Bolsa', path: 'bolsa'}, {nombre: 'Empleo', path: 'empleo'}
+];
+
 export default function MobileSidebar({setHeaderToggle}) {
   const [toggled, setToggle] = useState<boolean>(false);
-  const datosPosibles: string[] = [
-    'Dolar', 'IPC', 'Clima', 'Emision', 'Cortes de Luz',
-    'PBI', 'Pobreza', 'Crimen', 'Barrios populares', 'Incendios'
-  ];
-
   useEffect(() => {setHeaderToggle(toggled)}, [toggled])
 
   return (
@@ -23,7 +30,7 @@ export default function MobileSidebar({setHeaderToggle}) {
           <button className='mb-3 text-2xl' onClick={() => setToggle(false)}>Cerrar</button>
 
           <ul className='text-xl mr-5'>
-            {datosPosibles.map((dato: string) => <li>{dato}</li>)}
+            {datosPosibles.map(dato => <li onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
           </ul>
 
           <div className='text-xl mt-2'>
