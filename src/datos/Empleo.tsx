@@ -25,6 +25,18 @@ interface datosEmpleoInterface {
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');
 
+const info: string = 
+`Desempleo: Porcentaje de desempleados en el conjunto de personas que trabajan o quieren trabajar.
+Empleo: Porcentaje de empleados en el conjunto de personas mayores de edad y no jubilados.
+Desempleo: Porcentaje de poblacion que trabaja o quiere trabajar en el conjunto de personas mayores de edad y no jubilados.
+
+Fuente datos.gob.ar.
+
+https://www.datos.gob.ar/series/api/series/?ids=${ids.desempleo}
+https://www.datos.gob.ar/series/api/series/?ids=${ids.empleo}
+https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}
+`
+
 export default function Empleo({modo}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();
 
@@ -34,7 +46,6 @@ export default function Empleo({modo}): JSX.Element {
     try {
       const res: any = await api.get('');
       const datosApi: any = res.data.data;
-      console.log(datosApi)
 
       setDatosEmpleo({
         fechas: datosApi.map(dato => dato[0]),
@@ -67,7 +78,9 @@ export default function Empleo({modo}): JSX.Element {
       unidad='%'
       mostrarValores={true}
       manejoEstados={{}}
-      round={1}/>
+      round={1}
+      textoInfo={info}
+      />
     </div>
     )
   }

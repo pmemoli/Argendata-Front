@@ -1,6 +1,7 @@
 const Dolar = require('../models/Dolar')
 const axios = require('axios')
 
+// Dolar
 const dolarHistoricoApi = axios.create({
   baseURL: 'https://api.bluelytics.com.ar/v2/evolution.json',
 });
@@ -76,5 +77,7 @@ async function actualizarDolar() {
     return 'failed'
   }
 }
+
+
 
 module.exports = {actualizarDolar}

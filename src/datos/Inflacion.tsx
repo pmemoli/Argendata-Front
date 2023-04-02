@@ -36,6 +36,12 @@ function calculadoraInteranual(serieInflacion: number[]): number[] {
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2018/01/01');  
 
+const info: string = 
+`Variacion mensual y anual de IPC Nucleo.
+Fuente datos.gob.ar.
+https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10
+`
+
 export default function Inflacion({modo}): JSX.Element {
   const [datosInflacion, setDatosInflacion] = useState<datosInflacionInterface>();
 
@@ -78,7 +84,9 @@ export default function Inflacion({modo}): JSX.Element {
       unidad='%'
       mostrarValores={true}
       manejoEstados={{}}
-      round={1}/>
+      round={1}
+      textoInfo={info}
+      />
     </div>
     )
   }

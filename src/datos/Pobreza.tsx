@@ -19,6 +19,11 @@ interface datosPobrezaInterface {
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
+const info: string = 
+`Porcentaje de la poblacion bajo la linea de pobreza e indigencia.
+Fuente Indec.
+https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-46-152`
+
 export default function Pobreza({modo}): JSX.Element {  
   const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>({
     fechas: fechas,
@@ -47,7 +52,9 @@ export default function Pobreza({modo}): JSX.Element {
       unidad='%'
       mostrarValores={true}
       manejoEstados={{}}
-      round={1}/>
+      round={1}
+      textoInfo={info}
+      />
     </div>
     )
   }

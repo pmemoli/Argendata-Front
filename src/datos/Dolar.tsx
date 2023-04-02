@@ -27,6 +27,10 @@ const hoy = new Date();
 const fechaComienzoDatos = new Date();
 fechaComienzoDatos.setDate(fechaComienzoDatos.getDate() - 30);
 
+const info: string =
+`Precios de principales cotizaciones de dolar.
+Fuente Ambito Financiero.`
+
 export default function Dolar({modo}): JSX.Element {
   const [datosDolar, setDatosDolar] = useState<datosTotalesInterface>();
   const [transaccion, setTransaccion] = useState<string>('venta');
@@ -66,11 +70,6 @@ export default function Dolar({modo}): JSX.Element {
         venta: ventaData,
         compra: compraData,
       });
-
-      console.log({
-        venta: ventaData,
-        compra: compraData,
-      })
     }
 
     catch(e) {console.log(e)}
@@ -97,7 +96,9 @@ export default function Dolar({modo}): JSX.Element {
         estadosPosibles: ['venta', 'compra'],
         slider: false,
       }}
-      round={0}/>
+      round={0}
+      textoInfo={info}
+      />
     </div>
     )
   }

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import LineChart from '../../components/LineChart';
 import DropdownMenu from '../../components/DropdownMenu';
+import Informacion from './Informacion';
 
 interface DataAnalitica {
   fechas: string[],
@@ -28,6 +29,7 @@ interface ParametrosAceptados {
     estado?: string,
   },
   round: number,
+  textoInfo: string,
 };
 
 interface Chart {
@@ -56,7 +58,7 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
   return tipos;
 }
 
-export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round, unidades}: ParametrosAceptados): JSX.Element {
+export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round, unidades, textoInfo}: ParametrosAceptados): JSX.Element {
   const tipos: TiposDatos[] = getTipos(datos);
 
   const [indiceEstado, setIndiceEstado] = useState<number>(0);
@@ -130,6 +132,11 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     }]
   };
 
+  function renderInfo(): JSX.Element {
+    if (true || modo === 'pagina') {return <Informacion texto={textoInfo}/>}
+    else return <></>
+  }
+
   function renderEstadoButton(): JSX.Element {
     if (manejoEstados.estadosPosibles !== undefined) {
       if (manejoEstados.slider === false) {
@@ -181,6 +188,8 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative'>
 
     {renderEstadoButton()}
+
+    {renderInfo()}
 
     <Link to={`/${nombre.toLowerCase()}`}>
       <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1]">{nombre}</h2>    

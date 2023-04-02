@@ -71,6 +71,11 @@ interface datosTotalesInterface {
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
+const info: string =
+`Tasa de homicidios y robos cada 100 mil personas en un año.
+Fuente datos.gob.ar.
+`
+
 export default function Crimen({modo}): JSX.Element {
   const [datosTotales, setDatosTotales] = useState<datosTotalesInterface>();
   const [datosCrimen, setDatosCrimen] = useState<datosCrimenInterface>();
@@ -135,7 +140,9 @@ export default function Crimen({modo}): JSX.Element {
         slider: true,
         estado: provincia,
       }}
-      round={1}/>
+      round={1}
+      textoInfo={info}
+      />
     </div>
     )
   }

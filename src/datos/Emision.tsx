@@ -15,6 +15,11 @@ interface datosEmisionInterface {
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2015/01/01');
 
+const info: string =
+`Apertura pasivo base monetaria.
+Fuente datos.gob.ar.
+https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
+
 export default function Emision({modo}): JSX.Element {
   const [datosEmision, setDatosEmision] = useState<datosEmisionInterface>();
 
@@ -54,7 +59,9 @@ export default function Emision({modo}): JSX.Element {
       unidad=''
       mostrarValores={false}
       manejoEstados={{}}
-      round={0}/>
+      round={0}
+      textoInfo={info}
+      />
     </div>
     )
   }

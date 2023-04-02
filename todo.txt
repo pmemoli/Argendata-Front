@@ -1,12 +1,11 @@
-- Sizing consistente (datos analiticos)
-
-- Datos analiticos restantes: Bolsa (merval y riesgo pais)
-- Api y botones
+- Api y styling para desktop
 - Robustez
 
 - Mapas (Barrios populares, cortes de luz, incendios, mapa crimen)
 - Robustez y seguridad
 
 - Opcion de contribucion y analytics
+
+- Pensar mas datos si pinta y dejar todo bonito
 
 - Publicar!

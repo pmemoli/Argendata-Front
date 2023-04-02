@@ -13,7 +13,7 @@ interface datoItem {
 const datosPosibles: datoItem[] = [
   {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
   {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
-  {nombre: 'Bolsa', path: 'bolsa'}, {nombre: 'Empleo', path: 'empleo'}
+  {nombre: 'Empleo', path: 'empleo'}
 ];
 
 export default function TopMenu({toggled}) {
@@ -24,7 +24,6 @@ export default function TopMenu({toggled}) {
           <Link to={'/' + dato.path}><span className="mr-3">{dato.nombre}</span></Link>
         ))}
        </div>
-    
     </div>
   )
 }
