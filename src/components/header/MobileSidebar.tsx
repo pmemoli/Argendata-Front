@@ -15,7 +15,7 @@ interface datoItem {
 const datosPosibles: datoItem[] = [
   {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
   {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
-  {nombre: 'Empleo', path: 'empleo'}
+  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Barrios Populares', path: 'barrios'},
 ];
 
 export default function MobileSidebar({setHeaderToggle}) {
@@ -27,22 +27,22 @@ export default function MobileSidebar({setHeaderToggle}) {
       <Sidebar
         sidebar={
         <div className={`p-3 min-h-full bg-slate-800 w-full ${setVisible(toggled)}`}>
-          <button className='mb-3 text-2xl' onClick={() => setToggle(false)}>Cerrar</button>
+          <button className='mb-3 text-2xl sm:text-2xl sm:mb-6' onClick={() => setToggle(false)}>Cerrar</button>
 
-          <ul className='text-xl mr-5'>
-            {datosPosibles.map(dato => <li onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
+          <ul className='text-xl mr-5 sm:text-2xl'>
+            {datosPosibles.map(dato => <li className='sm:mb-1' onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
           </ul>
 
-          <div className='text-xl mt-2'>
-            Sobre
+          <div className='text-xl mt-4 sm:text-2xl sm:mt-6' >
+            Contribuir
           </div>
         </div>
         }
         
         open={toggled}>
           
-        <button onClick={() => {setToggle(true)}} className={`relative mt-11 ml-1 z-[2] ${setVisible(!toggled)}`}>
-          <img className='w-8' src={require('../../assets/next.png')}></img>
+        <button onClick={() => {setToggle(true)}} className={`relative mt-11 ml-1 z-[2] sm:mt-11 ${setVisible(!toggled)}`}>
+          <img className='w-8 sm:w-10' src={require('../../assets/next.png')}></img>
         </button>
       </Sidebar>
     </div>

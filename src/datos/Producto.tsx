@@ -2,12 +2,8 @@ import axios, { AxiosInstance } from 'axios';
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
 
-const apiTotal: AxiosInstance = axios.create({
-  baseURL: 'http://api.worldbank.org/v2/country/ar/indicator/NY.GDP.MKTP.PP.KD?format=json'
-})
-
-const apiPerCapita: AxiosInstance = axios.create({
-  baseURL: 'http://api.worldbank.org/v2/country/ar/indicator/NY.GDP.PCAP.PP.KD?format=json'
+const api: AxiosInstance = axios.create({
+  baseURL: 'http://localhost:3001'
 })
 
 interface datosProductoInterface {
@@ -36,20 +32,13 @@ export default function Producto({modo}): JSX.Element {
 
   async function getDatosProducto() {
     try {
-      const resPerCapita: any = await apiPerCapita.get('');
-      const resTotal: any = await apiTotal.get('');
+      const res: any = await api.get('/datos/producto');
+      const datosApi: any = res.data.datosProducto;
+    
+      delete datosApi['nombre'];
+      delete datosApi['__v'];
 
-      const dataPerCapita: any = resPerCapita.data[1];
-      const dataTotal: any = resTotal.data[1];
-      
-      setDatosProducto({
-        fechas: dataPerCapita.map(data => data.date).reverse(),
-        datosHistoricos: {
-          'GDP': dataTotal.map(data => data.value / 1000000000).reverse(),
-          'GDP Per Capita': dataPerCapita.map(data => data.value / 1000).reverse(),
-        },
-        datosActuales: {},
-      })
+      setDatosProducto(datosApi);
     }
 
     catch(e) {console.log(e);}
@@ -57,7 +46,7 @@ export default function Producto({modo}): JSX.Element {
 
   function renderContent(): JSX.Element {
     if (datosProducto === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

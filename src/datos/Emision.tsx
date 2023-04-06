@@ -3,7 +3,7 @@ import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'http://apis.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21&format=json&start_date=2015-01',
+  baseURL: 'http://localhost:3001',
 });
 
 interface datosEmisionInterface {
@@ -27,17 +27,13 @@ export default function Emision({modo}): JSX.Element {
 
   async function getDatosEmision() {
     try {
-      const res: any = await api.get('');
-      const datosApi: any = res.data.data;     
+      const res: any = await api.get('/datos/emision');
+      const datosApi: any = res.data.datosEmision;
     
-      const fechas: string[] = datosApi.map(dato => dato[0]);
-      const baseMonetaria: number[] = datosApi.map(dato => dato[1] / 1000000);
+      delete datosApi['nombre'];
+      delete datosApi['__v'];
 
-      setDatosEmision({
-        'fechas': fechas,
-        'datosHistoricos': {'emision': baseMonetaria},
-        'datosActuales': {}
-      });
+      setDatosEmision(datosApi);
     }
 
     catch(e) {console.log(e);}
@@ -45,7 +41,7 @@ export default function Emision({modo}): JSX.Element {
 
   function renderContent(): JSX.Element {
     if (datosEmision === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

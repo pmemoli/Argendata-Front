@@ -48,7 +48,7 @@ interface TiposDatos {
 function getTipos(datos: DataAnalitica): TiposDatos[] {
   const tipos: TiposDatos[] = [];
   Object.keys(datos).map((tipoTiempo: string): void => {
-    if (tipoTiempo !== 'fechas') {
+    if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id') {
       Object.keys(datos[tipoTiempo]).map((tipoDato: string): void => {
         tipos.push({'cronologia': tipoTiempo, 'nombreDatos': tipoDato});
       })
@@ -56,6 +56,11 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
   });
 
   return tipos;
+}
+
+function paginaStyling(modo: string): string[] {
+  if (modo === 'pagina') return ['sm:flex sm:justify-center', 'sm:w-2/3'];
+  else return ['', ''];
 }
 
 export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round, unidades, textoInfo}: ParametrosAceptados): JSX.Element {
@@ -132,11 +137,6 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     }]
   };
 
-  function renderInfo(): JSX.Element {
-    if (true || modo === 'pagina') {return <Informacion texto={textoInfo}/>}
-    else return <></>
-  }
-
   function renderEstadoButton(): JSX.Element {
     if (manejoEstados.estadosPosibles !== undefined) {
       if (manejoEstados.slider === false) {
@@ -144,7 +144,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
           <button onClick={() => {
             manejoEstados.setEstado(manejoEstados.estadosPosibles[(indiceEstado + 1) % (manejoEstados.estadosPosibles.length)]);
             setIndiceEstado((indiceEstado + 1) % (manejoEstados.estadosPosibles.length));
-            }} className='absolute ml-1'>
+            }} className='absolute ml-1 sm:text-2xl sm:p-1'>
             {manejoEstados.estadosPosibles[indiceEstado].charAt(0).toUpperCase() + manejoEstados.estadosPosibles[indiceEstado].slice(1)}
           </button>
         );
@@ -162,7 +162,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
 
   function renderPage(): JSX.Element {
     if (modo === 'pagina') return (
-      <div className={`mt-5 p-1 flex justify-between mb-1 z-[1]`}>
+      <div className={`mt-5 p-1 flex justify-between mb-1 z-[1] sm:text-xl`}>
         <div>
           <div className='mb-2'>
             <label>Desde:</label>
@@ -185,48 +185,50 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
   }
 
   return (
-    <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative'>
+    <div className={`${paginaStyling(modo)[0]}`}>
+      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${paginaStyling(modo)[1]}`}>
 
-    {renderEstadoButton()}
+      {renderEstadoButton()}
 
-    {renderInfo()}
+      <Informacion texto={textoInfo}/>
 
-    <Link to={`/${nombre.toLowerCase()}`}>
-      <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1]">{nombre}</h2>    
-    </Link>
+      <Link to={`/${nombre.toLowerCase()}`}>
+        <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    
+      </Link>
 
-    <div className='mb-3 overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar'>
-      <div className="flex justify-around">
-        {tipos.map((val: TiposDatos): JSX.Element => {
-          if (!mostrarValores) return <></>
+      <div className='mb-3 overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar'>
+        <div className="flex justify-around">
+          {tipos.map((val: TiposDatos): JSX.Element => {
+            if (!mostrarValores) return <></>
 
-          if (val.cronologia === 'datosHistoricos') {
-            return (
-              <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
-                <h3>
-                  {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
-                  : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}
-                  </h3>
-              </button>
-            )
-          }
+            if (val.cronologia === 'datosHistoricos') {
+              return (
+                <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
+                  <h3 className='sm:text-xl'>
+                    {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
+                    : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}
+                    </h3>
+                </button>
+              )
+            }
 
-          else {
-            return (
-              <h3 className='p-1 z-[1]'>
-              {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}
-              {unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}</h3>                
-            )
-          }
-        })}
+            else {
+              return (
+                <h3 className='p-1 z-[1] sm:text-xl'>
+                {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}
+                {unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}</h3>                
+              )
+            }
+          })}
+        </div>
       </div>
-    </div>
 
-    <div className='mb-2'>
-      <LineChart chartData={chartData}/>
-    </div>
+      <div className={`mb-2 h-48 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
+        <LineChart chartData={chartData}/>
+      </div>
 
-    {renderPage()}
+      {renderPage()}
+      </div>
     </div>
   )
 }

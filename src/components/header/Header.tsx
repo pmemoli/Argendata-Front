@@ -14,7 +14,7 @@ export default function Header(): JSX.Element {
             <MobileSidebar setHeaderToggle={setHeaderToggle}/>
             
             <Link to='/'>
-              <h2 className='text-5xl mt-3 relative z-[1]'>Argendata</h2>
+              <h2 className='text-5xl mt-3 relative z-[1] sm:text-5xl'>Argendata</h2>
             </Link>
         </div>
     </div>

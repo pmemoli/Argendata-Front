@@ -1,11 +1,15 @@
-- Api y styling para desktop
-- Robustez
+- Mapa barrios populares
 
-- Mapas (Barrios populares, cortes de luz, incendios, mapa crimen)
-- Robustez y seguridad
+- Merval y riesgo pais
+
+- Styling restante (date picker y labels chartjs)
+
+- Modularizar DatosAnaliticos y dejar todo bien organizado
+
+- Seguridad y buen testeo
 
 - Opcion de contribucion y analytics
 
-- Pensar mas datos si pinta y dejar todo bonito
-
 - Publicar!
+
+- A medida agarre trafico meter ads

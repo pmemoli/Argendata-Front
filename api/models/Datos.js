@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
 const datoSchema = new mongoose.Schema({
-    nombre: String,
     fechas: [String],
     datosHistoricos: {
         type: Map,
@@ -13,4 +12,12 @@ const datoSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('Dato', datoSchema)
+const datosSchema = new mongoose.Schema({
+    nombre: String,
+    data: {
+        type: Map,
+        of: datoSchema
+    }
+})
+
+module.exports = mongoose.model('Datos', datosSchema)

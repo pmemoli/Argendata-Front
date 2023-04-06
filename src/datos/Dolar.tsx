@@ -28,7 +28,7 @@ const fechaComienzoDatos = new Date();
 fechaComienzoDatos.setDate(fechaComienzoDatos.getDate() - 30);
 
 const info: string =
-`Precios de principales cotizaciones de dolar.
+`Venta y compra de las principales cotizaciones de dolar.
 Fuente Ambito Financiero.`
 
 export default function Dolar({modo}): JSX.Element {
@@ -40,36 +40,8 @@ export default function Dolar({modo}): JSX.Element {
   async function getDolar() {
     try {
       const res: any = await api.get('/datos/dolar');
-      const datos: any = res.data.datosDolar;
-
-      const ventaData: datosDolarInterface = {
-        fechas: datos.fechas,
-        datosHistoricos: {
-          blue: datos.blue.map(dato => dato.venta),
-          oficial: datos.oficial.map(dato => dato.venta),
-        },
-        datosActuales: {
-          ccl: datos.ccl.venta,
-          turista: datos.turista.venta,
-        },
-      }
-
-      const compraData: datosDolarInterface = {
-        fechas: datos.fechas,
-        datosHistoricos: {
-          blue: datos.blue.map(dato => dato.compra),
-          oficial: datos.oficial.map(dato => dato.compra),
-        },
-        datosActuales: {
-          ccl: datos.ccl.compra,
-          turista: datos.turista.venta,
-        },
-      }
-
-      setDatosDolar({
-        venta: ventaData,
-        compra: compraData,
-      });
+      const datosTotales: datosTotalesInterface = res.data.datosDolar.data;
+      setDatosDolar(datosTotales);
     }
 
     catch(e) {console.log(e)}
@@ -77,7 +49,7 @@ export default function Dolar({modo}): JSX.Element {
 
   function renderContent(): JSX.Element {
     if (datosDolar === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

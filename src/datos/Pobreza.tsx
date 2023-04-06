@@ -1,5 +1,10 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
+import axios, {AxiosInstance} from 'axios';
+
+const api: AxiosInstance = axios.create({
+  baseURL: 'http://localhost:3001',
+});
 
 const pobreza: number[] = [30.3, 28.6, 25.7, 27.3, 32.0, 35.4, 35.5, 40.9, 42.0, 40.6, 37.3, 36.5, 39.2];
 const indigencia: number[] = [6.1, 6.2, 4.8, 4.9, 6.7, 7.7, 8.0, 10.5, 10.5, 10.7, 8.2, 8.8, 8.1];
@@ -15,7 +20,6 @@ interface datosPobrezaInterface {
   datosActuales: {},
 };
                           
-
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
@@ -25,19 +29,27 @@ Fuente Indec.
 https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-46-152`
 
 export default function Pobreza({modo}): JSX.Element {  
-  const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>({
-    fechas: fechas,
-    datosHistoricos: {
-      pobreza: pobreza,
-      indigencia: indigencia
-    },
-    datosActuales: {}
-  });
+  const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>();
+
+  useEffect(() => {getDatos()}, []);
+
+  async function getDatos() {
+    try {
+      const res: any = await api.get('/datos/pobreza');
+      const data: any = res.data.datosPobreza;
+      delete data['nombre'];
+      delete data['__v'];
+
+      setDatosPobreza(data);
+    }
+
+    catch(e) {console.log(e);}
+  }
 
 
   function renderContent(): JSX.Element {
     if (datosPobreza === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

@@ -2,12 +2,24 @@ import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
 
+const api = axios.create({
+  baseURL: 'http://localhost:3001'
+})
 
-// snic_hdt_arg
-// https://estadisticascriminales.minseg.gob.ar/datos/snic-homicidios-dolosos-pais-series.csv
-// https://estadisticascriminales.minseg.gob.ar/datos/snic-homicidios-dolosos-provincias-series.csv
+interface datosCrimenInterface {
+  fechas: string[],
+  datosHistoricos: {
+    homicidios: number[],
+    robos: number[],
+  },
+  datosActuales: {},
+};
 
-const metadata: any = [
+interface datosTotalesInterface {
+  [provincia: string]: datosCrimenInterface,
+}
+
+const metadata = [
   {
     homicidios: 'snic_hdt_arg',
     robos: 'snic_rt_arg',
@@ -45,36 +57,12 @@ const metadata: any = [
   },
 ];
 
-const codigosHomicidios: string = metadata.map(data => data.homicidios).join(',');
-const apiHomicidios: AxiosInstance = axios.create({
-  baseURL: `http://apis.datos.gob.ar/series/api/series/?ids=${codigosHomicidios}`,
-});
-
-const codigosRobos: string = metadata.map(data => data.robos).join(',');
-const apiRobos: AxiosInstance = axios.create({
-  baseURL: `http://apis.datos.gob.ar/series/api/series/?ids=${codigosRobos}`,
-});
-
-interface datosCrimenInterface {
-  fechas: string[],
-  datosHistoricos: {
-    homicidios: number[],
-    robos: number[],
-  },
-  datosActuales: {},
-};
-
-interface datosTotalesInterface {
-  [provincia: string]: datosCrimenInterface,
-}
-
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
 const info: string =
 `Tasa de homicidios y robos cada 100 mil personas en un año.
-Fuente datos.gob.ar.
-`
+Fuente datos.gob.ar.`
 
 export default function Crimen({modo}): JSX.Element {
   const [datosTotales, setDatosTotales] = useState<datosTotalesInterface>();
@@ -85,34 +73,8 @@ export default function Crimen({modo}): JSX.Element {
 
   async function getDatos() {
     try {
-      const resHomicidios: any = await apiHomicidios.get('');
-      const datosHomicidios: any = resHomicidios.data.data;
-
-      const resRobos: any = await apiRobos.get('');
-      const datosRobos: any = resRobos.data.data;
-
-      const fechas: string[] = datosHomicidios.map(dato => dato[0]);
-
-      const dataTotal: any = {};
-
-      for (let i = 0; i < metadata.length; i++) {
-        const nombre: string = metadata[i].nombre;
-        const tasaPaisHomicidios: number[] = datosHomicidios.map(dato => dato[i + 1]);
-        const tasaPaisRobos: number[] = datosRobos.map(dato => dato[i + 1]);
-
-        const datosProvincia: datosCrimenInterface = {
-          fechas: fechas,
-          datosActuales: {},
-          datosHistoricos: {
-            homicidios: tasaPaisHomicidios,
-            robos: tasaPaisRobos,
-          }
-        }
-
-        dataTotal[nombre] = datosProvincia;
-      }
-
-      setDatosTotales(dataTotal);
+      const res: any = await api.get('/datos/crimen');    
+      setDatosTotales(res.data.datosCrimen.data);
     }
 
     catch(e) {console.log(e)}
@@ -120,7 +82,7 @@ export default function Crimen({modo}): JSX.Element {
 
   function renderContent(): JSX.Element {
     if (datosTotales === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

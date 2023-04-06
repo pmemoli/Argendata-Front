@@ -13,15 +13,15 @@ interface datoItem {
 const datosPosibles: datoItem[] = [
   {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
   {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
-  {nombre: 'Empleo', path: 'empleo'}
+  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Barrios Populares', path: 'barrios'}
 ];
 
 export default function TopMenu({toggled}) {
   return (
-    <div className='text-md bg-slate-800 flex items-center ml-1'>
+    <div className='text-md bg-slate-800 flex items-center ml-1 sm:text-lg sm:ml-3'>
       <div id='slider' className={`w-full overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar ${setZ(toggled)}`}>
         {datosPosibles.map(dato => (
-          <Link to={'/' + dato.path}><span className="mr-3">{dato.nombre}</span></Link>
+          <Link to={'/' + dato.path}><span className="mr-3 sm:mr-4">{dato.nombre}</span></Link>
         ))}
        </div>
     </div>

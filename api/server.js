@@ -23,18 +23,20 @@ app.get('/', (req, res) => {
 const datosRouter = require('./routes/datos')
 app.use('/datos', datosRouter)
 
-async function forceDolarUpdate() {
+async function forceUpdate() {
   try {
-    const res = await actualizadores.actualizarDolar()
-    console.log(res)
+    let resInflacion = await actualizadores.actualizarBarrios()
+    console.log('updated emision')
   }
 
   catch(e) {console.log(e)}
 } 
 
-//forceDolarUpdate()
+//forceUpdate()
 
 // Actualiza datos cuando corresponda
+
+// Dolar y Merval (3 veces por dia)
 cron.schedule('10 12,17,20 * * *', async () => {
   try {
     const res = await actualizadores.actualizarDolar()
@@ -44,5 +46,18 @@ cron.schedule('10 12,17,20 * * *', async () => {
   catch(e) {console.log(e)}
 })
 
+// El resto analitico (3 veces por mes)
+cron.schedule('* * 10,20,25 * *', async () => {
+  try {
+    await actualizadores.actualizarCrimen()
+    await actualizadores.actualizarEmision()
+    await actualizadores.actualizarEmpleo()
+    await actualizadores.actualizarInflacion()
+    await actualizadores.actualizarPobreza()
+    await actualizadores.actualizarProducto()
+  }
+
+  catch(e) {console.log(e)}
+})
 
 app.listen(3001)

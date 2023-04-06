@@ -9,7 +9,7 @@ const ids: any = {
 };
 
 const api: AxiosInstance = axios.create({
-  baseURL: `http://apis.datos.gob.ar/series/api/series/?ids=${ids.desempleo},${ids.empleo},${ids.actividad}&format=json`,
+  baseURL: `http://localhost:3001`,
 });
 
 interface datosEmpleoInterface {
@@ -44,18 +44,12 @@ export default function Empleo({modo}): JSX.Element {
 
   async function getDatos() {
     try {
-      const res: any = await api.get('');
-      const datosApi: any = res.data.data;
+      const res: any = await api.get('/datos/empleo');
+      const datosApi: any = res.data.datosEmpleo;
+      delete datosApi['nombre'];
+      delete datosApi['__v'];
 
-      setDatosEmpleo({
-        fechas: datosApi.map(dato => dato[0]),
-        datosActuales: {},
-        datosHistoricos: {
-          desempleo: datosApi.map(dato => (dato[1]) * 100),
-          empleo: datosApi.map(dato => dato[2] * 100),
-          actividad: datosApi.map(dato => dato[3] * 100),
-        }
-      });
+      setDatosEmpleo(datosApi);
     }
 
     catch(e) {console.log(e)}
@@ -63,7 +57,7 @@ export default function Empleo({modo}): JSX.Element {
 
   function renderContent(): JSX.Element {
     if (datosEmpleo === undefined) return (
-      <div>
+      <div className='sm:text-xl'>
         Cargando...
       </div>
     )

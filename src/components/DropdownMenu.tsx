@@ -14,8 +14,8 @@ export default function DropdownMenu({optionArray, selectedOption, setOption}): 
 
   return (
     <div className='mt-1'>
-      <div className='absolute ml-1 z-[3]'>
-        <select onChange={(e) => setOption(e.target.value)} className='font-fira rounded-md text-white bg-transparent h-7'>
+      <div className='absolute ml-1 z-[3] sm:text-xl sm:p-1'>
+        <select onChange={(e) => setOption(e.target.value)} className='sm:h-10 font-fira rounded-md text-white bg-transparent h-7'>
           {optionArray.map(option => (<option className='text-black'>{option}</option>))}
         </select>
       </div>
