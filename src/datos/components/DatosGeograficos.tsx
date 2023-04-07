@@ -1,7 +1,15 @@
 import {MapContainer, TileLayer, GeoJSON} from 'react-leaflet';
-import Informacion from './Informacion';
+import Informacion from '../../components/datos/Informacion';
 
 export default function DatosGeograficos({modo, center, geoData, info, contribuidor}): JSX.Element {
+  console.log(geoData);
+
+  function onEachFeature(feature, layer) {
+    if (feature.properties) {
+      layer.bindPopup(feature.properties.nombre_barrio);
+    }
+  }
+
   if (geoData === undefined) return (
     <div className='sm:text-xl'>
       Cargando...
@@ -16,11 +24,8 @@ export default function DatosGeograficos({modo, center, geoData, info, contribui
         <h1 className='flex justify-center text-2xl mb-2'>Barrios Populares</h1>
 
         <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
-          <TileLayer
-              url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-          />
-
-          <GeoJSON data={geoData}/>
+          <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
+          <GeoJSON data={geoData} onEachFeature={onEachFeature}/>
         </MapContainer>
       </div>
     </div>

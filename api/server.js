@@ -12,7 +12,9 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 // Connect to db
-mongoose.connect('mongodb://localhost/argendata')
+const password = 'D9feJRHkMT7Ip8nl'
+const uri = `mongodb+srv://argendata:${password}@argendata.82uzhmt.mongodb.net/?retryWrites=true&w=majority`
+mongoose.connect(uri)
  
 // Basic response
 app.get('/', (req, res) => {
@@ -23,24 +25,45 @@ app.get('/', (req, res) => {
 const datosRouter = require('./routes/datos')
 app.use('/datos', datosRouter)
 
+// Forzar actualizacion datos
+
 async function forceUpdate() {
   try {
-    let resInflacion = await actualizadores.actualizarMerval()
-    console.log('updated emision')
+    await actualizadores.actualizarDolar()
+
+    console.log('Se actualizo todo')
   }
 
   catch(e) {console.log(e)}
 } 
 
-forceUpdate()
+//forceUpdate()
 
 // Actualiza datos cuando corresponda
 
-// Dolar y Merval (3 veces por dia)
+// Dolar (3 veces por dia)
 cron.schedule('10 12,17,20 * * *', async () => {
   try {
     const res = await actualizadores.actualizarDolar()
     console.log(res)
+  }
+
+  catch(e) {console.log(e)}
+})
+
+// Barrios (1 vez por an(i)o)
+cron.schedule('0 0 * 1 *', async () => {
+  try {
+    await actualizadores.actualizarBarrios()
+  }
+
+  catch(e) {console.log(e)}
+})
+
+// Merval (1 vez por dia)
+cron.schedule('0 15 * * *', async () => {
+  try {
+    await actualizadores.actualizarMerval()
   }
 
   catch(e) {console.log(e)}

@@ -11,6 +11,7 @@ import Pobreza from './datos/Pobreza';
 import Producto from './datos/Producto';
 import Barrios from './datos/Barrios';
 import Finanzas from './datos/Finanzas';
+import Contribucion from './pages/Contribucion';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path='/producto' element={<Producto modo='pagina'/>}></Route>
           <Route path='/finanzas' element={<Finanzas modo='pagina'/>}></Route>
           <Route path='/barrios' element={<Barrios modo='pagina'/>}></Route>
+          <Route path='/contribucion' element={<Contribucion/>}></Route>
         </Routes>
       </div>
 

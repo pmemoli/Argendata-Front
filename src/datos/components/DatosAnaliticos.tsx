@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import LineChart from '../../components/LineChart';
-import DropdownMenu from '../../components/DropdownMenu';
-import Informacion from './Informacion';
+import Informacion from '../../components/datos/Informacion';
+import BotonEstado from '../../components/datos/BotonEstado';
+import ShowcaseOptions from '../../components/datos/ShowcaseOptions';
+import ShowcaseData from '../../components/datos/ShowcaseData';
+import ShowcaseGraph from '../../components/datos/ShowcaseGraph';
 
 interface DataAnalitica {
   fechas: string[],
@@ -32,14 +34,6 @@ interface ParametrosAceptados {
   textoInfo: string,
 };
 
-interface Chart {
-  labels: string[],
-  datasets: [{
-    label: string,
-    data: number[],
-  }]
-};
-
 interface TiposDatos {
   cronologia: string,
   nombreDatos: string,
@@ -58,137 +52,26 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
   return tipos;
 }
 
-function paginaStyling(modo: string): string[] {
-  if (modo === 'pagina') return ['sm:flex sm:justify-center', 'sm:w-2/3'];
-  else return ['', ''];
-}
+export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad,
+  mostrarValores, manejoEstados, round, unidades, textoInfo}: ParametrosAceptados): JSX.Element {
 
-export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad, mostrarValores, manejoEstados, round, unidades, textoInfo}: ParametrosAceptados): JSX.Element {
   const tipos: TiposDatos[] = getTipos(datos);
 
   const [indiceEstado, setIndiceEstado] = useState<number>(0);
   const [tipo, setTipo] = useState<string>(tipos[0].nombreDatos);  
   const [rangoHistorico, setRangoHistorico] = useState<Date[]>(rangoInicial);
 
-  function setIndices(fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
-    const fechas: string[] = datos.fechas;
+  if (datos === undefined) return (
+    <div className='sm:text-xl'>
+      Cargando...
+    </div>
+  )
+    
+  else return (
+    <div className={`${modo === 'pagina' ? 'sm:flex sm:justify-center' : ''}`}>
+      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''}`}>
 
-    let indiceDesde: number = 0;
-    let indiceHasta: number = fechas.length - 1;
-
-    for (let i = 0; i < fechas.length - 1; i++) {
-      let prefix = '';
-      if (nombre === 'Dolar') {
-        prefix = '20';
-      }
-
-      const fechaDate1: Date = new Date(prefix + fechas[i]);
-      const fechaDate2: Date = new Date(prefix + fechas[i + 1]);
-
-      if (fechaDate1 < fechaDesde && fechaDesde <= fechaDate2) {
-        indiceDesde = i + 1;
-      }
-      
-      if (fechaDate1 < fechaHasta && fechaHasta <= fechaDate2) {
-        indiceHasta = i + 1;
-      }
-    }
-
-    const extremoInvalido: boolean = datos.datosHistoricos[tipo][indiceHasta] === 0 || datos.datosHistoricos[tipo][indiceHasta] === null;
-
-    if (extremoInvalido) {
-      indiceHasta -= 1;
-    }
-    if (datos.datosHistoricos[tipo][indiceDesde] === 0 || datos.datosHistoricos[tipo][indiceDesde] === null) {
-      indiceDesde += 1;
-    }
-
-    if (fechaHasta === rangoInicial[1] && !extremoInvalido) return [indiceDesde];
-    else return [indiceDesde, indiceHasta + 1];
-  }
-
-  function downloadData(): void {
-    const st: string = JSON.stringify(datos);
-    const blob: Blob = new Blob([st], { type: 'application/json' });
-    const url: string = URL.createObjectURL(blob);
-
-    const link: HTMLAnchorElement = document.createElement("a");
-    link.href = url;
-    link.download = "datos.json";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  function currentValue(val): number {
-    let ultDato: number = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1];
-    if (ultDato === 0 || ultDato === null) {
-      ultDato = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 2];
-    }
-
-    return ultDato;
-  }
-
-  const chartData: Chart = {
-    labels: datos.fechas.slice(...setIndices(...rangoHistorico)),
-    datasets: [{
-      label: tipo,
-      data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
-    }]
-  };
-
-  function renderEstadoButton(): JSX.Element {
-    if (manejoEstados.estadosPosibles !== undefined) {
-      if (manejoEstados.slider === false) {
-        return (
-          <button onClick={() => {
-            manejoEstados.setEstado(manejoEstados.estadosPosibles[(indiceEstado + 1) % (manejoEstados.estadosPosibles.length)]);
-            setIndiceEstado((indiceEstado + 1) % (manejoEstados.estadosPosibles.length));
-            }} className='absolute ml-1 sm:text-2xl sm:p-1'>
-            {manejoEstados.estadosPosibles[indiceEstado].charAt(0).toUpperCase() + manejoEstados.estadosPosibles[indiceEstado].slice(1)}
-          </button>
-        );
-      }
-
-      else {
-        return (
-          <DropdownMenu optionArray={manejoEstados.estadosPosibles} selectedOption={manejoEstados.estado} setOption={manejoEstados.setEstado}/>
-        );
-      }
-    }
-
-    else return <></>;
-  };
-
-  function renderPage(): JSX.Element {
-    if (modo === 'pagina') return (
-      <div className={`mt-5 p-1 flex justify-between mb-1 z-[1] sm:text-xl`}>
-        <div>
-          <div className='mb-2'>
-            <label>Desde:</label>
-            <input onChange={e => {
-              setRangoHistorico([new Date(e.target.value), rangoHistorico[1]])
-            }} className='text-black ml-1 pl-1 bg-gray-400 z-[1] relative' type='date'/>
-          </div>
-
-          <div>
-            <label>Hasta:</label>
-            <input onChange={e => {
-              setRangoHistorico([rangoHistorico[0], new Date(e.target.value)])
-            }} className='text-black ml-2 pl-1 bg-gray-400 z-[1] relative' type='date'></input>
-          </div>
-        </div>
-
-        <button onClick={() => {downloadData()}} className='mr-2 text-black bg-gray-400 p-1 rounded-md z-[1]'>Descargar datos</button>
-      </div>
-    )
-  }
-
-  return (
-    <div className={`${paginaStyling(modo)[0]}`}>
-      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${paginaStyling(modo)[1]}`}>
-
-      {renderEstadoButton()}
+      <BotonEstado manejoEstados={manejoEstados} setIndiceEstado={setIndiceEstado} indiceEstado={indiceEstado}/>
 
       <Informacion texto={textoInfo}/>
 
@@ -196,38 +79,12 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
         <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    
       </Link>
 
-      <div className='mb-3 overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar'>
-        <div className="flex justify-around">
-          {tipos.map((val: TiposDatos): JSX.Element => {
-            if (!mostrarValores) return <></>
+      <ShowcaseData mostrarValores={mostrarValores} setTipo={setTipo} datos={datos} unidades={unidades}
+      unidad={unidad} round={round} tipo={tipo} tipos={tipos}/>
 
-            if (val.cronologia === 'datosHistoricos') {
-              return (
-                <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
-                  <h3 className='sm:text-xl'>
-                    {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
-                    : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}
-                    </h3>
-                </button>
-              )
-            }
+      <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}/>
 
-            else {
-              return (
-                <h3 className='p-1 z-[1] sm:text-xl'>
-                {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}
-                {unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}</h3>                
-              )
-            }
-          })}
-        </div>
-      </div>
-
-      <div className={`mb-2 h-48 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
-        <LineChart chartData={chartData}/>
-      </div>
-
-      {renderPage()}
+      <ShowcaseOptions modo={modo} datos={datos} rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico}/>
       </div>
     </div>
   )

@@ -1,15 +1,11 @@
-- Font agradable para el mapa
-
-- Modularizar DatosAnaliticos y dejar todo bien organizado
-
-- Seguridad y buen testeo
+- Seguridad api y buen testeo
 
 - Opcion de contribucion y analytics
 
 - Publicar!
 
-- A medida agarre trafico meter ads
+- A medida agarre trafico meter ads y opcion de no tenerlos 
 
 - Crear aplicacion android con opcion paga
 
-Merval -> Pulir -> Contribuciones y analytics -> Publicar!
+Pulir -> Contribuciones y analytics -> Publicar! -> Sistemas pagos

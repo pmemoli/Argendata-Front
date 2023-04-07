@@ -33,7 +33,7 @@ export default function MobileSidebar({setHeaderToggle}) {
             {datosPosibles.map(dato => <li className='sm:mb-1' onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
           </ul>
 
-          <div className='text-xl mt-4 sm:text-2xl sm:mt-6'>
+          <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setToggle(false)}}>
             <Link to='/contribucion'>Contribuir</Link>
           </div>
         </div>
