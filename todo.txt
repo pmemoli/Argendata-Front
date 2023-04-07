@@ -1,8 +1,4 @@
-- Mapa barrios populares
-
-- Merval y riesgo pais
-
-- Styling restante (date picker y labels chartjs)
+- Font agradable para el mapa
 
 - Modularizar DatosAnaliticos y dejar todo bien organizado
 
@@ -13,3 +9,7 @@
 - Publicar!
 
 - A medida agarre trafico meter ads
+
+- Crear aplicacion android con opcion paga
+
+Merval -> Pulir -> Contribuciones y analytics -> Publicar!

@@ -8,7 +8,7 @@ const api: AxiosInstance = axios.create({
 
 interface datosEmisionInterface {
   fechas: string[],
-  datosHistoricos: {emision: number[]},
+  datosHistoricos: {'base monetaria': number[]},
   datosActuales: {},
 };
 
@@ -16,7 +16,7 @@ const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2015/01/01');
 
 const info: string =
-`Apertura pasivo base monetaria.
+`Apertura pasivo base monetaria en miles de pesos.
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
 
@@ -29,9 +29,14 @@ export default function Emision({modo}): JSX.Element {
     try {
       const res: any = await api.get('/datos/emision');
       const datosApi: any = res.data.datosEmision;
-    
+      
+      datosApi['datosHistoricos']['base monetaria'] = datosApi['datosHistoricos']['emision'];
+      delete datosApi['datosHistoricos']['emision'];
+
       delete datosApi['nombre'];
       delete datosApi['__v'];
+
+      console.log(datosApi)
 
       setDatosEmision(datosApi);
     }
@@ -52,8 +57,8 @@ export default function Emision({modo}): JSX.Element {
       modo={modo}
       datos={datosEmision}
       rangoInicial={[fechaComienzoDatos, hoy]}
-      unidad=''
-      mostrarValores={false}
+      unidad='$ miles'
+      mostrarValores={true}
       manejoEstados={{}}
       round={0}
       textoInfo={info}

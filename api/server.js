@@ -25,14 +25,14 @@ app.use('/datos', datosRouter)
 
 async function forceUpdate() {
   try {
-    let resInflacion = await actualizadores.actualizarBarrios()
+    let resInflacion = await actualizadores.actualizarMerval()
     console.log('updated emision')
   }
 
   catch(e) {console.log(e)}
 } 
 
-//forceUpdate()
+forceUpdate()
 
 // Actualiza datos cuando corresponda
 

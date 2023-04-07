@@ -58,7 +58,7 @@ export default function Producto({modo}): JSX.Element {
       datos={datosProducto}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad=''
-      unidades={{'GDP': ' bill.', 'GDP Per Capita': ' mil'}}
+      unidades={{'GDP': '$ bill.', 'GDP Per Capita': '$ miles'}}
       mostrarValores={true}
       manejoEstados={{}}
       round={0}

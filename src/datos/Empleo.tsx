@@ -34,8 +34,7 @@ Fuente datos.gob.ar.
 
 https://www.datos.gob.ar/series/api/series/?ids=${ids.desempleo}
 https://www.datos.gob.ar/series/api/series/?ids=${ids.empleo}
-https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}
-`
+https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}`
 
 export default function Empleo({modo}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();

@@ -13,7 +13,7 @@ interface datoItem {
 const datosPosibles: datoItem[] = [
   {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
   {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
-  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Barrios Populares', path: 'barrios'}
+  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Finanzas', path: 'finanzas'}, {nombre: 'Barrios Populares', path: 'barrios'}
 ];
 
 export default function TopMenu({toggled}) {

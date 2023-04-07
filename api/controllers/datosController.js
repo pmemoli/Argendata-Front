@@ -98,5 +98,17 @@ async function getBarrios(req, res) {
   }
 }
 
+async function getMerval(req, res) {
+  try {
+    const datosActuales = await Dato.findOne({nombre: 'merval'})
+    res.status(200).json({datosMerval: datosActuales})
+  }
+
+  catch(e) {
+    console.log(e)
+    res.status(500)
+  }
+}
+
 module.exports = {getDolar, getInflacion, getCrimen, getPobreza, getEmpleo,
-                  getProducto, getEmision, getBarrios}
+                  getProducto, getEmision, getBarrios, getMerval}

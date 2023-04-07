@@ -393,5 +393,47 @@ async function actualizarBarrios() {
   catch(e) {console.log(e)}
 }
 
+// Merval
+const apiMerval = axios.create({
+  baseURL: 'https://api.estadisticasbcra.com/merval_usd',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    Authorization: 'BEARER eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTIzNDYxMTQsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJkZW1uaXR0aEBnbWFpbC5jb20ifQ.q00y48c-yLt81qLq_esrGWoAv0vdIQSd4kDXQ2O8uR196nl0XOBk3ahN8oWLGRx8uqD_xztD0t6NkQtldWdt2g'
+  }
+});
+
+const hoy1 = new Date();
+const hoyFormateado = hoy1.toLocaleDateString('en-GB').replace(/\//g, '-');
+
+const riesgoApi = axios.create({
+  baseURL: `https://mercados.ambito.com//riesgopais/historico-general/01-01-2023/${hoyFormateado}`
+});
+
+async function actualizarMerval() {
+  try {
+    const res = await apiMerval.get('')
+
+    const datoMerval = {
+      nombre: 'merval',
+      fechas: res.data.map(dato => dato.d),
+      datosActuales: {},
+      datosHistoricos: {
+        merval: res.data.map(dato => dato.v)
+      },
+    }
+
+    const resFinanzas = await riesgoApi.get('');
+    const riesgoPais = resFinanzas.data.map(dato => dato[1])[1];
+
+    datoMerval['datosActuales']['riesgo pais'] = parseFloat(riesgoPais);
+
+    const coleccionDatos = await Dato.find({nombre: 'merval'})
+    if (coleccionDatos.length === 0) {await Dato.create(datoMerval)}
+    else {await Dato.findOneAndReplace({nombre: 'merval'}, datoMerval)}
+  }
+
+  catch(e) {console.log(e)}
+}
+
 module.exports = {actualizarDolar, actualizarInflacion, actualizarCrimen, actualizarPobreza, actualizarEmpleo,
-                  actualizarProducto, actualizarEmision, actualizarBarrios}
+                  actualizarProducto, actualizarEmision, actualizarBarrios, actualizarMerval}
