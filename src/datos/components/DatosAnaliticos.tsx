@@ -69,7 +69,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     
   else return (
     <div className={`${modo === 'pagina' ? 'sm:flex sm:justify-center' : ''}`}>
-      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''}`}>
+      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''} bg-slate-850`}>
 
       <BotonEstado manejoEstados={manejoEstados} setIndiceEstado={setIndiceEstado} indiceEstado={indiceEstado}/>
 

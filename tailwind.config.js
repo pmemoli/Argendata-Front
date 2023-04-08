@@ -8,6 +8,12 @@ module.exports = {
       fontFamily: {
         'sofia': ['Sofia Sans', 'sans-serif'],
         'fira': ['Fira Sans', 'sans-serif']
+      },
+
+      colors: {
+        slate: {
+          850: 'hsl(217, 33%, 16.5%)',
+        }
       }
     },
   },

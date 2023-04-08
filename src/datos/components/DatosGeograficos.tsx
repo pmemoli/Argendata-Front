@@ -16,7 +16,7 @@ export default function DatosGeograficos({modo, center, geoData, info, contribui
 
   return (
     <div className='sm:flex sm:justify-center'>
-      <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative h-[30rem] sm:w-1/2 sm:h-[33rem]'>
+      <div className='border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative h-[30rem] sm:w-1/2 sm:h-[33rem] bg-slate-850'>
         <Informacion texto={info}/>
 
         <h1 className='flex justify-center text-2xl mb-2'>Barrios Populares</h1>
