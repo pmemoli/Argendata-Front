@@ -23,19 +23,39 @@ const info: string =
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10`
 
-export default function Inflacion({modo}): JSX.Element {
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 0.5;  // mes
+
+export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element {
   const [datosInflacion, setDatosInflacion] = useState<datosInflacionInterface>();
 
   useEffect(() => {getDatos()}, [])
 
   async function getDatos() {
     try {
-      const res = await api.get('/datos/inflacion');
-      const data: any = res.data.datosInflacion;
-      delete data['nombre'];
-      delete data['__v'];
+      if (cacheData !== null && cacheData.inflacion !== null && cacheData.inflacion !== undefined && 
+        (-cacheData.inflacion.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosInflacion(cacheData.inflacion.datos);
+          return;
+      }
 
-      setDatosInflacion(data);
+      else {
+        const res: any = await api.get('/datos/inflacion');
+        const data: any = res.data.datosInflacion;
+        delete data['nombre'];
+        delete data['__v'];
+  
+        setDatosInflacion(data);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          inflacion: {
+            datos: data,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e)}

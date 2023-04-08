@@ -25,20 +25,40 @@ const info: string =
 Fuente Ambito y estadisticasbcra.com.
 https://estadisticasbcra.com/indice_merval`
 
-export default function Merval({modo}) {
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 0.5;  // mes
+
+export default function Merval({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
 
   useEffect(() => {getDatos()}, []);
 
   async function getDatos() {
     try {
-      const res: any = await api.get('/datos/merval');
-      const datosApi: any = res.data.datosMerval;
-    
-      delete datosApi['nombre'];
-      delete datosApi['__v'];
+      if (cacheData !== null && cacheData.finanzas !== null && cacheData.finanzas !== undefined && 
+        (-cacheData.finanzas.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setData(cacheData.finanzas.datos);
+          return;
+      }
 
-      setData(datosApi);
+      else {
+        const res: any = await api.get('/datos/merval');
+        const datosApi: any = res.data.datosMerval;
+      
+        delete datosApi['nombre'];
+        delete datosApi['__v'];
+  
+        setData(datosApi);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          finanzas: {
+            datos: datosApi,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e);}

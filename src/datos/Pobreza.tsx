@@ -28,19 +28,39 @@ const info: string =
 Fuente Indec.
 https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-46-152`
 
-export default function Pobreza({modo}): JSX.Element {  
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 1;  // mes
+
+export default function Pobreza({modo, cacheData, setCacheData}): JSX.Element {  
   const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>();
 
   useEffect(() => {getDatos()}, []);
 
   async function getDatos() {
     try {
-      const res: any = await api.get('/datos/pobreza');
-      const data: any = res.data.datosPobreza;
-      delete data['nombre'];
-      delete data['__v'];
+      if (cacheData !== null && cacheData.pobreza !== null && cacheData.pobreza !== undefined && 
+        (-cacheData.pobreza.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosPobreza(cacheData.pobreza.datos);
+          return;
+      }
 
-      setDatosPobreza(data);
+      else {
+        const res: any = await api.get('/datos/pobreza');
+        const data: any = res.data.datosPobreza;
+        delete data['nombre'];
+        delete data['__v'];
+  
+        setDatosPobreza(data);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          pobreza: {
+            datos: data,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e);}

@@ -2,6 +2,7 @@ const Datos = require('../models/Datos')
 const Dato = require('../models/Dato')
 const GeoDato = require('../models/GeoDato')
 const axios = require('axios')
+const pako = require('pako')
 
 // Dolar
 const dolarHistoricoApi = axios.create({
@@ -380,9 +381,13 @@ async function actualizarBarrios() {
     const res = await barriosApi.get('')
     const datos = res.data
     
+    const jsonStr = JSON.stringify(datos);
+    const compressedData = pako.gzip(jsonStr, {level: 9});
+    const buffer = Buffer.from(compressedData);
+
     const datoBarrios = {
       nombre: 'barrios',
-      geoData: datos
+      geoData: buffer
     }
 
     const coleccionDatos = await GeoDato.find({nombre: 'barrios'})
@@ -398,7 +403,7 @@ const apiMerval = axios.create({
   baseURL: 'https://api.estadisticasbcra.com/merval_usd',
   headers: {
     'Access-Control-Allow-Origin': '*',
-    Authorization: 'BEARER eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTIzNDYxMTQsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJkZW1uaXR0aEBnbWFpbC5jb20ifQ.q00y48c-yLt81qLq_esrGWoAv0vdIQSd4kDXQ2O8uR196nl0XOBk3ahN8oWLGRx8uqD_xztD0t6NkQtldWdt2g'
+    Authorization: `BEARER ${process.env.PASS_ESTADISTICAS}`
   }
 });
 

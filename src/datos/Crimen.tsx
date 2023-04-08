@@ -64,17 +64,36 @@ const info: string =
 `Tasa de homicidios y robos cada 100 mil personas en un año.
 Fuente datos.gob.ar.`
 
-export default function Crimen({modo}): JSX.Element {
+const msEnHora = 3600000;
+const msEnMes = msEnHora * 24 * 30;
+const deltaActualizacion = 1;  // mes
+
+export default function Crimen({modo, cacheData, setCacheData}): JSX.Element {
   const [datosTotales, setDatosTotales] = useState<datosTotalesInterface>();
-  const [datosCrimen, setDatosCrimen] = useState<datosCrimenInterface>();
   const [provincia, setProvincia] = useState<string>('Pais');
 
   useEffect(() => {getDatos()}, [])
 
   async function getDatos() {
     try {
-      const res: any = await api.get('/datos/crimen');    
-      setDatosTotales(res.data.datosCrimen.data);
+      if (cacheData !== null && cacheData.crimen !== null && cacheData.crimen !== undefined && 
+        (-cacheData.crimen.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosTotales(cacheData.crimen.datos);
+          return;
+      }
+
+      else {
+        const res: any = await api.get('/datos/crimen');    
+        setDatosTotales(res.data.datosCrimen.data);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          crimen: {
+            datos: res.data.datosCrimen.data,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e)}

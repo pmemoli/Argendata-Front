@@ -36,19 +36,39 @@ https://www.datos.gob.ar/series/api/series/?ids=${ids.desempleo}
 https://www.datos.gob.ar/series/api/series/?ids=${ids.empleo}
 https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}`
 
-export default function Empleo({modo}): JSX.Element {
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 2;  // mes
+
+export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();
 
   useEffect(() => {getDatos()}, [])
 
   async function getDatos() {
     try {
-      const res: any = await api.get('/datos/empleo');
-      const datosApi: any = res.data.datosEmpleo;
-      delete datosApi['nombre'];
-      delete datosApi['__v'];
+      if (cacheData !== null && cacheData.empleo !== null && cacheData.empleo !== undefined && 
+        (-cacheData.empleo.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosEmpleo(cacheData.empleo.datos);
+          return;
+      }
 
-      setDatosEmpleo(datosApi);
+      else {
+        const res: any = await api.get('/datos/empleo');
+        const datosApi: any = res.data.datosEmpleo;
+        delete datosApi['nombre'];
+        delete datosApi['__v'];
+  
+        setDatosEmpleo(datosApi);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          empleo: {
+            datos: datosApi,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e)}

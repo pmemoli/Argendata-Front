@@ -2,8 +2,6 @@ import {MapContainer, TileLayer, GeoJSON} from 'react-leaflet';
 import Informacion from '../../components/datos/Informacion';
 
 export default function DatosGeograficos({modo, center, geoData, info, contribuidor}): JSX.Element {
-  console.log(geoData);
-
   function onEachFeature(feature, layer) {
     if (feature.properties) {
       layer.bindPopup(feature.properties.nombre_barrio);

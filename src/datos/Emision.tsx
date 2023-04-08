@@ -20,25 +20,43 @@ const info: string =
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
 
-export default function Emision({modo}): JSX.Element {
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 2;  // mes
+
+export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmision, setDatosEmision] = useState<datosEmisionInterface>();
 
   useEffect(() => {getDatosEmision()}, []);
 
   async function getDatosEmision() {
     try {
-      const res: any = await api.get('/datos/emision');
-      const datosApi: any = res.data.datosEmision;
-      
-      datosApi['datosHistoricos']['base monetaria'] = datosApi['datosHistoricos']['emision'];
-      delete datosApi['datosHistoricos']['emision'];
+      if (cacheData !== null && cacheData.emision !== null && cacheData.emision !== undefined && 
+        (-cacheData.emision.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosEmision(cacheData.emision.datos);
+          return;
+      }
 
-      delete datosApi['nombre'];
-      delete datosApi['__v'];
+      else {
+        const res: any = await api.get('/datos/emision');
+        const datosApi: any = res.data.datosEmision;
+        
+        datosApi['datosHistoricos']['base monetaria'] = datosApi['datosHistoricos']['emision'];
+        delete datosApi['datosHistoricos']['emision'];
+  
+        delete datosApi['nombre'];
+        delete datosApi['__v'];
+  
+        setDatosEmision(datosApi);
 
-      console.log(datosApi)
-
-      setDatosEmision(datosApi);
+        setCacheData(prevCache => ({
+          ...prevCache,
+          emision: {
+            datos: datosApi,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e);}

@@ -5,15 +5,26 @@ const cors = require('cors')
 const cron = require('node-cron')
 const actualizadores = require('./controllers/actualizadorDatos')
 const app = express()
+const rateLimit = require('express-rate-limit')
+require('dotenv').config()
+
+// Security
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutos
+    max: 200, // En 10 minutos puede hacer hasta 200 llamadas
+    standardHeaders: true,
+	legacyHeaders: false,
+})
+
+app.use(limiter)
+app.use(cors());
 
 // Basic middleware
-app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded())
 
 // Connect to db
-const password = 'D9feJRHkMT7Ip8nl'
-const uri = `mongodb+srv://argendata:${password}@argendata.82uzhmt.mongodb.net/?retryWrites=true&w=majority`
+const uri = `mongodb+srv://argendata:${process.env.PASS_MONGO}@argendata.82uzhmt.mongodb.net/?retryWrites=true&w=majority`
 mongoose.connect(uri)
  
 // Basic response
@@ -29,7 +40,7 @@ app.use('/datos', datosRouter)
 
 async function forceUpdate() {
   try {
-    await actualizadores.actualizarDolar()
+    await actualizadores.actualizarBarrios()
 
     console.log('Se actualizo todo')
   }
@@ -84,3 +95,5 @@ cron.schedule('* * 10,20,25 * *', async () => {
 })
 
 app.listen(3001)
+
+console.log('listening...')

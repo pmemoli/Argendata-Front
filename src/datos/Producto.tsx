@@ -25,20 +25,40 @@ Fuente worldbank.
 https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD?locations=AR
 https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD?locations=AR`
 
-export default function Producto({modo}): JSX.Element {
+const msEnHora: number = 3600000;
+const msEnMes: number = msEnHora * 24 * 30;
+const deltaActualizacion: number = 1;  // mes
+
+export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
   const [datosProducto, setDatosProducto] = useState<datosProductoInterface>();
 
   useEffect(() => {getDatosProducto()}, []);
 
   async function getDatosProducto() {
     try {
-      const res: any = await api.get('/datos/producto');
-      const datosApi: any = res.data.datosProducto;
-    
-      delete datosApi['nombre'];
-      delete datosApi['__v'];
+      if (cacheData !== null && cacheData.producto !== null && cacheData.producto !== undefined &&  
+        (-cacheData.producto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+          setDatosProducto(cacheData.producto.datos);
+          return;
+      }
 
-      setDatosProducto(datosApi);
+      else {
+        const res: any = await api.get('/datos/producto');
+        const datosApi: any = res.data.datosProducto;
+      
+        delete datosApi['nombre'];
+        delete datosApi['__v'];
+  
+        setDatosProducto(datosApi);
+
+        setCacheData(prevCache => ({
+          ...prevCache,
+          producto: {
+            datos: datosApi,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+      }
     }
 
     catch(e) {console.log(e);}

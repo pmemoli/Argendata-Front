@@ -1,3 +1,4 @@
+
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
@@ -31,7 +32,10 @@ const info: string =
 `Venta y compra de las principales cotizaciones de dolar.
 Fuente Ambito Financiero.`
 
-export default function Dolar({modo}): JSX.Element {
+const msEnHora = 3600000;
+const deltaActualizacion = 4;  // hora
+
+export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
   const [datosDolar, setDatosDolar] = useState<datosTotalesInterface>();
   const [transaccion, setTransaccion] = useState<string>('venta');
 
@@ -39,9 +43,26 @@ export default function Dolar({modo}): JSX.Element {
 
   async function getDolar() {
     try {
-      const res: any = await api.get('/datos/dolar');
-      const datosTotales: datosTotalesInterface = res.data.datosDolar.data;
-      setDatosDolar(datosTotales);
+      if (cacheData !== null && cacheData.dolar !== null && cacheData.dolar !== undefined && 
+      (-cacheData.dolar.ultimaActualizacion.getTime() + hoy.getTime()) / msEnHora < deltaActualizacion) {
+        setDatosDolar(cacheData.dolar.datos);
+        return;
+      }
+
+      else {
+        const res: any = await api.get('/datos/dolar');
+        const datosTotales: datosTotalesInterface = res.data.datosDolar.data;
+        
+        setCacheData(prevCache => ({
+          ...prevCache,
+          dolar: {
+            datos: datosTotales,
+            ultimaActualizacion: new Date(),
+          }
+        }));
+        
+        setDatosDolar(datosTotales);
+      }
     }
 
     catch(e) {console.log(e)}

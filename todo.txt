@@ -1,11 +1,24 @@
-- Seguridad api y buen testeo
+Plan:
+- Pagina con cortes de luz en amba
+    - puntos de corte: https://www.enre.gov.ar/mapaCortes/datos/Datos_PaginaWeb.js?9
+    - queda la geometria de los municipios y si son edenor o edesur
 
-- Opcion de contribucion y analytics
+- Icono
+
+- Ver de hacer mas lindo de alguna forma?
+
+- Valor commodities (trigo, soja, petroleo y oro)
 
 - Publicar!
 
-- A medida agarre trafico meter ads y opcion de no tenerlos 
+- Analytics (cuando ya este subida)
+
+- A medida agarre trafico (10-20k?) meter ads y la opcion de no tenerlos
 
 - Crear aplicacion android con opcion paga
 
-Pulir -> Contribuciones y analytics -> Publicar! -> Sistemas pagos
+
+Agregar:
+- Pagina con incendios actuales y/o riesgo
+
+- Impuestos
