@@ -9,11 +9,9 @@ const api: AxiosInstance = axios.create({
 interface datosMervalInterface {
   fechas: string[],
   datosHistoricos: {
-    merval: number[],
+    riesgo: number[],
   },
-  datosActuales: {
-    'riesgo pais': number,
-  },
+  datosActuales: {},
 };
 
 const hoy = new Date();
@@ -21,30 +19,30 @@ const fechaComienzoDatos = new Date();
 fechaComienzoDatos.setDate(fechaComienzoDatos.getDate() - 90);
 
 const info: string = 
-`Indice Merval S&P en dolares CCL y riesgo pais.
-Fuente Ambito y estadisticasbcra.com.
-https://estadisticasbcra.com/indice_merval`
+`Riesgo pais de la Argentina.
+Fuente Ambito Financiero.
+https://www.ambito.com/contenidos/riesgo-pais.html`
 
 const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 0.5;  // mes
+const msEnDia: number = msEnHora * 24;
+const deltaActualizacion: number = 1;  // dia
 
-export default function Merval({modo, cacheData, setCacheData}) {
+export default function Riesgo({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
 
   useEffect(() => {getDatos()}, []);
 
   async function getDatos() {
     try {
-      if (cacheData !== null && cacheData.finanzas !== null && cacheData.finanzas !== undefined && 
-        (-cacheData.finanzas.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
-          setData(cacheData.finanzas.datos);
+      if (cacheData !== null && cacheData.riesgo !== null && cacheData.riesgo !== undefined && 
+        (-cacheData.riesgo.ultimaActualizacion.getTime() + hoy.getTime()) / msEnDia < deltaActualizacion) {
+          setData(cacheData.riesgo.datos);
           return;
       }
 
       else {
-        const res: any = await api.get('/datos/merval');
-        const datosApi: any = res.data.datosMerval;
+        const res: any = await api.get('/datos/riesgo');
+        const datosApi: any = res.data.datosRiesgo;
       
         delete datosApi['nombre'];
         delete datosApi['__v'];
@@ -53,7 +51,7 @@ export default function Merval({modo, cacheData, setCacheData}) {
 
         setCacheData(prevCache => ({
           ...prevCache,
-          finanzas: {
+          riesgo: {
             datos: datosApi,
             ultimaActualizacion: new Date(),
           }
@@ -73,16 +71,16 @@ export default function Merval({modo, cacheData, setCacheData}) {
   return (
     <div>
       <DatosAnaliticos 
-      nombre='Finanzas'
+      nombre='Riesgo Pais'
       modo={modo}
       datos={data}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad=''
-      unidades={{'merval': '$ USD', 'riesgo pais': ''}}
       mostrarValores={true}
       manejoEstados={{}}
       round={1}
       textoInfo={info}
+      path='riesgo'
       />
     </div>
   )

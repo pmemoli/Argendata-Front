@@ -37,10 +37,9 @@ const datosRouter = require('./routes/datos')
 app.use('/datos', datosRouter)
 
 // Forzar actualizacion datos
-
 async function forceUpdate() {
   try {
-    await actualizadores.actualizarBarrios()
+    await actualizadores.actualizarMerval()
 
     console.log('Se actualizo todo')
   }
@@ -48,7 +47,7 @@ async function forceUpdate() {
   catch(e) {console.log(e)}
 } 
 
-//forceUpdate()
+//forceUpdate() 
 
 // Actualiza datos cuando corresponda
 

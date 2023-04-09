@@ -13,5 +13,7 @@ router.get('/producto', datosController.getProducto)
 router.get('/emision', datosController.getEmision)
 router.get('/barrios', datosController.getBarrios)
 router.get('/merval', datosController.getMerval)
+router.get('/cortes', datosController.getCortes)
+router.get('/riesgo', datosController.getRiesgo)
 
 module.exports = router

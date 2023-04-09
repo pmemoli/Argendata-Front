@@ -110,5 +110,30 @@ async function getMerval(req, res) {
   }
 }
 
+async function getCortes(req, res) {
+  try {
+    const datosActuales = await GeoDato.findOne({nombre: 'cortes'})
+    res.status(200).json({datosCortes: datosActuales})
+  }
+
+  catch(e) {
+    console.log(e)
+    res.status(500)
+  }
+}
+
+async function getRiesgo(req, res) {
+  try {
+    const datosActuales = await Dato.findOne({nombre: 'riesgo'})
+    res.status(200).json({datosRiesgo: datosActuales})
+  }
+
+  catch(e) {
+    console.log(e)
+    res.status(500)
+  }
+}
+
 module.exports = {getDolar, getInflacion, getCrimen, getPobreza, getEmpleo,
-                  getProducto, getEmision, getBarrios, getMerval}
+                  getProducto, getEmision, getBarrios, getMerval, getCortes,
+                  getRiesgo}

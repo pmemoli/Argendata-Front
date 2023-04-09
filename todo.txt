@@ -1,13 +1,11 @@
 Plan:
 - Icono
 
-- Pagina con cortes de luz en amba
-    - puntos de corte: https://www.enre.gov.ar/mapaCortes/datos/Datos_PaginaWeb.js?9
-    - queda la geometria de los municipios y si son edenor o edesur
-
 - Valor commodities (trigo, soja, petroleo y oro)
 
-- Riesgo pais historico en su propio componente
+- Fuentes
+
+- Chequear que este todo lindo
 
 - Publicar!
 
@@ -19,6 +17,9 @@ Plan:
 
 
 Agregar:
+
 - Pagina con incendios actuales y/o riesgo
+
+- Mapa pobreza y crimen
 
 - Impuestos

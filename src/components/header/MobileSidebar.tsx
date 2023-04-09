@@ -15,7 +15,8 @@ interface datoItem {
 const datosPosibles: datoItem[] = [
   {nombre: 'Dolar', path: 'dolar'}, {nombre: 'IPC', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
   {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Produccion', path: 'producto'},
-  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Finanzas', path: 'finanzas'}, {nombre: 'Barrios Populares', path: 'barrios'}
+  {nombre: 'Empleo', path: 'empleo'}, {nombre: 'Merval', path: 'merval'}, {nombre: 'Riesgo Pais', path: 'riesgo'},
+  {nombre: 'Barrios Populares', path: 'barrios'}, {nombre: 'Cortes de Luz', path: 'cortes'}
 ];
 
 export default function MobileSidebar({setHeaderToggle}) {
@@ -32,6 +33,10 @@ export default function MobileSidebar({setHeaderToggle}) {
           <ul className='text-xl mr-5 sm:text-2xl'>
             {datosPosibles.map(dato => <li className='sm:mb-1' onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
           </ul>
+
+          <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setToggle(false)}}>
+            <Link to='/fuentes'>Fuentes</Link>
+          </div>
 
           <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setToggle(false)}}>
             <Link to='/contribucion'>Contribuir</Link>

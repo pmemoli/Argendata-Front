@@ -11,8 +11,10 @@ import Empleo from './datos/Empleo';
 import Pobreza from './datos/Pobreza';
 import Producto from './datos/Producto';
 import Barrios from './datos/Barrios';
-import Finanzas from './datos/Finanzas';
+import Merval from './datos/Merval';
+import Cortes from './datos/Cortes';
 import Contribucion from './pages/Contribucion';
+import Riesgo from './datos/Riesgo';
 
 interface data {
   nombre: string,
@@ -71,8 +73,10 @@ function App() {
           <Route path='/empleo' element={<Empleo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/pobreza' element={<Pobreza modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/producto' element={<Producto modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/finanzas' element={<Finanzas modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/merval' element={<Merval modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/barrios' element={<Barrios modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/cortes' element={<Cortes modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/riesgo' element={<Riesgo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/contribucion' element={<Contribucion/>}></Route>
         </Routes>
       </div>

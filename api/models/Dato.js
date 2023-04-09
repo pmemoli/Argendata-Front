@@ -5,7 +5,7 @@ const datoSchema = new mongoose.Schema({
     fechas: [String],
     datosHistoricos: {
         type: Map,
-        of: [Number]
+        of: [mongoose.Schema.Types.Mixed]
     },
     datosActuales: {
         type: Map,

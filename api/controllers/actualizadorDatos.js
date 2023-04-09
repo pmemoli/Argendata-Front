@@ -399,38 +399,52 @@ async function actualizarBarrios() {
 }
 
 // Merval
-const apiMerval = axios.create({
-  baseURL: 'https://api.estadisticasbcra.com/merval_usd',
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    Authorization: `BEARER ${process.env.PASS_ESTADISTICAS}`
-  }
-});
-
 const hoy1 = new Date();
 const hoyFormateado = hoy1.toLocaleDateString('en-GB').replace(/\//g, '-');
 
-const riesgoApi = axios.create({
-  baseURL: `https://mercados.ambito.com//riesgopais/historico-general/01-01-2023/${hoyFormateado}`
+const apiMerval = axios.create({
+  baseURL: `https://mercados.ambito.com//indice/.merv/historico-general/01-01-2022/${hoyFormateado}`,
 });
 
+const apiCcl = axios.create({
+  baseURL: `https://mercados.ambito.com//dolarrava/cl/historico-general/01-01-2022/${hoyFormateado}`,
+})
+
 async function actualizarMerval() {
-  try {
-    const res = await apiMerval.get('')
+  try { 
+    const resMerval = await apiMerval.get('')
+    const resCcl = await apiCcl.get('')
+
+    // Dividir el dato de merval por el correspondiente en ccl (se pueden desfasar los dias).
+    const mervalPesos = resMerval.data.slice(1).map(valor => parseFloat(valor[2].replace('.', '').replace(',', '.')))
+    const variacion = resMerval.data.slice(1).map(valor => parseFloat(valor[3].replace(',', '.')))
+    const fechas = resMerval.data.slice(1).map(valor => valor[0])
+
+    const valoresCcl = resCcl.data.slice(1).map(valor => parseFloat(valor[1].replace(',', '.')))
+    const fechasCcl = resCcl.data.slice(1).map(valor => valor[0].replaceAll('/', '-'))
+
+    const indicesCclMerval = fechas.map(fecha => fechasCcl.indexOf(fecha))  // los indices de fechasCcl que coinciden con fechas
+
+    const mervalDolares = []
+    for (let i = 0; i < mervalPesos.length; i++) {
+      mervalDolares.push(mervalPesos[i] / valoresCcl[indicesCclMerval[i]])
+    }
+
+    for (let i = 0; i < mervalDolares.length; i++) {
+      if (typeof variacion[i] !== 'number') {
+        console.log(mervalDolares[i])
+      }
+    }
 
     const datoMerval = {
       nombre: 'merval',
-      fechas: res.data.map(dato => dato.d),
+      fechas: fechas.reverse(),
       datosActuales: {},
       datosHistoricos: {
-        merval: res.data.map(dato => dato.v)
+        merval: mervalDolares.reverse(),
+        variacion: variacion.reverse(),
       },
     }
-
-    const resFinanzas = await riesgoApi.get('');
-    const riesgoPais = resFinanzas.data.map(dato => dato[1])[1];
-
-    datoMerval['datosActuales']['riesgo pais'] = parseFloat(riesgoPais);
 
     const coleccionDatos = await Dato.find({nombre: 'merval'})
     if (coleccionDatos.length === 0) {await Dato.create(datoMerval)}
@@ -440,5 +454,86 @@ async function actualizarMerval() {
   catch(e) {console.log(e)}
 }
 
+// Cortes de luz
+const listaCortesRegex = /var addressPoints_Cuadro_D = \[.+\]/
+const elementosRegex = /\[[-\d\.]+,[-\d\s\.]+,[\s\d]+,[\s"]+.+?"\]/g
+
+async function actualizarCortes() {
+  try {
+    const res = await axios.get('https://www.enre.gov.ar/mapaCortes/datos/Datos_PaginaWeb.js')
+    const data = res.data
+
+    const listaComoString = listaCortesRegex.exec(data)[0].replace('var addressPoints_Cuadro_D = ', '')
+    const elementosListaString = listaComoString.match(elementosRegex)
+
+    const elementosParseados = elementosListaString.map(elem => JSON.parse(elem))
+
+    const features = elementosParseados.map(elem => {
+      return {
+        type: "Feature",
+        properties: {
+          popupData: elem[3],
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [elem[1], elem[0]]
+        }
+      }
+    })
+
+    const cortesGeoJson = {
+      type: "FeatureCollection",
+      features: features
+    }
+
+    const jsonStr = JSON.stringify(cortesGeoJson);
+    const compressedData = pako.gzip(jsonStr, {level: 9});
+    const buffer = Buffer.from(compressedData);
+
+    const datosCortes = {
+      nombre: "cortes",
+      geoData: buffer,
+    }
+
+    const coleccionDatos = await GeoDato.find({nombre: 'cortes'})
+    if (coleccionDatos.length === 0) {await GeoDato.create(datosCortes)}
+    else {await GeoDato.findOneAndReplace({nombre: 'cortes'}, datosCortes)}
+  }
+
+  catch(e) {console.log(e)}
+}
+
+// Riesgo pais
+const riesgoApi = axios.create({
+  baseURL: `https://mercados.ambito.com//riesgopais/historico-general/01-01-2013/${hoyFormateado}`
+});
+
+async function actualizarRiesgo() {
+  try {
+    const resRiesgo = await riesgoApi.get('');
+    const riesgoPais = resRiesgo.data.slice(1).map(dato => parseFloat(dato[1]))
+    const fechas = resRiesgo.data.slice(1).map(dato => dato[0])
+
+    const datoRiesgo = {
+      nombre: 'riesgo',
+      fechas: fechas.reverse(),
+      datosActuales: {},
+      datosHistoricos: {
+        'Riesgo Pais': riesgoPais.reverse()
+      },
+    }
+
+    const coleccionDatos = await Dato.find({nombre: 'riesgo'})
+    if (coleccionDatos.length === 0) {await Dato.create(datoRiesgo)}
+    else {await Dato.findOneAndReplace({nombre: 'riesgo'}, datoRiesgo)}
+  }
+
+  catch(e) {console.log(e)}
+}
+
+
+// Commodities
+
 module.exports = {actualizarDolar, actualizarInflacion, actualizarCrimen, actualizarPobreza, actualizarEmpleo,
-                  actualizarProducto, actualizarEmision, actualizarBarrios, actualizarMerval}
+                  actualizarProducto, actualizarEmision, actualizarBarrios, actualizarMerval, actualizarCortes,
+                  actualizarRiesgo}

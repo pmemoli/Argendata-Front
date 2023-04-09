@@ -1,12 +1,12 @@
-import BarriosPopulares from "../datos/Barrios";
 import Crimen from "../datos/Crimen";
 import Dolar from "../datos/Dolar";
 import Emision from "../datos/Emision";
 import Empleo from "../datos/Empleo";
 import Inflacion from "../datos/Inflacion";
-import Finanzas from "../datos/Finanzas";
+import Riesgo from "../datos/Riesgo";
 import Pobreza from "../datos/Pobreza";
 import Producto from "../datos/Producto";
+import Merval from "../datos/Merval";
 
 export default function Home({cacheData, setCacheData}) {
   return (
@@ -14,11 +14,13 @@ export default function Home({cacheData, setCacheData}) {
       <span className='sm:col-span-2'><Dolar modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <Inflacion modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
       <Crimen modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <span className='sm:col-span-2'><Pobreza modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <span className='sm:col-span-2'><Producto modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/></span>
+      <span className='sm:col-span-2'><Pobreza modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
+      <span className='sm:col-span-2'><Producto modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <Empleo modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
       <Emision modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <span className='sm:col-span-2'><Finanzas modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/></span>
+      <span className='sm:col-span-2'><Merval modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
+      <span className='sm:col-span-2'><Riesgo modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
+
     </div>
   )
 }

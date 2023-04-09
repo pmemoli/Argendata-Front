@@ -2,21 +2,21 @@ import {useState, useEffect} from 'react';
 import DatosGeograficos from './components/DatosGeograficos';
 import axios, {AxiosInstance} from 'axios';
 import pako from 'pako';
+import L from 'leaflet';
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/datos/barrios'
+  baseURL: 'http://localhost:3001/datos/cortes'
 })
 
 const info: string = 
-`Mapa con informacion de los barrios populares del pais.
-Fuente Registro Nacional de Barrios Populares (RENABAP).
-https://www.argentina.gob.ar/desarrollosocial/renabap`;
+`Mapa con los cortes de luz en el AMBA.
+Fuente ENRE.
+https://www.argentina.gob.ar/enre/estado-de-la-red-electrica-en-el-area-metropolitana-de-buenos-aires`;
 
 const hoy: Date = new Date();
 
 const msEnHora = 3600000;
-const msEnMes = msEnHora * 24 * 30;
-const deltaActualizacion = 8;  // mes
+const deltaActualizacion = 0.5;  // hora
 
 export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.Element {
   const [data, setData] = useState<any>();
@@ -25,22 +25,28 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
 
   function onEachFeature(feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(feature.properties.nombre_barrio);
+      layer.bindPopup(feature.properties.popupData);
     }
+  }
+
+  function pointToLayer(feature, latlng) {
+    return L.marker(latlng);
   }
 
   async function getData() {
     try {
-      if (cacheData !== null && cacheData.barrios !== null && cacheData.barrios !== undefined && 
-        (-cacheData.barrios.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
-          const decompressedData = pako.ungzip(new Uint8Array(cacheData.barrios.datos), { to: 'string' });
+      if (cacheData !== null && cacheData.cortes !== null && cacheData.cortes !== undefined && 
+        (-cacheData.cortes.ultimaActualizacion.getTime() + hoy.getTime()) / msEnHora < deltaActualizacion) {
+
+          const decompressedData = pako.ungzip(new Uint8Array(cacheData.cortes.datos), { to: 'string' });
           setData(JSON.parse(decompressedData));
+
           return;
       }
 
       else {
         const res: any = await api.get('');
-        const datosApi = res.data.datosBarrios.geoData;
+        const datosApi = res.data.datosCortes.geoData;
 
         const decompressedData = pako.ungzip(new Uint8Array(datosApi.data), { to: 'string' });
 
@@ -48,7 +54,7 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
 
         setCacheData(prevCache => ({
           ...prevCache,
-          barrios: {
+          cortes: {
             datos: datosApi.data,
             ultimaActualizacion: new Date(),
           }
@@ -63,12 +69,12 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
     <div>
       <DatosGeograficos 
       modo={modo}
-      nombre={"Barrios Populares"}
+      nombre={"Cortes de Luz en el AMBA"}
       center={[-34.5764557475325, -58.44779337734082]}
       geoData={data}
       info={info}
       onEachFeature={onEachFeature}
-      pointToLayer={null}
+      pointToLayer={pointToLayer}
       />
     </div>
   )

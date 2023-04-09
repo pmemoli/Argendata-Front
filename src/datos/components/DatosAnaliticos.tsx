@@ -32,6 +32,7 @@ interface ParametrosAceptados {
   },
   round: number,
   textoInfo: string,
+  path?: string
 };
 
 interface TiposDatos {
@@ -53,7 +54,7 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
 }
 
 export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad,
-  mostrarValores, manejoEstados, round, unidades, textoInfo}: ParametrosAceptados): JSX.Element {
+  mostrarValores, manejoEstados, round, unidades, textoInfo, path}: ParametrosAceptados): JSX.Element {
 
   const tipos: TiposDatos[] = getTipos(datos);
 
@@ -75,7 +76,7 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
 
       <Informacion texto={textoInfo}/>
 
-      <Link to={`/${nombre.toLowerCase()}`}>
+      <Link to={path ? `/${path}` : `/${nombre.toLowerCase()}`}>
         <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    
       </Link>
 
