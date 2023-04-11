@@ -134,6 +134,18 @@ async function getRiesgo(req, res) {
   }
 }
 
+async function getGasto(req, res) {
+  try {
+    const datosActuales = await Dato.findOne({nombre: 'gasto'})
+    res.status(200).json({datosGasto: datosActuales})
+  }
+
+  catch(e) {
+    console.log(e)
+    res.status(500)
+  }
+}
+
 module.exports = {getDolar, getInflacion, getCrimen, getPobreza, getEmpleo,
                   getProducto, getEmision, getBarrios, getMerval, getCortes,
-                  getRiesgo}
+                  getRiesgo, getGasto}

@@ -1,11 +1,7 @@
 Plan:
 - Icono
 
-- Valor commodities (trigo, soja, petroleo y oro)
-
-- Fuentes
-
-- Chequear que este todo lindo
+- Sistema contacto
 
 - Publicar!
 
@@ -20,6 +16,18 @@ Agregar:
 
 - Pagina con incendios actuales y/o riesgo
 
+- Agregar pobreza infantil
+
+- Gasto publico en dolares (ccl)
+
+- Inflacion global ademas de ipc
+
 - Mapa pobreza y crimen
 
-- Impuestos
+- Deuda
+
+- Trabajo publico
+
+- Planes sociales
+
+Una vez este todo bien, pensar sistema de buscador...

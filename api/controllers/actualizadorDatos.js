@@ -403,11 +403,11 @@ const hoy1 = new Date();
 const hoyFormateado = hoy1.toLocaleDateString('en-GB').replace(/\//g, '-');
 
 const apiMerval = axios.create({
-  baseURL: `https://mercados.ambito.com//indice/.merv/historico-general/01-01-2022/${hoyFormateado}`,
+  baseURL: `https://mercados.ambito.com//indice/.merv/historico-general/01-01-2015/${hoyFormateado}`,
 });
 
 const apiCcl = axios.create({
-  baseURL: `https://mercados.ambito.com//dolarrava/cl/historico-general/01-01-2022/${hoyFormateado}`,
+  baseURL: `https://mercados.ambito.com//dolarrava/cl/historico-general/01-01-2015/${hoyFormateado}`,
 })
 
 async function actualizarMerval() {
@@ -532,8 +532,36 @@ async function actualizarRiesgo() {
 }
 
 
-// Commodities
+// Gasto publico consolidado
+const apiGasto = axios.create({
+  baseURL: 'http://apis.datos.gob.ar/series/api/series/?ids=451.1_GASTO_PUBLTAL_0_0_19_73&format=json',
+})
+
+async function actualizarGasto() {
+  try {
+    const res = await apiGasto.get('')
+    const datosApi = res.data.data
+  
+    const fechas = datosApi.map(dato => dato[0])
+    const gastoConsolidado = datosApi.map(dato => dato[1])
+
+    const datoEmision = {
+      'nombre': 'gasto',
+      'fechas': fechas,
+      'datosHistoricos': {
+        gasto: gastoConsolidado
+      },
+      'datosActuales': {}
+    }
+
+    const coleccionDatos = await Dato.find({nombre: 'gasto'})
+    if (coleccionDatos.length === 0) {await Dato.create(datoEmision)}
+    else {await Dato.findOneAndReplace({nombre: 'gasto'}, datoEmision)}
+  }
+
+  catch(e) {console.log(e)}
+}
 
 module.exports = {actualizarDolar, actualizarInflacion, actualizarCrimen, actualizarPobreza, actualizarEmpleo,
                   actualizarProducto, actualizarEmision, actualizarBarrios, actualizarMerval, actualizarCortes,
-                  actualizarRiesgo}
+                  actualizarRiesgo, actualizarGasto}

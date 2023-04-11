@@ -7,6 +7,7 @@ import Riesgo from "../datos/Riesgo";
 import Pobreza from "../datos/Pobreza";
 import Producto from "../datos/Producto";
 import Merval from "../datos/Merval";
+import Gasto from "../datos/Gasto";
 
 export default function Home({cacheData, setCacheData}) {
   return (
@@ -20,6 +21,7 @@ export default function Home({cacheData, setCacheData}) {
       <Emision modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
       <span className='sm:col-span-2'><Merval modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <span className='sm:col-span-2'><Riesgo modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
+      <Gasto modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
 
     </div>
   )

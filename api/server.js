@@ -47,15 +47,23 @@ async function forceUpdate() {
   catch(e) {console.log(e)}
 } 
 
-//forceUpdate() 
+forceUpdate() 
 
 // Actualiza datos cuando corresponda
+
+// Cortes luz (1 vez cada 2 horas)
+cron.schedule('0 */1 * * *', async () => {
+  try {
+    await actualizadores.actualizarCortes()
+  }
+
+  catch(e) {console.log(e)}
+})
 
 // Dolar (3 veces por dia)
 cron.schedule('10 12,17,20 * * *', async () => {
   try {
     const res = await actualizadores.actualizarDolar()
-    console.log(res)
   }
 
   catch(e) {console.log(e)}
@@ -74,6 +82,7 @@ cron.schedule('0 0 * 1 *', async () => {
 cron.schedule('0 15 * * *', async () => {
   try {
     await actualizadores.actualizarMerval()
+    await actualizadores.actualizarRiesgo()
   }
 
   catch(e) {console.log(e)}
@@ -88,6 +97,7 @@ cron.schedule('* * 10,20,25 * *', async () => {
     await actualizadores.actualizarInflacion()
     await actualizadores.actualizarPobreza()
     await actualizadores.actualizarProducto()
+    await actualizadores.actualizarGasto()
   }
 
   catch(e) {console.log(e)}

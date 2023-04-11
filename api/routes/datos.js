@@ -15,5 +15,6 @@ router.get('/barrios', datosController.getBarrios)
 router.get('/merval', datosController.getMerval)
 router.get('/cortes', datosController.getCortes)
 router.get('/riesgo', datosController.getRiesgo)
+router.get('/gasto', datosController.getGasto)
 
 module.exports = router

@@ -25,8 +25,8 @@ https://www.ambito.com/contenidos/merval.html
 https://www.ambito.com/contenidos/dolar-cl.html`
 
 const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 0;  // mes
+const msEnDia: number = msEnHora * 24;
+const deltaActualizacion: number = 0;  // doa
 
 export default function Merval({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
@@ -36,7 +36,7 @@ export default function Merval({modo, cacheData, setCacheData}) {
   async function getDatos() {
     try {
       if (cacheData !== null && cacheData.merval !== null && cacheData.merval !== undefined && 
-        (-cacheData.merval.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.merval.ultimaActualizacion.getTime() + hoy.getTime()) / msEnDia < deltaActualizacion) {
           setData(cacheData.merval.datos);
           return;
       }

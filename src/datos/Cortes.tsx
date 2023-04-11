@@ -16,7 +16,7 @@ https://www.argentina.gob.ar/enre/estado-de-la-red-electrica-en-el-area-metropol
 const hoy: Date = new Date();
 
 const msEnHora = 3600000;
-const deltaActualizacion = 0.5;  // hora
+const deltaActualizacion = 0;  // hora
 
 export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.Element {
   const [data, setData] = useState<any>();

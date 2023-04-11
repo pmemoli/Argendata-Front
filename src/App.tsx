@@ -15,6 +15,7 @@ import Merval from './datos/Merval';
 import Cortes from './datos/Cortes';
 import Contribucion from './pages/Contribucion';
 import Riesgo from './datos/Riesgo';
+import Gasto from './datos/Gasto';
 
 interface data {
   nombre: string,
@@ -77,6 +78,7 @@ function App() {
           <Route path='/barrios' element={<Barrios modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/cortes' element={<Cortes modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/riesgo' element={<Riesgo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/gasto' element={<Gasto modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/contribucion' element={<Contribucion/>}></Route>
         </Routes>
       </div>
