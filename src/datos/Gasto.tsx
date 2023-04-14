@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-});
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 interface datosGastoInterface {
   fechas: string[],
@@ -32,14 +30,14 @@ export default function Gasto({modo, cacheData, setCacheData}): JSX.Element {
   async function getDatosGasto() {
     try {
       if (cacheData !== null && cacheData.gasto !== null && cacheData.gasto !== undefined && 
-        (-cacheData.gasto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.gasto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.gasto) {
           setDatosGasto(cacheData.gasto.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/gasto');
-        const datosApi: any = res.data.datosGasto;
+        const datosApi: any = res.data.datos;
   
         delete datosApi['nombre'];
         delete datosApi['__v'];

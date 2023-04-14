@@ -5,6 +5,10 @@ interface Chart {
   datasets: [{
     label: string,
     data: number[],
+    borderColor?: string,
+    pointBackgroundColor?: string,
+    borderWidth?: number,
+    pointRadius?: number
   }]
 };
 
@@ -51,6 +55,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     datasets: [{
       label: tipo,
       data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
+      borderWidth: 2,
+      pointRadius: 0.7
     }]
   };
 

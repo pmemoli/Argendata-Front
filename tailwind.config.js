@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       fontFamily: {
         'sofia': ['Sofia Sans', 'sans-serif'],
-        'fira': ['Fira Sans', 'sans-serif']
+        'fira': ['Fira Sans', 'sans-serif'],
+        'raleway': ['Raleway', 'sans-serif'],
       },
 
       colors: {

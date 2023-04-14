@@ -1,16 +1,14 @@
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 const ids: any = {
   desempleo: '45.1_ECTDT_0_A_33',
   empleo: '44.2_ECTET_0_T_30',
   actividad: '43.2_ECTAT_0_T_33',
 };
-
-const api: AxiosInstance = axios.create({
-  baseURL: `http://localhost:3001`,
-});
 
 interface datosEmpleoInterface {
   fechas: string[],
@@ -38,7 +36,7 @@ https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}`
 
 const msEnHora: number = 3600000;
 const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 2;  // mes
+const deltaActualizacion: number = 1;  // mes
 
 export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();
@@ -48,14 +46,14 @@ export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
   async function getDatos() {
     try {
       if (cacheData !== null && cacheData.empleo !== null && cacheData.empleo !== undefined && 
-        (-cacheData.empleo.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.empleo.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.empleo) {
           setDatosEmpleo(cacheData.empleo.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/empleo');
-        const datosApi: any = res.data.datosEmpleo;
+        const datosApi: any = res.data.datos;
         delete datosApi['nombre'];
         delete datosApi['__v'];
   

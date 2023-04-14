@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-});
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 interface datosEmisionInterface {
   fechas: string[],
@@ -22,7 +20,6 @@ https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
 
 const msEnHora: number = 3600000;
 const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 2;  // mes
 
 export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmision, setDatosEmision] = useState<datosEmisionInterface>();
@@ -32,14 +29,16 @@ export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
   async function getDatosEmision() {
     try {
       if (cacheData !== null && cacheData.emision !== null && cacheData.emision !== undefined && 
-        (-cacheData.emision.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.emision.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.emision) {
           setDatosEmision(cacheData.emision.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/emision');
-        const datosApi: any = res.data.datosEmision;
+        const datosApi: any = res.data.datos;
+
+        console.log(res);
         
         datosApi['datosHistoricos']['base monetaria'] = datosApi['datosHistoricos']['emision'];
         delete datosApi['datosHistoricos']['emision'];

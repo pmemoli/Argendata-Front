@@ -33,7 +33,7 @@ interface mixedData {
 
 interface cacheData {
   [nombreDataset: string]: {
-    datos: data | mixedData,
+    datos: data | mixedData | Uint8Array,
     ultimaActualizacion: Date,
   }
 }
@@ -55,16 +55,20 @@ function App() {
     if (cacheData !== null) {
       let cacheCopy = {...cacheData};
       if (cacheData.barrios !== undefined) delete cacheCopy['barrios'];
+      
+      try {
+        localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy));
+      }
 
-      localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy));
+      catch(e) {console.log(e)}
     }
   }, [cacheData]);
 
   return (
-    <div className='flex flex-col justify-between min-h-screen bg-slate-800 text-gray-200 font-fira font-thin'>
+    <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)] text-gray-200 font-fira font-thin'>
       <Header/>
     
-      <div className='flex-grow mt-9'>
+      <div className='flex-grow mt-4'>
         <Routes>
           <Route path='/' element={<Home cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/dolar' element={<Dolar modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>

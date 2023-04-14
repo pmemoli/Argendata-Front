@@ -25,7 +25,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
 
           if (val.cronologia === 'datosHistoricos') {
             return (
-              <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-slate-700': ''} p-1 rounded-sm z-[1]`}>
+              <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
                 <h3 className='sm:text-xl'>
                   {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
                   : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}

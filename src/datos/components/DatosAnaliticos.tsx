@@ -43,7 +43,7 @@ interface TiposDatos {
 function getTipos(datos: DataAnalitica): TiposDatos[] {
   const tipos: TiposDatos[] = [];
   Object.keys(datos).map((tipoTiempo: string): void => {
-    if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id') {
+    if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id' && tipoTiempo !== 'updatedAt' && tipoTiempo !== 'createdAt') {
       Object.keys(datos[tipoTiempo]).map((tipoDato: string): void => {
         tipos.push({'cronologia': tipoTiempo, 'nombreDatos': tipoDato});
       })
@@ -70,11 +70,11 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
     
   else return (
     <div className={`${modo === 'pagina' ? 'sm:flex sm:justify-center' : ''}`}>
-      <div className={`border-2 rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''} bg-slate-850`}>
+      <div className={`border-2 border-zinc-600	text-zinc-300 font-extralight rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''}`}>
 
       <BotonEstado manejoEstados={manejoEstados} setIndiceEstado={setIndiceEstado} indiceEstado={indiceEstado}/>
 
-      <Informacion texto={textoInfo}/>
+      <Informacion texto={textoInfo} createdAt={''}/>
 
       <Link to={path ? `/${path}` : `/${nombre.toLowerCase()}`}>
         <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    

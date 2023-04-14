@@ -1,10 +1,8 @@
 import {useEffect, useState} from 'react'
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001'
-});
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 interface datosMervalInterface {
   fechas: string[],
@@ -26,7 +24,7 @@ https://www.ambito.com/contenidos/dolar-cl.html`
 
 const msEnHora: number = 3600000;
 const msEnDia: number = msEnHora * 24;
-const deltaActualizacion: number = 0;  // doa
+const deltaActualizacion: number = 0;  // hora
 
 export default function Merval({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
@@ -36,15 +34,17 @@ export default function Merval({modo, cacheData, setCacheData}) {
   async function getDatos() {
     try {
       if (cacheData !== null && cacheData.merval !== null && cacheData.merval !== undefined && 
-        (-cacheData.merval.ultimaActualizacion.getTime() + hoy.getTime()) / msEnDia < deltaActualizacion) {
+        (-cacheData.merval.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.merval) {
           setData(cacheData.merval.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/merval');
-        const datosApi: any = res.data.datosMerval;
+        const datosApi: any = res.data.datos;
       
+        console.log(datosApi);
+
         delete datosApi['nombre'];
         delete datosApi['__v'];
   

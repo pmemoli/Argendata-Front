@@ -1,10 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001'
-})
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 interface datosProductoInterface {
   fechas: string[],
@@ -27,7 +25,6 @@ https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD?locations=AR`
 
 const msEnHora: number = 3600000;
 const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 1;  // mes
 
 export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
   const [datosProducto, setDatosProducto] = useState<datosProductoInterface>();
@@ -37,14 +34,14 @@ export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
   async function getDatosProducto() {
     try {
       if (cacheData !== null && cacheData.producto !== null && cacheData.producto !== undefined &&  
-        (-cacheData.producto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.producto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.producto) {
           setDatosProducto(cacheData.producto.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/producto');
-        const datosApi: any = res.data.datosProducto;
+        const datosApi: any = res.data.datos;
       
         delete datosApi['nombre'];
         delete datosApi['__v'];

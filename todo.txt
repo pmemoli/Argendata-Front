@@ -1,11 +1,20 @@
 Plan:
-- Icono
 
-- Sistema contacto
+- Reemplazar bluelytics por ambito
+
+- Modular datos y actualizadores
+
+- Ultima actualizacion (en info)
+
+- Icono cute
+
+- Ultima mirada y tesssteo
 
 - Publicar!
 
 - Analytics (cuando ya este subida)
+
+-------------------------------------------------
 
 - A medida agarre trafico (10-20k?) meter ads y la opcion de no tenerlos
 
@@ -13,6 +22,8 @@ Plan:
 
 
 Agregar:
+
+- Back en typescript?
 
 - Pagina con incendios actuales y/o riesgo
 

@@ -2,10 +2,9 @@ import {useState, useEffect} from 'react';
 import DatosGeograficos from './components/DatosGeograficos';
 import axios, {AxiosInstance} from 'axios';
 import pako from 'pako';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/datos/barrios'
-})
+import {api} from '../api';
+import {Buffer} from 'buffer';
+import {tiemposCache} from './utilidades/tiemposCache';
 
 const info: string = 
 `Mapa con informacion de los barrios populares del pais.
@@ -16,7 +15,6 @@ const hoy: Date = new Date();
 
 const msEnHora = 3600000;
 const msEnMes = msEnHora * 24 * 30;
-const deltaActualizacion = 8;  // mes
 
 export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.Element {
   const [data, setData] = useState<any>();
@@ -31,25 +29,24 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
 
   async function getData() {
     try {
-      if (cacheData !== null && cacheData.barrios !== null && cacheData.barrios !== undefined && 
-        (-cacheData.barrios.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+      if (cacheData !== null && cacheData.barrios !== null && cacheData.barrios !== undefined) {
           const decompressedData = pako.ungzip(new Uint8Array(cacheData.barrios.datos), { to: 'string' });
           setData(JSON.parse(decompressedData));
           return;
       }
 
       else {
-        const res: any = await api.get('');
-        const datosApi = res.data.datosBarrios.geoData;
+        const res: any = await api.get('/datos/barrios');
+        const datosApi = Buffer.from(res.data.datos.geoData, 'hex');
 
-        const decompressedData = pako.ungzip(new Uint8Array(datosApi.data), { to: 'string' });
+        const decompressedData = pako.ungzip(datosApi, { to: 'string' });
 
         setData(JSON.parse(decompressedData));
 
         setCacheData(prevCache => ({
           ...prevCache,
           barrios: {
-            datos: datosApi.data,
+            datos: datosApi,
             ultimaActualizacion: new Date(),
           }
         }));
@@ -69,6 +66,7 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
       info={info}
       onEachFeature={onEachFeature}
       pointToLayer={null}
+      createdAt={''}
       />
     </div>
   )

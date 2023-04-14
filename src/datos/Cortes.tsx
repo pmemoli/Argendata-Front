@@ -3,10 +3,9 @@ import DatosGeograficos from './components/DatosGeograficos';
 import axios, {AxiosInstance} from 'axios';
 import pako from 'pako';
 import L from 'leaflet';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001/datos/cortes'
-})
+import {api} from '../api';
+import {Buffer} from 'buffer';
+import {tiemposCache} from './utilidades/tiemposCache';
 
 const info: string = 
 `Mapa con los cortes de luz en el AMBA.
@@ -14,9 +13,6 @@ Fuente ENRE.
 https://www.argentina.gob.ar/enre/estado-de-la-red-electrica-en-el-area-metropolitana-de-buenos-aires`;
 
 const hoy: Date = new Date();
-
-const msEnHora = 3600000;
-const deltaActualizacion = 0;  // hora
 
 export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.Element {
   const [data, setData] = useState<any>();
@@ -36,26 +32,27 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
   async function getData() {
     try {
       if (cacheData !== null && cacheData.cortes !== null && cacheData.cortes !== undefined && 
-        (-cacheData.cortes.ultimaActualizacion.getTime() + hoy.getTime()) / msEnHora < deltaActualizacion) {
+        (-cacheData.cortes.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.cortes) {
 
-          const decompressedData = pako.ungzip(new Uint8Array(cacheData.cortes.datos), { to: 'string' });
+          const decompressedData = pako.ungzip(cacheData.cortes.datos.data, { to: 'string' });
           setData(JSON.parse(decompressedData));
 
           return;
       }
 
       else {
-        const res: any = await api.get('');
-        const datosApi = res.data.datosCortes.geoData;
+        const res: any = await api.get('/datos/cortes');
 
-        const decompressedData = pako.ungzip(new Uint8Array(datosApi.data), { to: 'string' });
+        const datosApi = Buffer.from(res.data.datos.geoData, 'hex');
+
+        const decompressedData = pako.ungzip(datosApi, { to: 'string' });
 
         setData(JSON.parse(decompressedData));
 
         setCacheData(prevCache => ({
           ...prevCache,
           cortes: {
-            datos: datosApi.data,
+            datos: datosApi,
             ultimaActualizacion: new Date(),
           }
         }));
@@ -75,6 +72,7 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
       info={info}
       onEachFeature={onEachFeature}
       pointToLayer={pointToLayer}
+      createdAt={''}
       />
     </div>
   )

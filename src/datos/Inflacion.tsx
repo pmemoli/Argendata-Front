@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-});
+import {api} from '../api';
+import { tiemposCache } from './utilidades/tiemposCache';
 
 interface datosInflacionInterface {
   fechas: string[],
@@ -23,10 +21,6 @@ const info: string =
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10`
 
-const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 0.5;  // mes
-
 export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element {
   const [datosInflacion, setDatosInflacion] = useState<datosInflacionInterface>();
 
@@ -35,14 +29,14 @@ export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element 
   async function getDatos() {
     try {
       if (cacheData !== null && cacheData.inflacion !== null && cacheData.inflacion !== undefined && 
-        (-cacheData.inflacion.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.inflacion.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.inflacion) {
           setDatosInflacion(cacheData.inflacion.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/inflacion');
-        const data: any = res.data.datosInflacion;
+        const data: any = res.data.datos;
         delete data['nombre'];
         delete data['__v'];
   

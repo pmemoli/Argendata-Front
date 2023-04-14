@@ -1,11 +1,7 @@
-
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-});
+import {api} from '../api';
+import {tiemposCache} from './utilidades/tiemposCache';
 
 interface datosDolarInterface {
   fechas: string[],
@@ -32,9 +28,6 @@ const info: string =
 `Venta y compra de las principales cotizaciones de dolar.
 Fuente Ambito Financiero.`
 
-const msEnHora = 3600000;
-const deltaActualizacion = 4;  // hora
-
 export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
   const [datosDolar, setDatosDolar] = useState<datosTotalesInterface>();
   const [transaccion, setTransaccion] = useState<string>('venta');
@@ -44,14 +37,14 @@ export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
   async function getDolar() {
     try {
       if (cacheData !== null && cacheData.dolar !== null && cacheData.dolar !== undefined && 
-      (-cacheData.dolar.ultimaActualizacion.getTime() + hoy.getTime()) / msEnHora < deltaActualizacion) {
+      (-cacheData.dolar.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.dolar) {
         setDatosDolar(cacheData.dolar.datos);
         return;
       }
 
       else {
         const res: any = await api.get('/datos/dolar');
-        const datosTotales: datosTotalesInterface = res.data.datosDolar.data;
+        const datosTotales: datosTotalesInterface = res.data.datos.data;
         
         setCacheData(prevCache => ({
           ...prevCache,

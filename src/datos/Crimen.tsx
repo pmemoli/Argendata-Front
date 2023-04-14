@@ -1,10 +1,8 @@
 import {useState, useEffect} from 'react';
 import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-
-const api = axios.create({
-  baseURL: 'http://localhost:3001'
-})
+import {api} from '../api';
+import {tiemposCache} from './utilidades/tiemposCache';
 
 interface datosCrimenInterface {
   fechas: string[],
@@ -66,7 +64,6 @@ Fuente datos.gob.ar.`
 
 const msEnHora = 3600000;
 const msEnMes = msEnHora * 24 * 30;
-const deltaActualizacion = 1;  // mes
 
 export default function Crimen({modo, cacheData, setCacheData}): JSX.Element {
   const [datosTotales, setDatosTotales] = useState<datosTotalesInterface>();
@@ -77,14 +74,14 @@ export default function Crimen({modo, cacheData, setCacheData}): JSX.Element {
   async function getDatos() {
     try {
       if (cacheData !== null && cacheData.crimen !== null && cacheData.crimen !== undefined && 
-        (-cacheData.crimen.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < deltaActualizacion) {
+        (-cacheData.crimen.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.crimen) {
           setDatosTotales(cacheData.crimen.datos);
           return;
       }
 
       else {
         const res: any = await api.get('/datos/crimen');    
-        setDatosTotales(res.data.datosCrimen.data);
+        setDatosTotales(res.data.datos.data);
 
         setCacheData(prevCache => ({
           ...prevCache,

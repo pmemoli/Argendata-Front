@@ -19,7 +19,7 @@ const customStyles = {
   }
 };
 
-export default function Informacion({texto}: {texto: string}): JSX.Element {
+export default function Informacion({texto, createdAt}): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
   function openModal() {
@@ -44,7 +44,7 @@ export default function Informacion({texto}: {texto: string}): JSX.Element {
           style={customStyles}
           ariaHideApp={false}
         >
-          {texto}
+          {texto + `\nUltima actualizacion: ${createdAt}`}
         </Modal>
       </div>
     </div>
