@@ -23,7 +23,7 @@ export default function Riesgo({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDataAnalitica('merval', cacheData, setCacheData, setData, setUltimaActualizacion)}, []);
+  useEffect(() => {getDataAnalitica('riesgo', cacheData, setCacheData, setData, setUltimaActualizacion)}, []);
 
   if (data === undefined) return (
     <div className='sm:text-xl'>

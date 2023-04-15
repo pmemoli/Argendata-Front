@@ -7,13 +7,14 @@ const msEnHora = 3600000;
 const msEnMes = msEnHora * 24 * 30;
 
 export const tiemposCache: tiemposCache = {
-    "dolar": msEnHora * 1,
-    "cortes": msEnHora * 1,
+    "dolar": msEnHora * 0.5,
+    "cortes": msEnHora * 0.5,
     "crimen": msEnMes * 3,
     "emision": msEnMes * 1,
     "empleo": msEnMes * 3,
     "gasto": msEnMes * 2,
     "inflacion": msEnMes * 0.5,
-    "merval": msEnHora * 2,
-    "riesgo": msEnHora * 2,
+    "merval": msEnHora * 0.5,
+    "riesgo": msEnHora * 0.5,
+    "pobreza": msEnMes * 3,
 }

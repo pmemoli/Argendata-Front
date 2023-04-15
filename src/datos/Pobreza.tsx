@@ -1,7 +1,5 @@
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import {tiemposCache} from './utilidades/tiemposCache';
 import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosPobrezaInterface {

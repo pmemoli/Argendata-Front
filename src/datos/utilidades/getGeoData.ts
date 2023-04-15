@@ -8,7 +8,7 @@ const hoy: Date = new Date();
 export async function getGeoData(nombre, setData, setCacheData, cacheData, setUltimaActualizacion) {
   try {
     const cacheSuitable: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined &&
-    (nombre !== 'barrios' || (-cacheData[nombre].ultimaActualizacionCache.getTime() + hoy.getTime()) < tiemposCache[nombre]);
+    (nombre === 'barrios' || (new Date(-cacheData[nombre].ultimaActualizacionCache).getTime() + hoy.getTime()) < tiemposCache[nombre]);
 
     if (cacheSuitable) {
       const decompressedData = pako.ungzip(new Uint8Array(cacheData[nombre].datos.data), { to: 'string' });

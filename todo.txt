@@ -1,9 +1,5 @@
 Plan:
 
-- Testear que todo ande bien
-
-- Icono cute
-
 - Publicar!
 
 - Analytics (cuando ya este subida)
@@ -17,7 +13,7 @@ Plan:
 
 Agregar:
 
-- Back en typescript?
+- Back modularizado
 
 - Pagina con incendios actuales y/o riesgo
 
@@ -35,4 +31,4 @@ Agregar:
 
 - Planes sociales
 
-Una vez este todo bien, pensar sistema de buscador...
+Una vez este todo bien y con exito mediano; pensar sistema de buscador...

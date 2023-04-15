@@ -15,43 +15,22 @@ interface datosTotalesInterface {
   [provincia: string]: datosCrimenInterface,
 }
 
-const metadata = [
-  {
-    homicidios: 'snic_hdt_arg',
-    robos: 'snic_rt_arg',
-    nombre: 'Pais',
-  },
-  {
-    homicidios: 'snic_hdt_06',
-    robos: 'snic_rt_06',
-    nombre: 'Buenos Aires',
-  },
-  {
-    homicidios: 'snic_hdt_82',
-    robos: 'snic_rt_82',
-    nombre: 'Santa Fe',
-  },
-  {
-    homicidios: 'snic_hdt_02',
-    robos: 'snic_rt_02',
-    nombre: 'Caba',    
-  },
-  {
-    homicidios: 'snic_hdt_58',
-    robos: 'snic_rt_58',
-    nombre: 'Neuquen',    
-  },
-  {
-    homicidios: 'snic_hdt_14',
-    robos: 'snic_rt_14',
-    nombre: 'Cordoba',    
-  },
-  {
-    homicidios: 'snic_hdt_34',
-    robos: 'snic_rt_34',
-    nombre: 'Formosa',    
-  },
-];
+const codigosPais = [
+  {nombre: 'Pais', codigo: 'arg'}, {nombre: 'Buenos Aires', codigo: '06'}, {nombre: 'Tierra del Fuego', codigo: '94'},
+  {nombre: 'Caba', codigo: '02'}, {nombre: 'Neuquen', codigo: '58'}, {nombre: 'Cordoba', codigo: '14'},
+  {nombre: 'Formosa', codigo: '34'}, {nombre: 'Tucuman', codigo: '90'}, {nombre: 'Salta', codigo: '66'},
+  {nombre: 'Jujuy', codigo: '38'}, {nombre: 'Chaco', codigo: '22'}, {nombre: 'Jujuy', codigo: '38'},
+  {nombre: 'Sgo del Estero', codigo: '86'}, {nombre: 'Misiones', codigo: '54'}, {nombre: 'Corrientes', codigo: '18'},
+  {nombre: 'Entre Rios', codigo: '30'}, {nombre: 'San Luis', codigo: '70'}, {nombre: 'La Pampa', codigo: '42'},
+  {nombre: 'Rio Negro', codigo: '62'}, {nombre: 'Jujuy', codigo: '38'}, {nombre: 'Chubut', codigo: '26'},
+  {nombre: 'Jujuy', codigo: '38'}, {nombre: 'Santa Cruz', codigo: '78'}, 
+]
+
+const metadata = codigosPais.map(provincia => { return {
+  homicidios: `snic_hdt_${provincia.codigo}`,
+  robos: `snic_rt_${provincia.codigo}`,
+  nombre: provincia.nombre
+}})
 
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
