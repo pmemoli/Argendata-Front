@@ -38,7 +38,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     }
 
     const extremoInvalido: boolean = datos.datosHistoricos[tipo][indiceHasta] === 0 || datos.datosHistoricos[tipo][indiceHasta] === null;
-
+    
     if (extremoInvalido) {
       indiceHasta -= 1;
     }

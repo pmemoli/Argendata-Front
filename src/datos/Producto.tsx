@@ -1,8 +1,6 @@
-import axios, { AxiosInstance } from 'axios';
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosProductoInterface {
   fechas: string[],
@@ -23,43 +21,11 @@ Fuente worldbank.
 https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD?locations=AR
 https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD?locations=AR`
 
-const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-
 export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
   const [datosProducto, setDatosProducto] = useState<datosProductoInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatosProducto()}, []);
-
-  async function getDatosProducto() {
-    try {
-      if (cacheData !== null && cacheData.producto !== null && cacheData.producto !== undefined &&  
-        (-cacheData.producto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.producto) {
-          setDatosProducto(cacheData.producto.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/producto');
-        const datosApi: any = res.data.datos;
-      
-        delete datosApi['nombre'];
-        delete datosApi['__v'];
-  
-        setDatosProducto(datosApi);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          producto: {
-            datos: datosApi,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e);}
-  }
+  useEffect(() => {getDataAnalitica('producto', cacheData, setCacheData, setDatosProducto, setUltimaActualizacion)}, []);
 
   function renderContent(): JSX.Element {
     if (datosProducto === undefined) return (
@@ -80,6 +46,7 @@ export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
       manejoEstados={{}}
       round={0}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

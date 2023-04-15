@@ -1,14 +1,8 @@
 Plan:
 
-- Reemplazar bluelytics por ambito
-
-- Modular datos y actualizadores
-
-- Ultima actualizacion (en info)
+- Testear que todo ande bien
 
 - Icono cute
-
-- Ultima mirada y tesssteo
 
 - Publicar!
 

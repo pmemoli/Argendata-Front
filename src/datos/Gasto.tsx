@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
 import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {tiemposCache} from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosGastoInterface {
   fechas: string[],
@@ -18,44 +18,11 @@ const info: string =
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/dataset/sspm-gasto-publico-consolidado`
 
-const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 1;  // mes
-
 export default function Gasto({modo, cacheData, setCacheData}): JSX.Element {
   const [datosGasto, setDatosGasto] = useState<datosGastoInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatosGasto()}, []);
-
-  async function getDatosGasto() {
-    try {
-      if (cacheData !== null && cacheData.gasto !== null && cacheData.gasto !== undefined && 
-        (-cacheData.gasto.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.gasto) {
-          setDatosGasto(cacheData.gasto.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/gasto');
-        const datosApi: any = res.data.datos;
-  
-        delete datosApi['nombre'];
-        delete datosApi['__v'];
-  
-        setDatosGasto(datosApi);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          gasto: {
-            datos: datosApi,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e);}
-  }
+  useEffect(() => {getDataAnalitica('gasto', cacheData, setCacheData, setDatosGasto, setUltimaActualizacion)}, []);
 
   function renderContent(): JSX.Element {
     if (datosGasto === undefined) return (
@@ -75,6 +42,7 @@ export default function Gasto({modo, cacheData, setCacheData}): JSX.Element {
       manejoEstados={{}}
       round={0}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

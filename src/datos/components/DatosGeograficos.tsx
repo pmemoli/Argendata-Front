@@ -2,7 +2,7 @@ import {MapContainer, TileLayer, GeoJSON, Marker} from 'react-leaflet';
 import Informacion from '../../components/datos/Informacion';
 import L from 'leaflet';
 
-export default function DatosGeograficos({modo, nombre, center, geoData, createdAt, info, onEachFeature, pointToLayer}): JSX.Element {
+export default function DatosGeograficos({modo, nombre, center, geoData, createdAt, info, onEachFeature}): JSX.Element {
   if (geoData === undefined) return (
     <div className='sm:text-xl'>
       Cargando...

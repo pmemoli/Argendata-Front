@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
 import {api} from '../api';
 import { tiemposCache } from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 const ids: any = {
   desempleo: '45.1_ECTDT_0_A_33',
@@ -40,37 +40,9 @@ const deltaActualizacion: number = 1;  // mes
 
 export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatos()}, [])
-
-  async function getDatos() {
-    try {
-      if (cacheData !== null && cacheData.empleo !== null && cacheData.empleo !== undefined && 
-        (-cacheData.empleo.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.empleo) {
-          setDatosEmpleo(cacheData.empleo.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/empleo');
-        const datosApi: any = res.data.datos;
-        delete datosApi['nombre'];
-        delete datosApi['__v'];
-  
-        setDatosEmpleo(datosApi);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          empleo: {
-            datos: datosApi,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e)}
-  }
+  useEffect(() => {getDataAnalitica('empleo', cacheData, setCacheData, setDatosEmpleo, setUltimaActualizacion)}, []);
 
   function renderContent(): JSX.Element {
     if (datosEmpleo === undefined) return (
@@ -91,6 +63,7 @@ export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
       manejoEstados={{}}
       round={1}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

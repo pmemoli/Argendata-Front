@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react'
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
 import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {tiemposCache} from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosMervalInterface {
   fechas: string[],
@@ -28,40 +28,9 @@ const deltaActualizacion: number = 0;  // hora
 
 export default function Merval({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatos()}, []);
-
-  async function getDatos() {
-    try {
-      if (cacheData !== null && cacheData.merval !== null && cacheData.merval !== undefined && 
-        (-cacheData.merval.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.merval) {
-          setData(cacheData.merval.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/merval');
-        const datosApi: any = res.data.datos;
-      
-        console.log(datosApi);
-
-        delete datosApi['nombre'];
-        delete datosApi['__v'];
-  
-        setData(datosApi);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          merval: {
-            datos: datosApi,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e);}
-  }
+  useEffect(() => {getDataAnalitica('merval', cacheData, setCacheData, setData, setUltimaActualizacion)}, []);
 
   if (data === undefined) return (
     <div className='sm:text-xl'>
@@ -82,6 +51,7 @@ export default function Merval({modo, cacheData, setCacheData}) {
       manejoEstados={{}}
       round={1}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
   )

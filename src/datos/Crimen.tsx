@@ -1,8 +1,6 @@
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import {tiemposCache} from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosCrimenInterface {
   fechas: string[],
@@ -68,33 +66,9 @@ const msEnMes = msEnHora * 24 * 30;
 export default function Crimen({modo, cacheData, setCacheData}): JSX.Element {
   const [datosTotales, setDatosTotales] = useState<datosTotalesInterface>();
   const [provincia, setProvincia] = useState<string>('Pais');
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatos()}, [])
-
-  async function getDatos() {
-    try {
-      if (cacheData !== null && cacheData.crimen !== null && cacheData.crimen !== undefined && 
-        (-cacheData.crimen.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.crimen) {
-          setDatosTotales(cacheData.crimen.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/crimen');    
-        setDatosTotales(res.data.datos.data);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          crimen: {
-            datos: res.data.datosCrimen.data,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e)}
-  }
+  useEffect(() => {getDataAnalitica('crimen', cacheData, setCacheData, setDatosTotales, setUltimaActualizacion, true)}, []);
 
   function renderContent(): JSX.Element {
     if (datosTotales === undefined) return (
@@ -120,6 +94,7 @@ export default function Crimen({modo, cacheData, setCacheData}): JSX.Element {
       }}
       round={1}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

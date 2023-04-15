@@ -34,7 +34,8 @@ interface mixedData {
 interface cacheData {
   [nombreDataset: string]: {
     datos: data | mixedData | Uint8Array,
-    ultimaActualizacion: Date,
+    ultimaActualizacionCache: Date,
+    ultimaActualizacionApi: string,
   }
 }
 

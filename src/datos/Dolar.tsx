@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import {tiemposCache} from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosDolarInterface {
   fechas: string[],
@@ -30,36 +29,10 @@ Fuente Ambito Financiero.`
 
 export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
   const [datosDolar, setDatosDolar] = useState<datosTotalesInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
   const [transaccion, setTransaccion] = useState<string>('venta');
 
-  useEffect(() => {getDolar()}, []);
-
-  async function getDolar() {
-    try {
-      if (cacheData !== null && cacheData.dolar !== null && cacheData.dolar !== undefined && 
-      (-cacheData.dolar.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.dolar) {
-        setDatosDolar(cacheData.dolar.datos);
-        return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/dolar');
-        const datosTotales: datosTotalesInterface = res.data.datos.data;
-        
-        setCacheData(prevCache => ({
-          ...prevCache,
-          dolar: {
-            datos: datosTotales,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-        
-        setDatosDolar(datosTotales);
-      }
-    }
-
-    catch(e) {console.log(e)}
-  }
+  useEffect(() => {getDataAnalitica('dolar', cacheData, setCacheData, setDatosDolar, setUltimaActualizacion, true)}, []);
 
   function renderContent(): JSX.Element {
     if (datosDolar === undefined) return (
@@ -84,6 +57,7 @@ export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
       }}
       round={0}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

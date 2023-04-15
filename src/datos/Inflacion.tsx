@@ -1,8 +1,6 @@
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosInflacionInterface {
   fechas: string[],
@@ -23,38 +21,10 @@ https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10`
 
 export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element {
   const [datosInflacion, setDatosInflacion] = useState<datosInflacionInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatos()}, [])
+  useEffect(() => {getDataAnalitica('inflacion', cacheData, setCacheData, setDatosInflacion, setUltimaActualizacion)}, []);
 
-  async function getDatos() {
-    try {
-      if (cacheData !== null && cacheData.inflacion !== null && cacheData.inflacion !== undefined && 
-        (-cacheData.inflacion.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.inflacion) {
-          setDatosInflacion(cacheData.inflacion.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/inflacion');
-        const data: any = res.data.datos;
-        delete data['nombre'];
-        delete data['__v'];
-  
-        setDatosInflacion(data);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          inflacion: {
-            datos: data,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e)}
-  }
-  
   function renderContent(): JSX.Element {
     if (datosInflacion === undefined) return (
       <div className='sm:text-xl'>
@@ -74,6 +44,7 @@ export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element 
       manejoEstados={{}}
       round={1}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

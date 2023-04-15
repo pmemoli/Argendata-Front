@@ -1,8 +1,6 @@
 import {useState, useEffect} from 'react';
-import axios, {AxiosInstance} from 'axios';
 import DatosAnaliticos from './components/DatosAnaliticos';
-import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosEmisionInterface {
   fechas: string[],
@@ -18,48 +16,11 @@ const info: string =
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
 
-const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-
 export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmision, setDatosEmision] = useState<datosEmisionInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatosEmision()}, []);
-
-  async function getDatosEmision() {
-    try {
-      if (cacheData !== null && cacheData.emision !== null && cacheData.emision !== undefined && 
-        (-cacheData.emision.ultimaActualizacion.getTime() + hoy.getTime()) / msEnMes < tiemposCache.emision) {
-          setDatosEmision(cacheData.emision.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/emision');
-        const datosApi: any = res.data.datos;
-
-        console.log(res);
-        
-        datosApi['datosHistoricos']['base monetaria'] = datosApi['datosHistoricos']['emision'];
-        delete datosApi['datosHistoricos']['emision'];
-  
-        delete datosApi['nombre'];
-        delete datosApi['__v'];
-  
-        setDatosEmision(datosApi);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          emision: {
-            datos: datosApi,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e);}
-  }
+  useEffect(() => {getDataAnalitica('emision', cacheData, setCacheData, setDatosEmision, setUltimaActualizacion)}, []);
 
   function renderContent(): JSX.Element {
     if (datosEmision === undefined) return (
@@ -79,6 +40,7 @@ export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
       manejoEstados={{}}
       round={0}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )

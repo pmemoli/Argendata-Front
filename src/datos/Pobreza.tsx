@@ -1,7 +1,8 @@
 import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
 import {api} from '../api';
-import { tiemposCache } from './utilidades/tiemposCache';
+import {tiemposCache} from './utilidades/tiemposCache';
+import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
 interface datosPobrezaInterface {
   fechas: string[],
@@ -22,38 +23,9 @@ https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-46-152`
 
 export default function Pobreza({modo, cacheData, setCacheData}): JSX.Element {  
   const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>();
+  const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
 
-  useEffect(() => {getDatos()}, []);
-
-  async function getDatos() {
-    try {
-      if (cacheData !== null && cacheData.pobreza !== null && cacheData.pobreza !== undefined && 
-        (-cacheData.pobreza.ultimaActualizacion.getTime() + hoy.getTime()) < tiemposCache.pobreza) {
-          setDatosPobreza(cacheData.pobreza.datos);
-          return;
-      }
-
-      else {
-        const res: any = await api.get('/datos/pobreza');
-        const data: any = res.data.datos;
-        delete data['nombre'];
-        delete data['__v'];
-  
-        setDatosPobreza(data);
-
-        setCacheData(prevCache => ({
-          ...prevCache,
-          pobreza: {
-            datos: data,
-            ultimaActualizacion: new Date(),
-          }
-        }));
-      }
-    }
-
-    catch(e) {console.log(e);}
-  }
-
+  useEffect(() => {getDataAnalitica('pobreza', cacheData, setCacheData, setDatosPobreza, setUltimaActualizacion)}, []);
 
   function renderContent(): JSX.Element {
     if (datosPobreza === undefined) return (
@@ -74,6 +46,7 @@ export default function Pobreza({modo, cacheData, setCacheData}): JSX.Element {
       manejoEstados={{}}
       round={1}
       textoInfo={info}
+      ultimaActualizacion={ultimaActualizacion}
       />
     </div>
     )
