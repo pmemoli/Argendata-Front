@@ -10,7 +10,7 @@ export async function getGeoData(nombre, setData, setCacheData, cacheData, setUl
     const cacheSuitable: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined &&
     (nombre === 'barrios' || (new Date(-cacheData[nombre].ultimaActualizacionCache).getTime() + hoy.getTime()) < tiemposCache[nombre]);
 
-    if (cacheSuitable) {
+    if (false && cacheSuitable) {
       const decompressedData = pako.ungzip(new Uint8Array(cacheData[nombre].datos.data), { to: 'string' });
 
       setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi)
