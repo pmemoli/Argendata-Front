@@ -17,7 +17,7 @@ export default function DatosGeograficos({modo, nombre, center, geoData, created
         <h1 className='flex justify-center text-2xl mb-2'>{nombre}</h1>
 
         <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
-          <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"/>
+          <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"/>
           <GeoJSON data={geoData} onEachFeature={onEachFeature}/>
         </MapContainer>
       </div>
