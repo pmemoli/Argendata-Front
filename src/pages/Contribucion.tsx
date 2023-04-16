@@ -6,7 +6,7 @@ export default function Contribucion() {
         ¿Te gusta la página y querés contribuir a su desarrollo? Todavía queda mucho por hacer.
         Si aprecias el trabajo, podés aportar con lo que te parezca razonable:
         <br/><br/>
-        <a className="z-[1] text-xl" href="https://ayudar.ar/argendata" target="_blank">¡Aportá acá!</a>
+        <a className="z-[1] text-xl" href="https://ayudar.ar/argendata" target="_blank" rel="noreferrer">¡Aportá acá!</a>
         <br/><br/>
 
         </p>

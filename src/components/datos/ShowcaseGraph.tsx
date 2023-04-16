@@ -8,7 +8,8 @@ interface Chart {
     borderColor?: string,
     pointBackgroundColor?: string,
     borderWidth?: number,
-    pointRadius?: number
+    pointRadius?: number,
+    pointHitRadius?: number,
   }]
 };
 
@@ -56,7 +57,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
       label: tipo,
       data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
       borderWidth: 2,
-      pointRadius: 0.7
+      pointRadius: 0.7,
+      pointHitRadius: 7,
     }]
   };
 
