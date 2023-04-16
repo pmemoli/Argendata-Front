@@ -30,6 +30,7 @@ export default function Gasto({modo, cacheData, setCacheData}): JSX.Element {
         Cargando...
       </div>
     )
+    
     else return (
     <div>
       <DatosAnaliticos 
@@ -43,6 +44,7 @@ export default function Gasto({modo, cacheData, setCacheData}): JSX.Element {
       round={0}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
+      path='gasto'
       />
     </div>
     )
