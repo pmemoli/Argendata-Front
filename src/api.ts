@@ -4,5 +4,5 @@ import axios, {AxiosInstance} from 'axios';
 // 'http://localhost:5000'
 
 export const api: AxiosInstance = axios.create({
-  baseURL: process.env.API,
+  baseURL: 'https://argendata-back.vercel.app',
 });
