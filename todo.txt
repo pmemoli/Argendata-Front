@@ -1,8 +1,12 @@
 Plan:
 
-- Publicar!
+- Testeo exhaustivo
 
-- Analytics (cuando ya este subida)
+- Seguridad heavy
+
+- Analytics
+
+- Refinar tiempos y pensar todo bien
 
 -------------------------------------------------
 
