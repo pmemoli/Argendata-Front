@@ -1,14 +1,8 @@
 Plan:
 
-- Testeo exhaustivo
+- Ver en la semana que ande todo relativamente bien
 
-- Seguridad heavy
-
-- Analytics
-
-- Refinar tiempos y pensar todo bien
-
--------------------------------------------------
+-----------------------------------------------------------------------------
 
 - A medida agarre trafico (10-20k?) meter ads y la opcion de no tenerlos
 
