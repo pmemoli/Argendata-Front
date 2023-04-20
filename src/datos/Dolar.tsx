@@ -10,7 +10,6 @@ interface datosDolarInterface {
   },
   datosActuales: {
     ccl: number,
-    tarjeta: number,
   },
 };
 
