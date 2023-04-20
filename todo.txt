@@ -1,6 +1,9 @@
 Plan:
 
-- Ver en la semana que ande todo relativamente bien
+- Actualizacion de dolar diario vs dolar historico y lo mismo para merval y riesgo (cron o appeandear?).
+
+- Ver en la semana que ande todo relativamente bien + publicidad reddit
+
 
 -----------------------------------------------------------------------------
 
@@ -16,8 +19,6 @@ Agregar:
 - Pagina con incendios actuales y/o riesgo
 
 - Agregar pobreza infantil
-
-- Gasto publico en dolares (ccl)
 
 - Inflacion global ademas de ipc
 
