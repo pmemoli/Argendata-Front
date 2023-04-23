@@ -2,8 +2,15 @@ Plan:
 
 - Actualizacion de merval diario vs historico 
 
-- Ver en la semana que ande todo relativamente bien + publicidad reddit
+- Icono distinto?
 
+- Ingresos pesados por inflacion (mediana y promedio) y variacion mensual.
+
+- Inflacion total ademas de ipc
+
+- PBI no PPP
+
+- Ver en la semana que ande todo relativamente bien + posteo reddit
 
 -----------------------------------------------------------------------------
 
@@ -16,13 +23,9 @@ Agregar:
 
 - Back modularizado
 
-- Ingresos!!
-
 - Pagina con incendios actuales y/o riesgo
 
 - Agregar pobreza infantil
-
-- Inflacion global ademas de ipc
 
 - Mapa pobreza y crimen
 
