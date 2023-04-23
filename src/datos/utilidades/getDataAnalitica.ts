@@ -10,7 +10,10 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     const cacheSuitable: boolean = hayCache &&
     (hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacionCache).getTime()) < tiemposCache[nombre]; // Cache desactualizado
 
-    if (cacheSuitable) {
+    const actualizarCrimen: boolean = hayCache &&
+    (new Date(cacheData[nombre].ultimaActualizacionCache).getTime() < new Date(2023, 3, 22, 23, 14).getTime());
+
+    if (cacheSuitable && !actualizarCrimen) {
       setData(cacheData[nombre].datos);
       setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
     }
