@@ -22,7 +22,6 @@ export default function Home({cacheData, setCacheData}) {
       <span className='sm:col-span-2'><Merval modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <span className='sm:col-span-2'><Riesgo modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <Gasto modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-
     </div>
   )
 }

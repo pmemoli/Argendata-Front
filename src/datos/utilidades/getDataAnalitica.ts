@@ -5,8 +5,10 @@ const hoy: Date = new Date();
 
 export async function getDataAnalitica(nombre, cacheData, setCacheData, setData, setUltimaActualizacion, muchosDatos=false) {
   try {
-    const cacheSuitable: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined && 
-    ((hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacionCache).getTime()) < tiemposCache[nombre])
+    const hayCache: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined;
+    
+    const cacheSuitable: boolean = hayCache &&
+    (hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacionCache).getTime()) < tiemposCache[nombre]; // Cache desactualizado
 
     if (cacheSuitable) {
       setData(cacheData[nombre].datos);
@@ -14,11 +16,14 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     }
 
     else {
+      if (hayCache) {
+        setData(cacheData[nombre].datos);
+        setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
+      }
+
       const res: any = await api.get(`/datos/${nombre}`);
 
       let datosApi : any = res.data.datos;
-
-      console.log(datosApi);
 
       delete datosApi['nombre'];
       delete datosApi['__v'];

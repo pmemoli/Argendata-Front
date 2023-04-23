@@ -12,12 +12,12 @@ export default function Contribucion() {
         </p>
         <h3 className="flex justify-center text-2xl mb-6">Planes inmediatos</h3>
         <ul className="list-disc ml-5">
+          <li>Ingresos en distintas monedas y como se distribuyen</li>
           <li>Mapa con incendios actuales y/o riesgo de incendio</li>
           <li>Pobreza infantil y mapa con pobreza por provincia</li>
           <li>Inflación total, no solo variación de IPC</li>
           <li>Datos de deuda y su peso en el gasto público</li>
           <li>Datos de planes sociales</li>
-          <li>Datos de trabajo público</li>
         </ul>
         <h3 className="flex justify-center text-2xl mb-6 mt-6">Ambiciones a largo plazo</h3>
         <p className="mb-10">

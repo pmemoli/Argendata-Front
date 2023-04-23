@@ -22,9 +22,20 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     return ultDato;
   }
 
+  function nombreDato(val: TiposDatos): string {
+    return val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)
+  }
+
+  function setUnidades(val: TiposDatos, numeroDato: string): string {
+    const unidadDato: string = unidades !== undefined ? unidades[val.nombreDatos] : unidad
+    const simboloPlata: string = unidadDato.includes('$') ? '$' : ''
+
+    return `${simboloPlata}${numeroDato}${unidadDato.replace('$', '')}`
+  }
+
   if (datos === undefined) return <></>
 
-  function renderDatoActual(val): JSX.Element {
+  function renderDatoActual(val: TiposDatos): JSX.Element {
     for (let i = 0; i < tipos.length; i++) {
       if (tipos[i].nombreDatos === val.nombreDatos && tipos[i].cronologia === 'datosHistoricos') {
         return <></>
@@ -33,8 +44,18 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     
     return (
       <h3 className='p-1 z-[1] sm:text-xl'>
-      {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}: {datos[val.cronologia][val.nombreDatos].toFixed(round)}
-      {unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}</h3>                
+        {nombreDato(val)}: {setUnidades(val, datos[val.cronologia][val.nombreDatos].toFixed(round))}
+      </h3>                
+    )
+  }
+
+  function renderDatoHistorico(val: TiposDatos): JSX.Element {
+    return (
+      <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
+        <h3 className='sm:text-xl'>
+          {nombreDato(val)}: {setUnidades(val, currentValue(val).toFixed(round))}
+        </h3>
+      </button>
     )
   }
 
@@ -45,14 +66,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
           if (!mostrarValores) return <></>
 
           if (val.cronologia === 'datosHistoricos') {
-            return (
-              <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
-                <h3 className='sm:text-xl'>
-                  {val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)}
-                  : {currentValue(val).toFixed(round)}{unidad}{unidades !== undefined ? unidades[val.nombreDatos]: ''}
-                </h3>
-              </button>
-            )
+            return renderDatoHistorico(val);
           }
 
           else {

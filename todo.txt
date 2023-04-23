@@ -1,6 +1,6 @@
 Plan:
 
-- Actualizacion de dolar diario vs dolar historico y lo mismo para merval y riesgo (cron o appeandear?).
+- Actualizacion de merval diario vs historico 
 
 - Ver en la semana que ande todo relativamente bien + publicidad reddit
 
@@ -15,6 +15,8 @@ Plan:
 Agregar:
 
 - Back modularizado
+
+- Ingresos!!
 
 - Pagina con incendios actuales y/o riesgo
 
