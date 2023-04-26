@@ -3,11 +3,12 @@ interface tiemposCache {
 }
 
 // Tiempo en ms
-const msEnHora = 3600000;
-const msEnMes = msEnHora * 24 * 30;
+const msEnMinuto: number = 1000;
+const msEnHora: number = 1000 * 60 * 60;
+const msEnMes: number = msEnHora * 24 * 30;
 
 export const tiemposCache: tiemposCache = {
-    "dolar": msEnHora * 0.5,
+    "dolar": msEnMinuto * 10,
     "cortes": msEnHora * 0.5,
     "crimen": msEnMes * 3,
     "emision": msEnMes * 0.25,
