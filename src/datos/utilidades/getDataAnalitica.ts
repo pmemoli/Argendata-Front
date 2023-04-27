@@ -4,6 +4,14 @@ import {tiemposCache} from './tiemposCache';
 const hoy: Date = new Date();
 
 export async function getDataAnalitica(nombre, cacheData, setCacheData, setData, setUltimaActualizacion, muchosDatos=false) {
+  function actualizarEstadoMuchosDatos(objeto: any, estado: string): void {
+    const keys: string[] = Object.keys(objeto);
+
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] !== 'estado') objeto[keys[i]]['estado'] = estado;
+    }
+  }
+
   try {
     const hayCache: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined;
     
@@ -14,12 +22,22 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     (new Date(cacheData[nombre].ultimaActualizacionCache).getTime() < new Date(2023, 3, 22, 23, 14).getTime());
 
     if (cacheSuitable && !actualizarCrimen) {
+      if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
+      else cacheData[nombre].datos['estado'] = 'cache';
+
       setData(cacheData[nombre].datos);
       setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
     }
 
     else {
       if (hayCache) {
+        console.log(cacheData[nombre].datos);
+
+        if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
+        else cacheData[nombre].datos['estado'] = 'actualizando' 
+
+        console.log(cacheData[nombre].datos);
+
         setData(cacheData[nombre].datos);
         setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
       }
@@ -37,7 +55,10 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
 
       if (muchosDatos) {
         datosApi= res.data.datos.data;
+        actualizarEstadoMuchosDatos(datosApi, 'cache');
       }
+      else datosApi['estado'] = 'cache' 
+
 
       setCacheData(prevCache => ({
         ...prevCache,
@@ -48,6 +69,8 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
         }
       }));
       
+      datosApi['estado'] = 'cache';
+
       setData(datosApi);
     }
   }

@@ -5,6 +5,7 @@ import BotonEstado from '../../components/datos/BotonEstado';
 import ShowcaseOptions from '../../components/datos/ShowcaseOptions';
 import ShowcaseData from '../../components/datos/ShowcaseData';
 import ShowcaseGraph from '../../components/datos/ShowcaseGraph';
+import EstadoActualizacion from '../../components/datos/EstadoActualizacion';
 
 interface DataAnalitica {
   fechas: string[],
@@ -44,7 +45,7 @@ interface TiposDatos {
 function getTipos(datos: DataAnalitica): TiposDatos[] {
   const tipos: TiposDatos[] = [];
   Object.keys(datos).map((tipoTiempo: string): void => {
-    if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id' && tipoTiempo !== 'updatedAt' && tipoTiempo !== 'createdAt') {
+    if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id' && tipoTiempo !== 'updatedAt' && tipoTiempo !== 'createdAt' && tipoTiempo !== 'estado') {
       Object.keys(datos[tipoTiempo]).map((tipoDato: string): void => {
         tipos.push({'cronologia': tipoTiempo, 'nombreDatos': tipoDato});
       })
@@ -88,6 +89,8 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
       <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}/>
 
       <ShowcaseOptions modo={modo} datos={datos} rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico}/>
+
+      <EstadoActualizacion datos={datos}/>
       </div>
     </div>
   )

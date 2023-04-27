@@ -7,38 +7,24 @@ const hoy: Date = new Date();
 
 export async function getGeoData(nombre, setData, setCacheData, cacheData, setUltimaActualizacion) {
   try {
-    const cacheSuitable: boolean = cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined &&
-    (nombre === 'barrios' || (new Date(-cacheData[nombre].ultimaActualizacionCache).getTime() + hoy.getTime()) < tiemposCache[nombre]);
+    const res: any = await api.get(`/datos/${nombre}`);
+    const datosApi = Buffer.from(res.data.datos.geoData, 'hex');
 
-    if (false && cacheSuitable) {
-      const decompressedData = pako.ungzip(new Uint8Array(cacheData[nombre].datos.data), { to: 'string' });
+    const ultimaActualizacion: string = new Date(res.data.datos.createdAt).toLocaleString()
+    setUltimaActualizacion(ultimaActualizacion)
 
-      setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi)
+    const decompressedData = pako.ungzip(datosApi, { to: 'string' });
 
-      setData(JSON.parse(decompressedData));
-      return;
-    }
+    setData(JSON.parse(decompressedData));
 
-    else {
-      const res: any = await api.get(`/datos/${nombre}`);
-      const datosApi = Buffer.from(res.data.datos.geoData, 'hex');
-
-      const ultimaActualizacion: string = new Date(res.data.datos.createdAt).toLocaleString()
-      setUltimaActualizacion(ultimaActualizacion)
-
-      const decompressedData = pako.ungzip(datosApi, { to: 'string' });
-
-      setData(JSON.parse(decompressedData));
-
-      setCacheData(prevCache => ({
-        ...prevCache,
-        [nombre]: {
-          datos: datosApi,
-          ultimaActualizacionCache: new Date(),
-          ultimaActualizacionApi: ultimaActualizacion, 
-        }
-      }));
-    }
+    setCacheData(prevCache => ({
+      ...prevCache,
+      [nombre]: {
+        datos: datosApi,
+        ultimaActualizacionCache: new Date(),
+        ultimaActualizacionApi: ultimaActualizacion, 
+      }
+    }));
   }
 
   catch(e) {console.log(e);}

@@ -11,6 +11,7 @@ interface datosDolarInterface {
   datosActuales: {
     ccl: number,
   },
+  estado: string,
 };
 
 interface datosTotalesInterface {
