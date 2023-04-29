@@ -31,8 +31,6 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
 
     else {
       if (hayCache) {
-        console.log(cacheData[nombre].datos);
-
         if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
         else cacheData[nombre].datos['estado'] = 'actualizando' 
 

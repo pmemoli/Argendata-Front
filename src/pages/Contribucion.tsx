@@ -21,11 +21,11 @@ export default function Contribucion() {
         </ul>
         <h3 className="flex justify-center text-2xl mb-6 mt-6">Ambiciones a largo plazo</h3>
         <p className="mb-10">
-          Hay una infinidad de datos ofrecidos por el Estado y los medios de comunicación,
-          pero no es sencillo conseguirlos. La mejor página hasta el momento -datos.gob.ar- sigue siendo muy limitada.
+          El estado y los medios de comunicacion ofrecen una cantidad inmensa de datos, pero no es siempre sencillo conseguirlos.
+          La mejor página hasta el momento -datos.gob.ar- sigue siendo muy limitada.
           Un objetivo a largo plazo es que Argendata tenga un buscador que permita descargar datos en .csv o .json
-          de casi todas las fuentes que estén; con un sistema que las actualice automáticamente. De esa forma, cualquier persona
-          que quiera ver las estadísticas del país puede hacerlo sin perder tiempo explorando una infinidad de fuentes.
+          de casi todas las fuentes que estén. De esa forma, cualquier persona
+          que quiera ver las estadísticas del país pueda hacerlo sin perder tiempo explorando una infinidad de fuentes.
         </p>
       </div>
     </div>

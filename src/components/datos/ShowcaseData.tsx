@@ -23,7 +23,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
   }
 
   function nombreDato(val: TiposDatos): string {
-    return val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)
+    return (val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)).replace('GDP', 'PBI')
   }
 
   function setUnidades(val: TiposDatos, numeroDato: string): string {
