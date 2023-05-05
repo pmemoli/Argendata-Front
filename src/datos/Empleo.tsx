@@ -34,10 +34,6 @@ https://www.datos.gob.ar/series/api/series/?ids=${ids.desempleo}
 https://www.datos.gob.ar/series/api/series/?ids=${ids.empleo}
 https://www.datos.gob.ar/series/api/series/?ids=${ids.actividad}`
 
-const msEnHora: number = 3600000;
-const msEnMes: number = msEnHora * 24 * 30;
-const deltaActualizacion: number = 1;  // mes
-
 export default function Empleo({modo, cacheData, setCacheData}): JSX.Element {
   const [datosEmpleo, setDatosEmpleo] = useState<datosEmpleoInterface>();
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();

@@ -57,7 +57,6 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       }
       else datosApi['estado'] = 'cache' 
 
-
       setCacheData(prevCache => ({
         ...prevCache,
         [nombre]: {

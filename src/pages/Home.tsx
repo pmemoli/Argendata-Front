@@ -8,6 +8,7 @@ import Pobreza from "../datos/Pobreza";
 import Producto from "../datos/Producto";
 import Merval from "../datos/Merval";
 import Gasto from "../datos/Gasto";
+import Ingresos from "../datos/Ingresos";
 
 export default function Home({cacheData, setCacheData}) {
   return (
@@ -19,8 +20,8 @@ export default function Home({cacheData, setCacheData}) {
       <span className='sm:col-span-2'><Producto modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <Empleo modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
       <Emision modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
+      <span className='sm:col-span-2'><Ingresos modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <span className='sm:col-span-2'><Merval modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <span className='sm:col-span-2'><Riesgo modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
       <Gasto modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
     </div>
   )
