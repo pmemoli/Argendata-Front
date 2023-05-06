@@ -15,7 +15,7 @@ const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
 const info: string = 
-`Mediana y media (promedio) de los ingresos per capita por familia
+`Mediana, media (promedio) e indice gini de los ingresos per capita por familia
 (ingresos totales / cantidad integrantes).
 
 El grafico muestra el ingreso ajustado por inflacion (ipc) en base de pesos
@@ -46,14 +46,15 @@ export default function Ingresos({modo, cacheData, setCacheData}): JSX.Element {
     else return (
     <div>
       <DatosAnaliticos 
-      nombre='Ingresos (Base 2017)'
+      nombre='Ingresos Pais (Base 2017)'
       modo={modo}
       datos={datosIngresos}
       rangoInicial={[fechaComienzoDatos, hoy]}
-      unidad='$'
+      unidad=''
+      unidades={{'mediana': '$', 'media': '$', 'gini': ''}}
       mostrarValores={true}
       manejoEstados={{}}
-      round={0}
+      round={3}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
       path='ingresos'

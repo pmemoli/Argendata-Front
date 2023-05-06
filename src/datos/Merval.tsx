@@ -14,17 +14,13 @@ interface datosMervalInterface {
 
 const hoy = new Date();
 const fechaComienzoDatos = new Date();
-fechaComienzoDatos.setDate(fechaComienzoDatos.getDate() - 90);
+fechaComienzoDatos.setDate(fechaComienzoDatos.getMonth() - 1);
 
 const info: string = 
 `Indice Merval S&P en dolares CCL con su variacion diaria porcentual.
 Fuente Ambito Financiero.
 https://www.ambito.com/contenidos/merval.html
 https://www.ambito.com/contenidos/dolar-cl.html`
-
-const msEnHora: number = 3600000;
-const msEnDia: number = msEnHora * 24;
-const deltaActualizacion: number = 0;  // hora
 
 export default function Merval({modo, cacheData, setCacheData}) {
   const [data, setData] = useState<datosMervalInterface>();

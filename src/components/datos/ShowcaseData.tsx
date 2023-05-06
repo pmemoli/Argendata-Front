@@ -26,7 +26,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     return (val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)).replace('GDP', 'PBI')
   }
 
-  function setUnidades(val: TiposDatos, numeroDato: string): string {
+  function setUnidades(val: TiposDatos, numeroDato: number): string {
     const unidadDato: string = unidades !== undefined ? unidades[val.nombreDatos] : unidad
     const simboloPlata: string = unidadDato.includes('$') ? '$' : ''
 
@@ -44,7 +44,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     
     return (
       <h3 className='p-1 z-[1] sm:text-xl'>
-        {nombreDato(val)}: {setUnidades(val, datos[val.cronologia][val.nombreDatos].toFixed(round))}
+        {nombreDato(val)}: {setUnidades(val, parseFloat(datos[val.cronologia][val.nombreDatos].toFixed(round)))}
       </h3>                
     )
   }
@@ -53,7 +53,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     return (
       <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
         <h3 className='sm:text-xl'>
-          {nombreDato(val)}: {setUnidades(val, currentValue(val).toFixed(round))}
+          {nombreDato(val)}: {setUnidades(val, parseFloat(currentValue(val).toFixed(round)))}
         </h3>
       </button>
     )

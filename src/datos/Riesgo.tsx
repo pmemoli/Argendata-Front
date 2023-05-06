@@ -12,7 +12,7 @@ interface datosMervalInterface {
 
 const hoy = new Date();
 const fechaComienzoDatos = new Date();
-fechaComienzoDatos.setDate(fechaComienzoDatos.getDate() - 90);
+fechaComienzoDatos.setDate(fechaComienzoDatos.getMonth() - 1);
 
 const info: string = 
 `Riesgo pais de la Argentina.

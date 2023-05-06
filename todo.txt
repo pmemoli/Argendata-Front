@@ -1,20 +1,18 @@
 Plan:
 
-- Actualizacion de merval diario vs historico 
+- Indice gini
 
-- Icono distinto?
+- Superposicion graficos
 
-- Ingresos pesados por inflacion (mediana y promedio) y variacion mensual.
+- Ordenar home
 
-- Inflacion total ademas de ipc
-
-- PBI no PPP
+- Reservas BCRA
 
 - Ver en la semana que ande todo relativamente bien + posteo reddit
 
 -----------------------------------------------------------------------------
 
-- A medida agarre trafico (10-20k?) meter ads y la opcion de no tenerlos
+- A medida agarre trafico (10-20 k / mes?) meter ads y la opcion de no tenerlos
 
 - Crear aplicacion android con opcion paga
 
