@@ -46,7 +46,7 @@ export default function Ingresos({modo, cacheData, setCacheData}): JSX.Element {
     else return (
     <div>
       <DatosAnaliticos 
-      nombre='Ingresos Pais (Base 2017)'
+      nombre='Ingresos Per Capita (Base 2017)'
       modo={modo}
       datos={datosIngresos}
       rangoInicial={[fechaComienzoDatos, hoy]}
