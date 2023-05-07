@@ -3,7 +3,7 @@ import {tiemposCache} from './tiemposCache';
 
 const hoy: Date = new Date();
 
-export async function getDataAnalitica(nombre, cacheData, setCacheData, setData, setUltimaActualizacion, muchosDatos=false) {
+export async function getDataAnalitica(nombre, cacheData, setCacheData, setData, setUltimaActualizacion, muchosDatos=false, setEstados=undefined) {
   function actualizarEstadoMuchosDatos(objeto: any, estado: string): void {
     const keys: string[] = Object.keys(objeto);
 
@@ -67,6 +67,13 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       }));
       
       datosApi['estado'] = 'cache';
+
+      if (setEstados !== undefined) {
+        const estadosPosibles = Object.keys(datosApi)
+        estadosPosibles.pop()
+
+        setEstados(estadosPosibles.reverse())
+      }
 
       setData(datosApi);
     }

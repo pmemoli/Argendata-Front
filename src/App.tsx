@@ -17,6 +17,7 @@ import Contribucion from './pages/Contribucion';
 import Riesgo from './datos/Riesgo';
 import Gasto from './datos/Gasto';
 import Ingresos from './datos/Ingresos';
+import Distribucion from './datos/Distribucion';
 
 interface data {
   nombre: string,
@@ -86,6 +87,7 @@ function App() {
           <Route path='/riesgo' element={<Riesgo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/gasto' element={<Gasto modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           <Route path='/ingresos' element={<Ingresos modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/distribucion' element={<Distribucion modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
 
           <Route path='/contribucion' element={<Contribucion/>}></Route>
         </Routes>
