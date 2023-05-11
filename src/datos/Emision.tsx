@@ -9,7 +9,7 @@ interface datosEmisionInterface {
 };
 
 const hoy: Date = new Date();
-const fechaComienzoDatos: Date = new Date('2015/01/01');
+const fechaComienzoDatos: Date = new Date('2019/01/01');
 
 const info: string =
 `Apertura pasivo base monetaria en miles de pesos.

@@ -7,8 +7,14 @@ const fechaComienzoDatos = new Date();
 fechaComienzoDatos.setMonth(fechaComienzoDatos.getMonth() - 1);
 
 const info: string =
-`Venta y compra de las principales cotizaciones de dolar.
-Fuente Ambito Financiero.`
+`Porcentaje de los ingresos de toda la poblacion por decil. El
+decil i-esimo es el 10% de personas que tienen mas ingresos que el 
+10 * (i - 1) % de la poblacion, y menos que el 10 * (i + 1) %, con excepcion
+del decil 1 (el 10% que menos tiene) y el decil 10 (el 10% que mas tiene).
+
+Fuente Indec.
+
+https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-31-60`
 
 export default function Distribucion({modo, cacheData, setCacheData}): JSX.Element {
   const [datosDistribucion, setDatosDistribucion] = useState<any>();
@@ -41,12 +47,14 @@ export default function Distribucion({modo, cacheData, setCacheData}): JSX.Eleme
       manejoEstados={{
         setEstado: setEstado,
         estadosPosibles: estadosPosibles,
+        estado: '4to trimestre 2022',
         slider: true,
       }}
       round={3}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
       path='distribucion'
+      histogram={true}
       />
     </div>
     )

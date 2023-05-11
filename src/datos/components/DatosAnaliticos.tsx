@@ -35,6 +35,7 @@ interface ParametrosAceptados {
   textoInfo: string,
   path?: string,
   ultimaActualizacion?: string,
+  histogram?: boolean,
 };
 
 interface TiposDatos {
@@ -56,7 +57,8 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
 }
 
 export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad,
-  mostrarValores, manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion}: ParametrosAceptados): JSX.Element {
+  mostrarValores, manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion,
+  histogram}: ParametrosAceptados): JSX.Element {
 
   const tipos: TiposDatos[] = getTipos(datos);
 
@@ -86,7 +88,8 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
       <ShowcaseData mostrarValores={mostrarValores} setTipo={setTipo} datos={datos} unidades={unidades}
       unidad={unidad} round={round} tipo={tipo} tipos={tipos}/>
 
-      <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}/>
+      <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}
+      histogram={histogram}/>
 
       <ShowcaseOptions modo={modo} datos={datos} rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico}/>
 

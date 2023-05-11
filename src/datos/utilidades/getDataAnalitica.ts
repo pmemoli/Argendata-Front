@@ -25,6 +25,13 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
 
+      if (setEstados !== undefined) {
+        const estadosPosibles = Object.keys(cacheData[nombre].datos);
+        estadosPosibles.pop();
+
+        setEstados(estadosPosibles.reverse());
+      }
+
       setData(cacheData[nombre].datos);
       setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
     }
@@ -32,9 +39,14 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     else {
       if (hayCache) {
         if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
-        else cacheData[nombre].datos['estado'] = 'actualizando' 
+        else cacheData[nombre].datos['estado'] = 'actualizando';
+          
+        if (setEstados !== undefined) {
+          const estadosPosibles = Object.keys(cacheData[nombre].datos);
+          estadosPosibles.pop();
 
-        console.log(cacheData[nombre].datos);
+          setEstados(estadosPosibles.reverse());
+        }
 
         setData(cacheData[nombre].datos);
         setUltimaActualizacion(cacheData[nombre].ultimaActualizacionApi);
