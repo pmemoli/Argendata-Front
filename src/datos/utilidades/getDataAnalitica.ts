@@ -21,7 +21,10 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     const actualizarCrimen: boolean = hayCache && nombre === 'crimen' &&
     (new Date(cacheData['crimen'].ultimaActualizacionCache).getTime() < new Date(2023, 3, 22, 23, 14).getTime());
 
-    if (cacheSuitable && !actualizarCrimen) {
+    const actualizarIngresos: boolean = hayCache && nombre === 'ingresos' &&
+    (new Date(cacheData['ingresos'].ultimaActualizacionCache).getTime() < new Date(2023, 5, 11, 21, 39).getTime());
+
+    if (cacheSuitable && !actualizarCrimen && !actualizarIngresos) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
 
@@ -37,12 +40,10 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     }
 
     else {
-      if (hayCache) {
-        console.log(cacheData[nombre].datos);
-
+      if (hayCache && !actualizarIngresos) {
         if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
         else cacheData[nombre].datos['estado'] = 'actualizando';
-          
+        
         if (setEstados !== undefined) {
           const estadosPosibles = Object.keys(cacheData[nombre].datos);
           estadosPosibles.pop();
