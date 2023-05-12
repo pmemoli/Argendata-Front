@@ -7,7 +7,7 @@ const fechaComienzoDatos = new Date();
 fechaComienzoDatos.setMonth(fechaComienzoDatos.getMonth() - 1);
 
 const info: string =
-`Porcentaje de los ingresos de toda la poblacion por decil. El
+`Porcentaje los ingresos totales acumulados por decil. El
 decil i-esimo es el 10% de personas que tienen mas ingresos que el 
 10 * (i - 1) % de la poblacion, y menos que el 10 * (i + 1) %, con excepcion
 del decil 1 (el 10% que menos tiene) y el decil 10 (el 10% que mas tiene).
