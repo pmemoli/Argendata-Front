@@ -19,10 +19,13 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     (hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacionCache).getTime()) < tiemposCache[nombre]; // Cache desactualizado
 
     const actualizarCrimen: boolean = hayCache && nombre === 'crimen' &&
-    (new Date(cacheData['crimen'].ultimaActualizacionCache).getTime() < new Date(2023, 3, 22, 23, 14).getTime());
+    (new Date(cacheData['crimen'].ultimaActualizacionCache).getTime() < new Date(2023, 2, 22, 23, 14).getTime());
 
     const actualizarIngresos: boolean = hayCache && nombre === 'ingresos' &&
-    (new Date(cacheData['ingresos'].ultimaActualizacionCache).getTime() < new Date(2023, 5, 11, 21, 39).getTime());
+    (new Date(cacheData['ingresos'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 11, 21, 39).getTime());
+
+    const actualizarDolar: boolean = hayCache && nombre === 'dolar' &&
+    (new Date(cacheData['dolar'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 12, 17, 0).getTime());
 
     if (cacheSuitable && !actualizarCrimen && !actualizarIngresos) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
