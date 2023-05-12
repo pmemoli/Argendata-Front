@@ -34,7 +34,7 @@ export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
     else return (
     <div>
       <DatosAnaliticos 
-      nombre='Producto'
+      nombre='Producto Bruto Interno (PPP)'
       modo={modo}
       datos={datosProducto}
       rangoInicial={[fechaComienzoDatos, hoy]}
@@ -45,6 +45,7 @@ export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
       round={0}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
+      path='producto'
       />
     </div>
     )

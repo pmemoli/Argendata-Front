@@ -15,8 +15,9 @@ const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
 const info: string = 
-`Mediana, media (promedio) e indice gini de los ingresos per capita por familia
-(ingresos totales / cantidad integrantes).
+`Mediana, media (promedio) e indice gini de los ingresos per capita de toda la 
+poblacion (ingresos totales en la familia / cantidad integrantes) e 
+ingresos per capita dentro de la poblacion con ingresos.
 
 El grafico muestra el ingreso ajustado por inflacion (ipc) en base de pesos
 de 01/01/2017. El indicador muestra el valor real del ultimo mes reportado.
@@ -33,8 +34,10 @@ https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10 para 
 export default function Ingresos({modo, cacheData, setCacheData}): JSX.Element {  
   const [datosIngresos, setDatosIngresos] = useState<datosIngresosInterface>();
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
+  const [estado, setEstado] = useState<string>('Total');
+  const [estadosPosibles, setEstadosPosibles] = useState<string[]>();
 
-  useEffect(() => {getDataAnalitica('ingresos', cacheData, setCacheData, setDatosIngresos, setUltimaActualizacion)}, []);
+  useEffect(() => {getDataAnalitica('ingresos', cacheData, setCacheData, setDatosIngresos, setUltimaActualizacion, true, setEstadosPosibles)}, []);
 
   function renderContent(): JSX.Element {
     if (datosIngresos === undefined) return (
@@ -46,15 +49,20 @@ export default function Ingresos({modo, cacheData, setCacheData}): JSX.Element {
     else return (
     <div>
       <DatosAnaliticos 
-      nombre='Ingresos Per Capita (Base 2017)'
+      nombre='Ingresos Per Capita'
       modo={modo}
-      datos={datosIngresos}
+      datos={datosIngresos[estado]}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad=''
       unidades={{'mediana': '$', 'media': '$', 'gini': ''}}
       mostrarValores={true}
-      manejoEstados={{}}
       round={3}
+      manejoEstados={{
+        setEstado: setEstado,
+        estadosPosibles: estadosPosibles,
+        estado: 'Total',
+        slider: true,
+      }}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
       path='ingresos'

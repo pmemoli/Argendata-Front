@@ -15,7 +15,6 @@ export default function Contribucion() {
           <li>Ingresos en distintas monedas y como se distribuyen</li>
           <li>Reservas BCRA</li>
           <li>Pobreza infantil y mapa con pobreza por provincia</li>
-          <li>Inflación total, no solo variación de IPC</li>
           <li>Mapa con incendios actuales y/o riesgo de incendio</li>
           <li>Datos de deuda y su peso en el gasto público</li>
           <li>Datos de planes sociales</li>
