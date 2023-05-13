@@ -1,36 +1,11 @@
 Plan:
 
-- Indice gini
+- Pobreza y salarios del indec.
+
+- Datos del indec que se actualicen de forma automatica
 
 - Superposicion graficos
 
 - Ordenar home
 
-- Reservas BCRA
-
-- Ver en la semana que ande todo relativamente bien + posteo reddit
-
------------------------------------------------------------------------------
-
-- A medida agarre trafico (10-20 k / mes?) meter ads y la opcion de no tenerlos
-
-- Crear aplicacion android con opcion paga
-
-
-Agregar:
-
-- Back modularizado
-
-- Pagina con incendios actuales y/o riesgo
-
-- Agregar pobreza infantil
-
-- Mapa pobreza y crimen
-
-- Deuda
-
-- Trabajo publico
-
-- Planes sociales
-
-Una vez este todo bien y con exito mediano; pensar sistema de buscador...
+- Estadisticas BCRA
