@@ -2,28 +2,22 @@ import {useState, useEffect} from 'react';
 import DatosAnaliticos from './components/DatosAnaliticos';
 import {getDataAnalitica} from './utilidades/getDataAnalitica';
 
-interface datosInflacionInterface {
-  fechas: string[],
-  datosHistoricos: {
-    mensual: number[],
-    interanual: number[],
-  },
-  datosActuales: {},
-};
-
 const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2018/01/01');  
 
 const info: string = 
-`Variacion mensual y anual de IPC Nucleo.
-Fuente datos.gob.ar.
-https://www.datos.gob.ar/series/api/series/?ids=173.1_INUCLEOLEO_DIC-_0_10`
+`Variacion mensual y anual de IPC.
+Fuente indec.
+
+https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31`
 
 export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element {
-  const [datosInflacion, setDatosInflacion] = useState<datosInflacionInterface>();
+  const [datosInflacion, setDatosInflacion] = useState<any>();
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
+  const [estado, setEstado] = useState<string>('Nivel general');
+  const [estadosPosibles, setEstadosPosibles] = useState<string[]>();
 
-  useEffect(() => {getDataAnalitica('inflacion', cacheData, setCacheData, setDatosInflacion, setUltimaActualizacion)}, []);
+  useEffect(() => {getDataAnalitica('inflacion', cacheData, setCacheData, setDatosInflacion, setUltimaActualizacion, true, setEstadosPosibles)}, []);
 
   function renderContent(): JSX.Element {
     if (datosInflacion === undefined) return (
@@ -37,11 +31,16 @@ export default function Inflacion({modo, cacheData, setCacheData}): JSX.Element 
       <DatosAnaliticos 
       nombre='Inflacion'
       modo={modo}
-      datos={datosInflacion}
+      datos={datosInflacion[estado]}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad='%'
       mostrarValores={true}
-      manejoEstados={{}}
+      manejoEstados={{
+        setEstado: setEstado,
+        estadosPosibles: estadosPosibles,
+        estado: 'Nivel general',
+        slider: true,
+      }}
       round={1}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}

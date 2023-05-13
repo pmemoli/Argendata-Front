@@ -24,12 +24,14 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     const actualizarIngresos: boolean = hayCache && nombre === 'ingresos' &&
     (new Date(cacheData['ingresos'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 11, 21, 39).getTime());
 
-    const actualizarDolar: boolean = hayCache && nombre === 'dolar' &&
-    (new Date(cacheData['dolar'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 12, 17, 0).getTime());
+    const actualizarInflacion: boolean = hayCache && nombre === 'inflacion' &&
+    (new Date(cacheData['inflacion'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 12, 17, 0).getTime());
 
-    if (cacheSuitable && !actualizarCrimen && !actualizarIngresos) {
+    if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && !actualizarInflacion) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
+
+      console.log(cacheData[nombre].datos);
 
       if (setEstados !== undefined) {
         const estadosPosibles = Object.keys(cacheData[nombre].datos);
@@ -43,7 +45,7 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     }
 
     else {
-      if (hayCache && !actualizarIngresos) {
+      if (hayCache && !actualizarIngresos && !actualizarInflacion) {
         if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
         else cacheData[nombre].datos['estado'] = 'actualizando';
         
@@ -61,6 +63,8 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       const res: any = await api.get(`/datos/${nombre}`);
 
       let datosApi : any = res.data.datos;
+
+      console.log(datosApi);
 
       delete datosApi['nombre'];
       delete datosApi['__v'];
