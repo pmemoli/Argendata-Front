@@ -12,7 +12,7 @@ const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2019/01/01');
 
 const info: string =
-`Apertura pasivo base monetaria en miles de pesos.
+`Apertura pasivo base monetaria en millones de pesos.
 Fuente datos.gob.ar.
 https://www.datos.gob.ar/series/api/series/?ids=300.1_AP_PAS_BASRIA_0_M_21`
 
@@ -35,7 +35,7 @@ export default function Emision({modo, cacheData, setCacheData}): JSX.Element {
       modo={modo}
       datos={datosEmision}
       rangoInicial={[fechaComienzoDatos, hoy]}
-      unidad='$ miles'
+      unidad='$ millones'
       mostrarValores={true}
       manejoEstados={{}}
       round={0}
