@@ -14,7 +14,7 @@ export const tiemposCache: tiemposCache = {
     "emision": msEnDia * 1,
     "empleo": msEnDia * 1,
     "gasto": msEnDia * 1,
-    "inflacion": msEnDia * 0,
+    "inflacion": msEnDia * 1,
     "merval": msEnHora * 0.5,
     "riesgo": msEnHora * 0.5,
     "pobreza": msEnMes * 3,
