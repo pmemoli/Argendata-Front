@@ -25,7 +25,7 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     (new Date(cacheData['ingresos'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 11, 21, 39).getTime());
 
     const actualizarInflacion: boolean = hayCache && nombre === 'inflacion' &&
-    (new Date(cacheData['inflacion'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 12, 17, 0).getTime());
+    (new Date(cacheData['inflacion'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 16, 16, 0).getTime());
 
     if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && !actualizarInflacion) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
