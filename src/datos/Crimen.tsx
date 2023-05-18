@@ -17,14 +17,8 @@ interface datosTotalesInterface {
 
 const codigosPais = [
   {nombre: 'Pais', codigo: 'arg'}, {nombre: 'Buenos Aires', codigo: '06'}, {nombre: 'Santa Fe', codigo: '82'}, 
-  {nombre: 'Caba', codigo: '02'}, {nombre: 'Neuquen', codigo: '58'}, {nombre: 'Cordoba', codigo: '14'},
-  {nombre: 'Mendoza', codigo: '50'}, {nombre: 'Formosa', codigo: '34'}, {nombre: 'Tucuman', codigo: '90'},
-  {nombre: 'Chaco', codigo: '22'}, {nombre: 'Jujuy', codigo: '38'}, {nombre: 'Santa Cruz', codigo: '78'},
-  {nombre: 'Sgo del Estero', codigo: '86'}, {nombre: 'Misiones', codigo: '54'}, {nombre: 'Corrientes', codigo: '18'},
-  {nombre: 'Entre Rios', codigo: '30'}, {nombre: 'San Luis', codigo: '70'}, {nombre: 'La Pampa', codigo: '42'},
-  {nombre: 'Rio Negro', codigo: '62'}, {nombre: 'Chubut', codigo: '26'}, {nombre: 'Tierra del Fuego', codigo: '94'},
-  {nombre: 'San Juan', codigo: '70'}, {nombre: 'La Rioja', codigo: '46'}, {nombre: 'Catamarca', codigo: '10'},
-  {nombre: 'Salta', codigo: '66'},  
+  {nombre: 'Caba', codigo: '02'}, {nombre: 'Cordoba', codigo: '14'}, {nombre: 'Entre Rios', codigo: '30'},
+  {nombre: 'Mendoza', codigo: '50'}, {nombre: 'Salta', codigo: '66'}, {nombre: 'Neuquen', codigo: '58'},   
 ]
 
 const metadata = codigosPais.map(provincia => { return {
