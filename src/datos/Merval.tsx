@@ -13,7 +13,7 @@ interface datosMervalInterface {
 };
 
 const hoy = new Date();
-const fechaComienzoDatos = new Date('01/12/2022');
+const fechaComienzoDatos = new Date('2023/4/1');
 
 const info: string = 
 `Indice Merval S&P en dolares CCL con su variacion diaria porcentual.

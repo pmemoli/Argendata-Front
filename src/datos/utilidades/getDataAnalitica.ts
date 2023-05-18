@@ -31,8 +31,6 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
 
-      console.log(cacheData[nombre].datos);
-
       if (setEstados !== undefined) {
         const estadosPosibles = Object.keys(cacheData[nombre].datos);
         estadosPosibles.pop();
@@ -62,9 +60,7 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
 
       const res: any = await api.get(`/datos/${nombre}`);
 
-      let datosApi : any = res.data.datos;
-
-      console.log(datosApi);
+      let datosApi: any = res.data.datos;
 
       delete datosApi['nombre'];
       delete datosApi['__v'];

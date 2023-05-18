@@ -19,6 +19,34 @@ const customStyles = {
   }
 };
 
+function convertDateFormat(inputDate) {
+  // Split the date string into [mm, dd, yyyy]
+  let parts = inputDate.split('/');
+
+  // Pad single digit day or month with leading zero
+  let day = parts[1].padStart(2, '0');
+  let month = parts[0].padStart(2, '0');
+
+  // Rearrange the parts and join with dashes
+  let outputDate = [day, month, parts[2]].join('-');
+
+  return outputDate;
+}
+
+function formatearFecha(date) {
+  let dia = date.getDate().toString();
+  let mes = (date.getMonth() + 1).toString(); // Los meses en JavaScript empiezan en 0, por lo que se suma 1.
+  let año = date.getFullYear();
+
+  if (dia.length < 2) 
+     dia = '0' + dia;
+  
+  if (mes.length < 2) 
+     mes = '0' + mes;
+
+  return `${dia}-${mes}-${año}`;
+}
+
 export default function Informacion({texto, createdAt}): JSX.Element {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
@@ -40,7 +68,7 @@ export default function Informacion({texto, createdAt}): JSX.Element {
           style={customStyles}
           ariaHideApp={false}
         >
-          {texto + `\n\nUltima actualizacion: ${createdAt}`}
+          {texto + `\n\nUltima actualizacion: ${convertDateFormat(createdAt)}`}
         </Modal>
       </div>
     </div>

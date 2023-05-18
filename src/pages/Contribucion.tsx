@@ -14,8 +14,7 @@ export default function Contribucion() {
         <ul className="list-disc ml-5">
           <li>Reservas BCRA</li>
           <li>Salarios por sector</li>
-          <li>Agilizar el cold start</li>
-          <li>Pobreza infantil y por provincia</li>
+          <li>Pobreza infantil</li>
           <li>Mapa con incendios actuales y/o riesgo de incendio</li>
           <li>Datos de deuda y su peso en el gasto público</li>
           <li>Datos de planes sociales</li>

@@ -13,6 +13,16 @@ interface Chart {
   }]
 };
 
+function parseDateString(dateString) {
+  // Split the string into [dd, mm, yyyy]
+  let parts = dateString.split('-');
+
+  // Note: JavaScript counts months from 0, so we subtract 1 from the month number
+  let date = new Date(parts[2], parts[1] - 1, parts[0]);
+
+  return date;
+}
+
 export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, tipo, histogram}) {
   function setIndices(fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
     const fechas: string[] = datos.fechas;
@@ -22,12 +32,9 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
     for (let i = 0; i < fechas.length - 1; i++) {
       let prefix = '';
-      if (nombre === 'Dolar') {
-        prefix = '20';
-      }
 
-      const fechaDate1: Date = new Date(prefix + fechas[i]);
-      const fechaDate2: Date = new Date(prefix + fechas[i + 1]);
+      const fechaDate1: Date = new Date(parseDateString(prefix + fechas[i]));
+      const fechaDate2: Date = new Date(parseDateString(prefix + fechas[i + 1]));
 
       if (fechaDate1 < fechaDesde && fechaDesde <= fechaDate2) {
         indiceDesde = i + 1;
@@ -50,6 +57,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     if (fechaHasta === rangoInicial[1] && !extremoInvalido) return [indiceDesde];
     else return [indiceDesde, indiceHasta + 1];
   }
+
+  //console.log(datos.fechas.map(fecha => formatearFecha(new Date(fecha))));
 
   const chartData: Chart = {
     labels: datos.fechas.slice(...setIndices(...rangoHistorico)),
