@@ -39,10 +39,10 @@ export default function Producto({modo, cacheData, setCacheData}): JSX.Element {
       datos={datosProducto}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad=''
-      unidades={{'GDP': '$ bill.', 'GDP Per Capita': '$ miles'}}
+      unidades={{'GDP': '$ bill.', 'GDP Per Capita': '$ mil.'}}
       mostrarValores={true}
       manejoEstados={{}}
-      round={0}
+      round={3}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
       path='producto'
