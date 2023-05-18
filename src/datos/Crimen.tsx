@@ -31,7 +31,9 @@ const hoy: Date = new Date();
 const fechaComienzoDatos: Date = new Date('2000/01/01');  
 
 const info: string =
-`Tasa de homicidios y robos cada 100 mil personas en un año.
+`Tasa de homicidios y robos cada 100 mil personas en un año
+para el pais y algunas de las provincias mas pobladas.
+
 Fuente datos.gob.ar.`
 
 const msEnHora = 3600000;
