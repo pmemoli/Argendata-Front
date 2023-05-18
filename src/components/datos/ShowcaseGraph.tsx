@@ -31,10 +31,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     let indiceHasta: number = fechas.length - 1;
 
     for (let i = 0; i < fechas.length - 1; i++) {
-      let prefix = '';
-
-      const fechaDate1: Date = new Date(parseDateString(prefix + fechas[i]));
-      const fechaDate2: Date = new Date(parseDateString(prefix + fechas[i + 1]));
+      const fechaDate1: Date = new Date(parseDateString(fechas[i].replaceAll('/', '-')));
+      const fechaDate2: Date = new Date(parseDateString(fechas[i + 1].replaceAll('/', '-')));
 
       if (fechaDate1 < fechaDesde && fechaDesde <= fechaDate2) {
         indiceDesde = i + 1;
@@ -58,10 +56,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     else return [indiceDesde, indiceHasta + 1];
   }
 
-  //console.log(datos.fechas.map(fecha => formatearFecha(new Date(fecha))));
-
   const chartData: Chart = {
-    labels: datos.fechas.slice(...setIndices(...rangoHistorico)),
+    labels: datos.fechas.slice(...setIndices(...rangoHistorico)).map(fecha => fecha.replaceAll('/', '-')),
     datasets: [{
       label: tipo,
       data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
