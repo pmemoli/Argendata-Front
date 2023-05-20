@@ -7,7 +7,7 @@ const fechaComienzoDatos: Date = new Date('2000/01/01');
 
 const info: string =
 `PBI y PBI per capita PPP en dolares constantes de 2017.
-PBI y PBI per capita Nominal en dolares.
+PBI y PBI per capita Nominal en dolares de hoy.
 https://data.worldbank.org/indicator/NY.GDP.MKTP.PP.KD?locations=AR
 https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.KD?locations=AR
 https://api.worldbank.org/v2/country/ARG/indicator/NY.GDP.PCAP.CD?format=json
