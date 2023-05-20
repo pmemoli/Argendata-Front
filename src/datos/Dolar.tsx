@@ -31,7 +31,7 @@ export default function Dolar({modo, cacheData, setCacheData}): JSX.Element {
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
   const [transaccion, setTransaccion] = useState<string>('venta');
 
-  useEffect(() => {getDataAnalitica('dolar', cacheData, setCacheData, setDatosDolar, setUltimaActualizacion, true)}, []);
+  useEffect(() => {getDataAnalitica('test', cacheData, setCacheData, setDatosDolar, setUltimaActualizacion, true)}, []);
 
   function renderContent(): JSX.Element {
     if (datosDolar === undefined) return (

@@ -24,9 +24,7 @@ function parseDateString(dateString) {
 }
 
 export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, tipo, histogram}) {
-  function setIndices(fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
-    const fechas: string[] = datos.fechas;
-
+  function setIndices(fechas, fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
     let indiceDesde: number = 0;
     let indiceHasta: number = fechas.length - 1;
 
@@ -56,14 +54,22 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     else return [indiceDesde, indiceHasta + 1];
   }
 
+  let fechas: string[];
+  if (Array.isArray(datos.fechas)) {
+    fechas = datos.fechas;
+  }
+  else {
+    fechas = datos.fechas[tipo]
+  }
+
   const chartData: Chart = {
-    labels: datos.fechas.slice(...setIndices(...rangoHistorico)).map(fecha => fecha.replaceAll('/', '-')),
+    labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),
     datasets: [{
       label: tipo,
-      data: datos.datosHistoricos[tipo].slice(...setIndices(...rangoHistorico)),
+      data: datos.datosHistoricos[tipo].slice(...setIndices(fechas, ...rangoHistorico)),
       borderWidth: 2,
       pointRadius: 0.7,
-      pointHitRadius: 7,
+      pointHitRadius: 10,
     }]
   };
 
