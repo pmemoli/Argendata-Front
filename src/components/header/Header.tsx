@@ -17,6 +17,7 @@ export default function Header(): JSX.Element {
             <h2 className='text-5xl mt-3 relative z-[1] font-raleway'>Argendata</h2>
           </Link>
         </div>
+        
     </div>
   )
 }

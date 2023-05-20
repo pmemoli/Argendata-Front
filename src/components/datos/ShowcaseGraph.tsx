@@ -56,10 +56,10 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   let fechas: string[];
   if (Array.isArray(datos.fechas)) {
-    fechas = datos.fechas;
+    fechas = datos.fechas.map(fecha => fecha.toString())
   }
   else {
-    fechas = datos.fechas[tipo]
+    fechas = datos.fechas[tipo].map(fecha => fecha.toString())
   }
 
   const chartData: Chart = {
