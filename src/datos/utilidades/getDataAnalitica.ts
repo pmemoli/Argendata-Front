@@ -67,8 +67,6 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
 
       let datosApi: any = res.data.datos;
 
-      console.log(datosApi);
-
       delete datosApi['nombre'];
       delete datosApi['__v'];
 
