@@ -20,13 +20,13 @@ export default function TopMenu({toggled}) {
 
 /*
       <div>Como usar</div>
-        <div>Organizar inicio</div>
-        <div>Comparar estadisticas</div>
-        <div>Otras fuentes</div>
-        <div>Contacto y sugerencias</div>
-        <div>Contribuir</div>
-        <div>Planes futuros</div>
-        <div>Calculadora inflacion anual</div>
-        <div>Resultados electorales</div>
+      <div>Organizar inicio</div>
+      <div>Comparar estadisticas</div>
+      <div>Otras fuentes</div>
+      <div>Contacto y sugerencias</div>
+      <div>Contribuir</div>
+      <div>Planes futuros</div>
+      <div>Calculadora inflacion anual</div>
+      <div>Resultados electorales</div>
 
 */

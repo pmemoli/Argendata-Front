@@ -27,7 +27,12 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     const actualizarInflacion: boolean = hayCache && nombre === 'inflacion' &&
     (new Date(cacheData['inflacion'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 16, 16, 0).getTime());
 
-    if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && !actualizarInflacion) {
+    const actualizarProducto: boolean = hayCache && nombre === 'producto' &&
+    (new Date(cacheData['producto'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 20, 12, 30).getTime());
+
+    const actualizacionesDesfasadas = !actualizarCrimen && !actualizarInflacion && !actualizarInflacion && !actualizarProducto
+
+    if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && actualizacionesDesfasadas) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
 
@@ -43,7 +48,7 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     }
 
     else {
-      if (hayCache && !actualizarIngresos && !actualizarInflacion) {
+      if (hayCache && actualizacionesDesfasadas) {
         if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'actualizando');
         else cacheData[nombre].datos['estado'] = 'actualizando';
         
@@ -61,8 +66,6 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
       const res: any = await api.get(`/datos/${nombre}`);
 
       let datosApi: any = res.data.datos;
-
-      console.log(datosApi);
 
       delete datosApi['nombre'];
       delete datosApi['__v'];
