@@ -26,7 +26,7 @@ const fechaComienzoDatos: Date = new Date('2000/01/01');
 const info: string = 
 `Desempleo: Porcentaje de desempleados en el conjunto de personas que trabajan o quieren trabajar.
 Empleo: Porcentaje de empleados en el conjunto de personas mayores de edad y no jubilados.
-Desempleo: Porcentaje de poblacion que trabaja o quiere trabajar en el conjunto de personas mayores de edad y no jubilados.
+Actividad: Porcentaje de poblacion que trabaja o quiere trabajar en el conjunto de personas mayores de edad y no jubilados.
 
 Fuente datos.gob.ar.
 
