@@ -32,6 +32,8 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
 
     const actualizacionesDesfasadas = !actualizarCrimen && !actualizarInflacion && !actualizarInflacion && !actualizarProducto
 
+    // A ver si con este comentario se actualiza la verga esa
+
     if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && actualizacionesDesfasadas) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');
       else cacheData[nombre].datos['estado'] = 'cache';
