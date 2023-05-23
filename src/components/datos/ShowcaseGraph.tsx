@@ -73,7 +73,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   const datosEjeX = [...datos.datosHistoricos[tipo]];
 
-  if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos Per Capita') {
+  if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos Per Capita' && nombre !== 'Distribucion Ingreso') {
     fechas.push(formattedDate);
     datosEjeX.push(datos.datosActuales[tipo]);
   }
