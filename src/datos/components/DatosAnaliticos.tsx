@@ -66,6 +66,8 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
   const [tipo, setTipo] = useState<string>(tipos[0].nombreDatos);  
   const [rangoHistorico, setRangoHistorico] = useState<Date[]>(rangoInicial);
 
+  useEffect(() => {setTipo(tipos[0].nombreDatos)}, [datos])
+
   if (datos === undefined) return (
     <div className='sm:text-xl'>
       Cargando...
