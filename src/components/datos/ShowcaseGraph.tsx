@@ -71,16 +71,18 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
   const faltaFecha: boolean = fechas[fechas.length - 1] !== formattedDate;
   const hayDatoActual: boolean = datos.datosActuales[tipo] !== undefined;
 
+  const datosEjeX = [...datos.datosHistoricos[tipo]];
+
   if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos Per Capita') {
     fechas.push(formattedDate);
-    datos.datosHistoricos[tipo].push(datos.datosActuales[tipo]);
+    datosEjeX.push(datos.datosActuales[tipo]);
   }
 
   const chartData: Chart = {
     labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),
     datasets: [{
       label: tipo,
-      data: datos.datosHistoricos[tipo].slice(...setIndices(fechas, ...rangoHistorico)),
+      data: datosEjeX.slice(...setIndices(fechas, ...rangoHistorico)),
       borderWidth: 2,
       pointRadius: 0.7,
       pointHitRadius: 10,
