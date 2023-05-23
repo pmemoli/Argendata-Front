@@ -3,8 +3,6 @@ interface datoItem {
   path: string,
 }
 
-//{nombre: 'Distribucion Ingresos', path: 'distribucion'},
-
 export const datosPosibles: datoItem[] = [
     {nombre: 'Dolar', path: 'dolar'}, {nombre: 'Inflacion', path: 'inflacion'}, {nombre: 'Emision', path: 'emision'},
     {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Producto', path: 'producto'},

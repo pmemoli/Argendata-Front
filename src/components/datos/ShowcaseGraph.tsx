@@ -54,13 +54,27 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     else return [indiceDesde, indiceHasta + 1];
   }
 
+  // Setea bien las fechas
   let fechas: string[];
   if (Array.isArray(datos.fechas)) {
-    fechas = datos.fechas.map(fecha => fecha.toString())
+    fechas = datos.fechas.map(fecha => fecha.toString());
   }
   else {
     fechas = datos.fechas[tipo].map(fecha => fecha.toString())
   }
+
+  // Agrega el dato actual como hoy si no esta
+  let today: Date = new Date();
+  let formattedDate: string = today.toLocaleDateString("en-GB").replaceAll('/', '-');
+
+  const diaHabil: boolean = !(today.getDay() === 6) && !(today.getDay() === 0);
+  const faltaFecha: boolean = fechas[fechas.length - 1] !== formattedDate;
+  const hayDatoActual: boolean = datos.datosActuales[tipo] !== undefined;
+
+  if (faltaFecha && hayDatoActual && diaHabil) {
+    fechas.push(formattedDate);
+    datos.datosHistoricos[tipo].push(datos.datosActuales[tipo]);
+  } 
 
   const chartData: Chart = {
     labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),
