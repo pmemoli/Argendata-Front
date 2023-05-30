@@ -30,9 +30,10 @@ export async function getDataAnalitica(nombre, cacheData, setCacheData, setData,
     const actualizarProducto: boolean = hayCache && nombre === 'producto' &&
     (new Date(cacheData['producto'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 20, 12, 30).getTime());
 
-    const actualizacionesDesfasadas = !actualizarCrimen && !actualizarInflacion && !actualizarInflacion && !actualizarProducto
+    const actualizarPobreza: boolean = hayCache && nombre === 'pobreza' &&
+    (new Date(cacheData['pobreza'].ultimaActualizacionCache).getTime() < new Date(2023, 4, 29, 22, 30).getTime());
 
-    // A ver si con este comentario se actualiza la verga esa
+    const actualizacionesDesfasadas = !actualizarCrimen && !actualizarInflacion && !actualizarInflacion && !actualizarProducto && !actualizarPobreza;
 
     if (cacheSuitable && !actualizarCrimen && !actualizarIngresos && actualizacionesDesfasadas) {
       if (muchosDatos) actualizarEstadoMuchosDatos(cacheData[nombre].datos, 'cache');

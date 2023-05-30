@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 export default function DropdownMenu({optionArray, selectedOption, setOption}): JSX.Element {  
-  const hiddenOptionsDist = optionArray.includes('2do trimestre 2020') || optionArray.includes('Total') || optionArray.includes('PPP')  ? 'w-16 overflow-x-hidden sm:w-60' : ''
+  const hiddenOptionsDist = optionArray.includes('2do trimestre 2020') || optionArray.includes('Total') || optionArray.includes('PPP') || optionArray.includes('Pais')  ? 'w-16 overflow-x-hidden sm:w-60' : ''
   const hiddenOptionsInflacion = optionArray.includes('Nivel general') ? 'w-28 overflow-x-hidden sm:w-40' : ''
 
   useEffect(() => {

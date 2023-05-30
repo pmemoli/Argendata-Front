@@ -22,8 +22,10 @@ https://www.indec.gob.ar/indec/web/Nivel4-Tema-4-46-152`
 export default function Pobreza({modo, cacheData, setCacheData}): JSX.Element {  
   const [datosPobreza, setDatosPobreza] = useState<datosPobrezaInterface>();
   const [ultimaActualizacion, setUltimaActualizacion] = useState<string>();
+  const [estado, setEstado] = useState<string>('Pais');
+  const [estadosPosibles, setEstadosPosibles] = useState<string[]>();
 
-  useEffect(() => {getDataAnalitica('pobreza', cacheData, setCacheData, setDatosPobreza, setUltimaActualizacion)}, []);
+  useEffect(() => {getDataAnalitica('pobreza', cacheData, setCacheData, setDatosPobreza, setUltimaActualizacion, true, setEstadosPosibles)}, []);
 
   function renderContent(): JSX.Element {
     if (datosPobreza === undefined) return (
@@ -37,12 +39,17 @@ export default function Pobreza({modo, cacheData, setCacheData}): JSX.Element {
       <DatosAnaliticos 
       nombre='Pobreza'
       modo={modo}
-      datos={datosPobreza}
+      datos={datosPobreza[estado]}
       rangoInicial={[fechaComienzoDatos, hoy]}
       unidad='%'
       mostrarValores={true}
-      manejoEstados={{}}
       round={1}
+      manejoEstados={{
+        setEstado: setEstado,
+        estadosPosibles: estadosPosibles,
+        estado: 'Pais',
+        slider: true,
+      }}
       textoInfo={info}
       ultimaActualizacion={ultimaActualizacion}
       />
