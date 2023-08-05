@@ -24,7 +24,6 @@ interface ParametrosAceptados {
   rangoInicial: Date[],
   unidad: string,
   unidades?: {[nombreDato: string]: string},
-  mostrarValores: boolean,
   manejoEstados: {
     estadosPosibles?: string[],
     setEstado?: React.Dispatch<React.SetStateAction<string>>,
@@ -35,7 +34,7 @@ interface ParametrosAceptados {
   textoInfo: string,
   path?: string,
   ultimaActualizacion?: string,
-  histogram?: boolean,
+  bar?: boolean,
 };
 
 interface TiposDatos {
@@ -57,8 +56,8 @@ function getTipos(datos: DataAnalitica): TiposDatos[] {
 }
 
 export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unidad,
-  mostrarValores, manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion,
-  histogram}: ParametrosAceptados): JSX.Element {
+  manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion,
+  bar}: ParametrosAceptados): JSX.Element {
 
   const tipos: TiposDatos[] = getTipos(datos);
 
@@ -87,11 +86,11 @@ export default function DatosAnaliticos({nombre, modo, datos, rangoInicial, unid
         <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    
       </Link>
 
-      <ShowcaseData mostrarValores={mostrarValores} setTipo={setTipo} datos={datos} unidades={unidades}
+      <ShowcaseData setTipo={setTipo} datos={datos} unidades={unidades}
       unidad={unidad} round={round} tipo={tipo} tipos={tipos}/>
 
       <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}
-      histogram={histogram}/>
+      bar={bar}/>
 
       <ShowcaseOptions modo={modo} datos={datos} rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico}/>
 

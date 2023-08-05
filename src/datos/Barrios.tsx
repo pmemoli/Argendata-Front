@@ -33,4 +33,3 @@ export default function BarriosPopulares({modo, cacheData, setCacheData}): JSX.E
     </div>
   )
 }
- 

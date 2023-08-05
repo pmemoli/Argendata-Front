@@ -26,7 +26,4 @@ export default function TopMenu({toggled}) {
       <div>Contacto y sugerencias</div>
       <div>Contribuir</div>
       <div>Planes futuros</div>
-      <div>Calculadora inflacion anual</div>
-      <div>Resultados electorales</div>
-
 */

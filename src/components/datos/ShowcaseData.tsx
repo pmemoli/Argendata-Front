@@ -1,12 +1,5 @@
-import React from 'react'
-
-interface TiposDatos {
-  cronologia: string,
-  nombreDatos: string,
-}
-
-export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, unidad, round, tipo, tipos}) {
-  function currentValue(val): number {
+export default function ShowcaseData({setTipo, datos, unidades, unidad, round, tipo, tipos}) {
+  function currentValue(val) {
     // Chequea que no este ya actualizado al dia en datosActuales
     for (let i = 0; i < tipos.length; i++) {
       if (tipos[i].nombreDatos === val.nombreDatos && tipos[i].cronologia === 'datosActuales') {
@@ -14,7 +7,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
       }
     }
     
-    let ultDato: number = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1];
+    let ultDato = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 1];
     if (ultDato === 0 || ultDato === null) {
       ultDato = datos[val.cronologia][val.nombreDatos][datos[val.cronologia][val.nombreDatos].length - 2];
     }
@@ -22,20 +15,17 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     return ultDato;
   }
 
-  function nombreDato(val: TiposDatos): string {
+  function nombreDato(val) {
     return (val.nombreDatos.charAt(0).toUpperCase() + val.nombreDatos.slice(1)).replace('GDP', 'PBI')
   }
 
-  function setUnidades(val: TiposDatos, numeroDato: number): string {
-    const unidadDato: string = unidades !== undefined ? unidades[val.nombreDatos] : unidad
-    const simboloPlata: string = unidadDato.includes('$') ? '$' : ''
-
-    return `${simboloPlata}${numeroDato}${unidadDato.replace('$', '')}`
+  function setUnidades(val, numeroDato) {
+    return `${unidad[val.nombreDatos]}${numeroDato}${unidades[val.nombreDatos]}`
   }
 
   if (datos === undefined) return <></>
 
-  function renderDatoActual(val: TiposDatos): JSX.Element {
+  function renderDatoActual(val) {
     for (let i = 0; i < tipos.length; i++) {
       if (tipos[i].nombreDatos === val.nombreDatos && tipos[i].cronologia === 'datosHistoricos') {
         return <></>
@@ -49,7 +39,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
     )
   }
 
-  function renderDatoHistorico(val: TiposDatos): JSX.Element {
+  function renderDatoHistorico(val) {
     return (
       <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
         <h3 className='sm:text-xl'>
@@ -62,9 +52,7 @@ export default function ShowcaseData({mostrarValores, setTipo, datos, unidades, 
   return (
     <div className='mb-3 overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar'>
       <div className="flex justify-around">
-        {tipos.map((val: TiposDatos): JSX.Element => {
-          if (!mostrarValores) return <></>
-
+        {tipos.map((val) => {
           if (val.cronologia === 'datosHistoricos') {
             return renderDatoHistorico(val);
           }

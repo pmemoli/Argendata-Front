@@ -1,28 +1,35 @@
-import Crimen from "../datos/Crimen";
-import Dolar from "../datos/Dolar";
-import Emision from "../datos/Emision";
-import Empleo from "../datos/Empleo";
-import Inflacion from "../datos/Inflacion";
-import Riesgo from "../datos/Riesgo";
-import Pobreza from "../datos/Pobreza";
-import Producto from "../datos/Producto";
-import Merval from "../datos/Merval";
-import Gasto from "../datos/Gasto";
-import Ingresos from "../datos/Ingresos";
+import DatoAnalitico from "../datos/DatoAnalitico";
 
 export default function Home({cacheData, setCacheData}) {
   return (
-    <div className='flex flex-col min-h-full sm:grid lg:grid-cols-3 sm:gap-2 sm:ml-5 sm:mr-5 '>
-      <span className='sm:col-span-2'><Dolar modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <Inflacion modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <Crimen modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <span className='sm:col-span-2'><Pobreza modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <span className='sm:col-span-2'><Producto modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <Empleo modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <Emision modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
-      <span className='sm:col-span-2'><Ingresos modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <span className='sm:col-span-2'><Merval modo='carta' cacheData={cacheData} setCacheData={setCacheData}/></span>
-      <Gasto modo='carta'  cacheData={cacheData} setCacheData={setCacheData}/>
+    <div className='flex flex-col min-h-full sm:grid lg:grid-cols-3 sm:gap-2 sm:ml-5 sm:mr-5'>
+      <span className='sm:col-span-2'>
+        <DatoAnalitico modo='carta' nombre='dolar' cacheData={cacheData} setCacheData={setCacheData}/>
+      </span>
+      
+      <DatoAnalitico modo='carta' nombre='inflacion' cacheData={cacheData} setCacheData={setCacheData}/>
+      <DatoAnalitico modo='carta' nombre='crimen' cacheData={cacheData} setCacheData={setCacheData}/>
+      
+      <span className='sm:col-span-2'>
+        <DatoAnalitico modo='carta' nombre='pobreza' cacheData={cacheData} setCacheData={setCacheData}/>
+      </span>
+      
+      <span className='sm:col-span-2'>
+        <DatoAnalitico modo='carta' nombre='producto' cacheData={cacheData} setCacheData={setCacheData}/>
+      </span>
+
+      <DatoAnalitico modo='carta' nombre='trabajo' cacheData={cacheData} setCacheData={setCacheData}/>
+      <DatoAnalitico modo='carta' nombre='basemonetaria' cacheData={cacheData} setCacheData={setCacheData}/>
+
+      <span className='sm:col-span-2'>
+        <DatoAnalitico modo='carta' nombre='ingresos' cacheData={cacheData} setCacheData={setCacheData}/>
+      </span>
+
+      <span className='sm:col-span-2'>
+        <DatoAnalitico modo='carta' nombre='merval' cacheData={cacheData} setCacheData={setCacheData}/>
+      </span>
+
+      <DatoAnalitico modo='carta' nombre='gasto' cacheData={cacheData} setCacheData={setCacheData}/>
     </div>
   )
 }

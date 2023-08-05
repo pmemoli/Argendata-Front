@@ -3,45 +3,20 @@ import {Route, Routes} from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/header/Header';
 import Home from './pages/Home';
-import Dolar from './datos/Dolar';
-import Inflacion from './datos/Inflacion';
-import Emision from './datos/Emision';
-import Crimen from './datos/Crimen';
-import Empleo from './datos/Empleo';
-import Pobreza from './datos/Pobreza';
-import Producto from './datos/Producto';
 import Barrios from './datos/Barrios';
-import Merval from './datos/Merval';
 import Cortes from './datos/Cortes';
 import Contribucion from './pages/Contribucion';
-import Riesgo from './datos/Riesgo';
-import Gasto from './datos/Gasto';
-import Ingresos from './datos/Ingresos';
-import Distribucion from './datos/Distribucion';
+import DatoAnalitico from './datos/DatoAnalitico';
 
-interface data {
-  nombre: string,
-  datosActuales: {
-    [dato: string] : number,
-  },
-  datosHistoricos: {
-    [dato: string] : number,
-  }
-}
+// Sabado testeo bien datos analiticos, agrego cache y hago datos geograficos
+// Domingo reorganizo bien y empiezo a pasar a JS
+// Lunes termino de pasar a JS y dejar todo bien modulado
+// Martes empiezo a hacer el header bonito
+// Miercoles termino el header y empiezo a pensar el sistema de busqueda...
+// ...
+// Sabado terminado! Corregir faltas de ortografia y pasar a reddit!
 
-interface mixedData {
-  [tipoDato: string]: data
-}
-
-interface cacheData {
-  [nombreDataset: string]: {
-    datos: data | mixedData | Uint8Array,
-    ultimaActualizacionCache: Date,
-    ultimaActualizacionApi: string,
-  }
-}
-
-const savedState: string = localStorage.getItem('cacheArgendata');
+const savedState = localStorage.getItem('cacheArgendata');
 
 const test = JSON.parse(savedState, (key, value) => {
   if (key === 'ultimaActualizacion') {
@@ -52,7 +27,7 @@ const test = JSON.parse(savedState, (key, value) => {
 });
 
 function App() {
-  const [cacheData, setCacheData] = useState<cacheData>(test);
+  const [cacheData, setCacheData] = useState(JSON.parse(savedState))
   
   useEffect(() => {
     if (cacheData !== null) {
@@ -74,20 +49,62 @@ function App() {
       <div className='flex-grow mt-4'>
         <Routes>
           <Route path='/' element={<Home cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/dolar' element={<Dolar modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/inflacion' element={<Inflacion modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/emision' element={<Emision modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/crimen' element={<Crimen modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/empleo' element={<Empleo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/pobreza' element={<Pobreza modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/producto' element={<Producto modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/merval' element={<Merval modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/barrios' element={<Barrios modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/cortes' element={<Cortes modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/riesgo' element={<Riesgo modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/gasto' element={<Gasto modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/ingresos' element={<Ingresos modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
-          <Route path='/distribucion' element={<Distribucion modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          
+          <Route path='/dolar' element={
+            <DatoAnalitico key='dolar' modo='pagina' nombre='dolar' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+          
+          <Route path='/inflacion' element={
+            <DatoAnalitico key='inflacion' modo='pagina' nombre='inflacion' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/basemonetaria' element={
+            <DatoAnalitico key='basemonetaria' modo='pagina' nombre='basemonetaria' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/crimen' element={
+            <DatoAnalitico key='crimen' modo='pagina' nombre='crimen' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/trabajo' element={
+            <DatoAnalitico key='trabajo' modo='pagina' nombre='trabajo' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+          
+          <Route path='/pobreza' element={
+            <DatoAnalitico key='pobreza' modo='pagina' nombre='pobreza' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/producto' element={
+            <DatoAnalitico key='producto' modo='pagina' nombre='producto' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+          
+          <Route path='/merval' element={
+            <DatoAnalitico key='merval' modo='pagina' nombre='merval' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+          
+          <Route path='/riesgo' element={
+            <DatoAnalitico key='riesgo' modo='pagina' nombre='riesgo' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/gasto' element={
+            <DatoAnalitico key='gasto' modo='pagina' nombre='gasto' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/ingresos' element={
+            <DatoAnalitico key='ingresos' modo='pagina' nombre='ingresos' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/distribucion' element={
+            <DatoAnalitico key='distribucion' modo='pagina' nombre='distribucion' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+
+          <Route path='/barrios' element={
+            <Barrios modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
+          
+          <Route path='/cortes' element={
+            <Cortes modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>
+          }></Route>
 
           <Route path='/contribucion' element={<Contribucion/>}></Route>
         </Routes>

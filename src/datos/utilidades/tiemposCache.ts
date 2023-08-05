@@ -9,7 +9,7 @@ const msEnDia: number = msEnHora * 24;
 const msEnMes: number = msEnDia * 30;
 
 export const tiemposCache: tiemposCache = {
-    "dolar": msEnMinuto * 0,
+    "dolar": msEnMinuto * 10,
     "crimen": msEnMes * 1,
     "emision": msEnDia * 1,
     "empleo": msEnDia * 1,

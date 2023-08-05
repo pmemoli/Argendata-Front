@@ -23,7 +23,7 @@ function parseDateString(dateString) {
   return date;
 }
 
-export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, tipo, histogram}) {
+export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, tipo, bar}) {
   function setIndices(fechas, fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]): number[] {
     let indiceDesde: number = 0;
     let indiceHasta: number = fechas.length - 1;
@@ -73,7 +73,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   const datosEjeX = [...datos.datosHistoricos[tipo]];
 
-  if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos Per Capita' && nombre !== 'Distribucion Ingreso') {
+  if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos' && nombre !== 'Distribucion Ingreso') {
     fechas.push(formattedDate);
     datosEjeX.push(datos.datosActuales[tipo]);
   }
@@ -91,7 +91,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   return (
     <div className={`mb-2 h-48 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
-      <LineChart chartData={chartData} histogram={histogram}/>
+      <LineChart chartData={chartData} bar={bar}/>
     </div>
   )
 }
