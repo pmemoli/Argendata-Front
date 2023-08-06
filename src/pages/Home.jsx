@@ -1,4 +1,4 @@
-import DatoAnalitico from "../datos/DatoAnalitico";
+import DatoAnalitico from "../datos/DatoAnalitico"
 
 export default function Home({cacheData, setCacheData}) {
   return (

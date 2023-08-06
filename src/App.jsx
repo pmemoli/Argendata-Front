@@ -7,8 +7,8 @@ import Contribucion from './pages/Contribucion'
 import DatoAnalitico from './datos/DatoAnalitico'
 import DatoGeografico from './datos/DatoGeografico'
 
-// Lunes empiezo a pasar a JS y dejar todo bien modulado
-// Martes empiezo a hacer el header bonito
+// Lunes empiezo a pasar a JS
+// Martes termino JS y pienso el disen(i)o del nuevo header
 // Miercoles termino el header y empiezo a pensar el sistema de busqueda...
 // ...
 // Sabado terminarlo! Pensar datos faciles para agregar.

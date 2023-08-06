@@ -1,5 +1,5 @@
-import {api} from './api';
-import {tiemposCache} from './tiemposCache';
+import {api} from './api'
+import {tiemposCache} from './tiemposCache'
 
 const hoy = new Date()
 
@@ -51,7 +51,7 @@ export async function getDatoAnalitico(nombre, cacheData,
                     metadata: metadata,
                     ultimaActualizacion: ultimaFecha,
                 }
-            }));
+            }))
         }
     }
 

@@ -1,6 +1,6 @@
 import pako from 'pako'
-import {api} from './api';
-import {Buffer} from 'buffer';
+import {api} from './api'
+import {Buffer} from 'buffer'
 
 export async function getDatoGeografico(nombre, setDatos, setUltimaActualizacion, setMetadata) {
   try {

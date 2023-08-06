@@ -25,9 +25,9 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
 
   const tipos = getTipos(datos)
 
-  const [indiceEstado, setIndiceEstado] = useState<number>(0)
-  const [tipo, setTipo] = useState<string>(tipos[0].nombreDatos)  
-  const [rangoHistorico, setRangoHistorico] = useState<Date[]>(rangoInicial)
+  const [indiceEstado, setIndiceEstado] = useState(0)
+  const [tipo, setTipo] = useState(tipos[0].nombreDatos)  
+  const [rangoHistorico, setRangoHistorico] = useState(rangoInicial)
 
   useEffect(() => {setTipo(tipos[0].nombreDatos)}, [datos])
 

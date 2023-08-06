@@ -1,14 +1,14 @@
-import {useRef} from 'react';
-import {Line, Bar} from 'react-chartjs-2';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import {useRef} from 'react'
+import {Line, Bar} from 'react-chartjs-2'
+import { Chart, registerables } from 'chart.js'
+Chart.register(...registerables)
 
-export default function LineChart({chartData, bar}): JSX.Element {
-  const windowSize: any = useRef([window.innerWidth, window.innerHeight]);
+export default function LineChart({chartData, bar}) {
+  const windowSize = useRef([window.innerWidth, window.innerHeight])
 
   if (bar) chartData.datasets[0].label = 'Porcentaje'
 
-  const options: any = {
+  const options = {
     plugins: {
       legend: {
         display: false,
@@ -36,7 +36,7 @@ export default function LineChart({chartData, bar}): JSX.Element {
         }
       }
     }
-  };
+  }
   
   if (!bar) return <Line data={chartData} options={options}/>
   else return <Bar data={chartData} options={options}/>

@@ -1,12 +1,12 @@
 import React from 'react'
 
-export default function ShowcaseOptions({modo, datos, rangoHistorico, setRangoHistorico}): JSX.Element {
-  function downloadData(): void {
-    const st: string = JSON.stringify(datos);
-    const blob: Blob = new Blob([st], { type: 'application/json' });
-    const url: string = URL.createObjectURL(blob);
+export default function ShowcaseOptions({modo, datos, rangoHistorico, setRangoHistorico}) {
+  function downloadData() {
+    const st = JSON.stringify(datos);
+    const blob = new Blob([st], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
 
-    const link: HTMLAnchorElement = document.createElement("a");
+    const link = document.createElement("a");
     link.href = url;
     link.download = "datos.json";
     document.body.appendChild(link);

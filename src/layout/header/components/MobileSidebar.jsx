@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import Sidebar from "react-sidebar";
 import { datosPosibles } from './datosPosibles';
 
-function setVisible(toggled: boolean): string {
+function setVisible(toggled) {
   if (toggled) return 'visible';
   else return 'invisible';
 }
 
 export default function MobileSidebar({setHeaderToggle}) {
-  const [toggled, setToggle] = useState<boolean>(false);
+  const [toggled, setToggle] = useState(false);
   useEffect(() => {setHeaderToggle(toggled)}, [toggled])
 
   return (

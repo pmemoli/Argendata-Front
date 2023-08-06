@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import {datosPosibles} from "./datosPosibles";
 
-function setZ(toggled: boolean): string {
+function setZ(toggled) {
   if (toggled) return 'z-0';
   else return 'z-50';
 }

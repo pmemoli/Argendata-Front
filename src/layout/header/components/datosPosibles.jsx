@@ -1,9 +1,4 @@
-interface datoItem {
-  nombre: string,
-  path: string,
-}
-
-export const datosPosibles: datoItem[] = [
+export const datosPosibles = [
     {nombre: 'Dolar', path: 'dolar'}, {nombre: 'Inflacion', path: 'inflacion'}, {nombre: 'Base Monetaria', path: 'basemonetaria'},
     {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Producto', path: 'producto'},
     {nombre: 'Trabajo', path: 'trabajo'}, {nombre: 'Merval', path: 'merval'}, {nombre: 'Riesgo Pais', path: 'riesgo'},

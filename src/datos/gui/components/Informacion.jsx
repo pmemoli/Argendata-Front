@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import Modal from 'react-modal';
+import {useState} from 'react'
+import Modal from 'react-modal'
 
 const customStyles = {
   content: {
@@ -17,41 +17,41 @@ const customStyles = {
     backgroundColor: 'rgba(255, 255, 255, 0.40)',
     zIndex: 1000
   }
-};
+}
 
 function convertDateFormat(inputDate) {
   // Split the date string into [mm, dd, yyyy]
-  let parts = inputDate.split('/');
+  let parts = inputDate.split('/')
 
   // Pad single digit day or month with leading zero
-  let day = parts[1].padStart(2, '0');
-  let month = parts[0].padStart(2, '0');
+  let day = parts[1].padStart(2, '0')
+  let month = parts[0].padStart(2, '0')
 
   // Rearrange the parts and join with dashes
-  let outputDate = [day, month, parts[2]].join('-');
+  let outputDate = [day, month, parts[2]].join('-')
 
-  return outputDate;
+  return outputDate
 }
 
 function formatearFecha(date) {
-  let dia = date.getDate().toString();
-  let mes = (date.getMonth() + 1).toString(); // Los meses en JavaScript empiezan en 0, por lo que se suma 1.
-  let año = date.getFullYear();
+  let dia = date.getDate().toString()
+  let mes = (date.getMonth() + 1).toString() // Los meses en JavaScript empiezan en 0, por lo que se suma 1.
+  let año = date.getFullYear()
 
   if (dia.length < 2) 
-     dia = '0' + dia;
+     dia = '0' + dia
   
   if (mes.length < 2) 
-     mes = '0' + mes;
+     mes = '0' + mes
 
-  return `${dia}-${mes}-${año}`;
+  return `${dia}-${mes}-${año}`
 }
 
-export default function Informacion({texto, createdAt}): JSX.Element {
-  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+export default function Informacion({texto, createdAt}) {
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
 
   return (

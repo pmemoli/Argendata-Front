@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EstadoActualizacion({datos}): JSX.Element {
+export default function EstadoActualizacion({datos}) {
   function renderContent() {
     if (datos.estado === 'actualizando') {
       return <div>Actualizando...</div>
