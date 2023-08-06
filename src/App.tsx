@@ -1,46 +1,43 @@
-import {useState, useEffect} from 'react';
-import {Route, Routes} from 'react-router-dom';
-import Footer from './components/Footer';
-import Header from './components/header/Header';
-import Home from './pages/Home';
-import Barrios from './datos/Barrios';
-import Cortes from './datos/Cortes';
-import Contribucion from './pages/Contribucion';
-import DatoAnalitico from './datos/DatoAnalitico';
+import {useState, useEffect} from 'react'
+import {Route, Routes} from 'react-router-dom'
+import Footer from './layout/Footer'
+import Header from './layout/header/Header'
+import Home from './pages/Home'
+import Contribucion from './pages/Contribucion'
+import DatoAnalitico from './datos/DatoAnalitico'
+import DatoGeografico from './datos/DatoGeografico'
 
-// Sabado testeo bien datos analiticos, agrego cache y hago datos geograficos
-// Domingo reorganizo bien y empiezo a pasar a JS
-// Lunes termino de pasar a JS y dejar todo bien modulado
+// Lunes empiezo a pasar a JS y dejar todo bien modulado
 // Martes empiezo a hacer el header bonito
 // Miercoles termino el header y empiezo a pensar el sistema de busqueda...
 // ...
-// Sabado terminado! Corregir faltas de ortografia y pasar a reddit!
+// Sabado terminarlo! Pensar datos faciles para agregar.
 
-const savedState = localStorage.getItem('cacheArgendata');
+const savedState = localStorage.getItem('cacheArgendata')
 
 const test = JSON.parse(savedState, (key, value) => {
   if (key === 'ultimaActualizacion') {
-    return new Date(value);
+    return new Date(value)
   } else {
-    return value;
+    return value
   }
-});
+})
 
 function App() {
   const [cacheData, setCacheData] = useState(JSON.parse(savedState))
   
   useEffect(() => {
     if (cacheData !== null) {
-      let cacheCopy = {...cacheData};
-      if (cacheData.barrios !== undefined) delete cacheCopy['barrios'];
+      let cacheCopy = {...cacheData}
+      if (cacheData.barrios !== undefined) delete cacheCopy['barrios']
       
       try {
-        localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy));
+        localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy))
       }
 
       catch(e) {console.log(e)}
     }
-  }, [cacheData]);
+  }, [cacheData])
 
   return (
     <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)] text-gray-200 font-fira font-thin'>
@@ -99,11 +96,11 @@ function App() {
           }></Route>
 
           <Route path='/barrios' element={
-            <Barrios modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>
+            <DatoGeografico key='barrios' nombre='barrios' modo='pagina' />
           }></Route>
           
           <Route path='/cortes' element={
-            <Cortes modo='pagina' cacheData={cacheData} setCacheData={setCacheData}/>
+            <DatoGeografico key='cortes' nombre='cortes' modo='pagina' />
           }></Route>
 
           <Route path='/contribucion' element={<Contribucion/>}></Route>
@@ -112,7 +109,7 @@ function App() {
 
       <Footer/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

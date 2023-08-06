@@ -1,8 +1,6 @@
-import {useState, useEffect} from 'react';
-import {getDatoAnalitico} from './utilidades/getDatoAnalitico';
-import DatosAnaliticos from './components/DatosAnaliticos';
-
-// Pensar un mejor nombre. Cambiar DatosAnaliticos a DatoAnaliticoGui
+import {useState, useEffect} from 'react'
+import {getDatoAnalitico} from './fetch/getDatoAnalitico'
+import DatoAnaliticoGui from './gui/DatoAnaliticoGui'
 
 function nDaysBefore(n) {
   const date = new Date()
@@ -13,15 +11,15 @@ function nDaysBefore(n) {
 const hoy = new Date()
 
 export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
-  const [datos, setDatos] = useState({});
-  const [ultimaActualizacion, setUltimaActualizacion] = useState('');
-  const [estado, setEstado] = useState('');
-  const [metadata, setMetadata] = useState({});
+  const [datos, setDatos] = useState({})
+  const [ultimaActualizacion, setUltimaActualizacion] = useState('')
+  const [estado, setEstado] = useState('')
+  const [metadata, setMetadata] = useState({})
 
   useEffect(() => {
       getDatoAnalitico(nombre, cacheData,
-      setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado);
-  }, []);
+      setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado)
+  }, [])
 
   function setManejoEstados() {
     if (Object.keys(datos).length === 1) {
@@ -53,7 +51,7 @@ export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
     // Cargaron los datos
     else {
       return (
-        <DatosAnaliticos 
+        <DatoAnaliticoGui 
           nombre={metadata['nombre']}
           path={nombre}
           modo={modo}

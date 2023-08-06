@@ -1,10 +1,10 @@
-import {Link} from 'react-router-dom';
-import {useState} from 'react';
-import TopMenu from './TopMenu';
-import MobileSidebar from './MobileSidebar';
+import {Link} from 'react-router-dom'
+import {useState} from 'react'
+import TopMenu from './components/TopMenu'
+import MobileSidebar from './components/MobileSidebar'
 
-export default function Header(): JSX.Element {
-  const [toggled, setHeaderToggle] = useState<boolean>(false);
+export default function Header() {
+  const [toggled, setHeaderToggle] = useState(false)
 
   return (
     <div className='pb-3'>
@@ -20,7 +20,3 @@ export default function Header(): JSX.Element {
     </div>
   )
 }
-
-{/* <div className='border-b border-gray-500'>
-<li>Test</li>
-</div> */}

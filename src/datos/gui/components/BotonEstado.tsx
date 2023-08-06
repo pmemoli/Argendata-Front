@@ -1,4 +1,4 @@
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "./DropdownMenu";
 
 export default function BotonEstado({manejoEstados, setIndiceEstado, indiceEstado}): JSX.Element {
   if (manejoEstados.estadosPosibles !== undefined) {

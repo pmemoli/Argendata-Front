@@ -32,7 +32,7 @@ export default function MobileSidebar({setHeaderToggle}) {
         open={toggled}>
           
         <button onClick={() => {setToggle(true)}} className={`relative mt-12 ml-2 z-[2] sm:mt-13 sm:ml-4 ${setVisible(!toggled)}`}>
-          <img className='w-6 sm:w-7' src={require('../../assets/hamburger (1).png')}></img>
+          <img className='w-6 sm:w-7' src={require('../../../assets/hamburger.png')}></img>
         </button>
       </Sidebar>
     </div>

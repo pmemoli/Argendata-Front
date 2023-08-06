@@ -1,4 +1,4 @@
-import {api} from '../../api';
+import {api} from './api';
 import {tiemposCache} from './tiemposCache';
 
 const hoy = new Date()
@@ -16,13 +16,10 @@ export async function getDatoAnalitico(nombre, cacheData,
 
         // Se esta en condiciones de extraer del cache en localstorage
         if (dataEnCache) {
-            console.log('here!')
             setDatos(cacheData[nombre]['datos'])
             setMetadata(cacheData[nombre]['metadata'])
             setUltimaActualizacion(cacheData[nombre].ultimaActualizacion)
             setEstado(cacheData[nombre]['metadata'].estadoManagement.estadoDefault)
-
-            console.log(cacheData[nombre].ultimaActualizacion)
         }
 
         // Se extraen los datos del back
