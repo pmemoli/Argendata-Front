@@ -40,7 +40,7 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
   else return (
     <div className={`${modo === 'pagina' ? 'sm:flex sm:justify-center' : ''}`}>
       <div className={`border-2 border-zinc-600	text-zinc-300 font-extralight sm:font-thin sm:text-zinc-100
-      rounded-md mb-3 ml-2 mr-2 p-1 pl-2 z-[1] relative ${modo === 'pagina' ? 'sm:w-2/3' : ''}`}>
+      rounded-md mb-3 ml-2 mr-2 p-1 pl-2 relative ${modo === 'pagina' ? 'sm:w-2/3' : ''}`}>
 
       <BotonEstado manejoEstados={manejoEstados} setIndiceEstado={setIndiceEstado} indiceEstado={indiceEstado}/>
 

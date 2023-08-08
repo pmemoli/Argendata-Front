@@ -1,0 +1,16 @@
+- Nuevo header mas bonito
+- Buscador (argendata, links seleccionados y datos.gob.ar)
+- Poner acentos
+- Modular la lectura de datos accesibles por el back
+
+Datos (backend):
+    - gini
+    - canasta basica
+    - reservas
+    - deuda
+    - planes sociales
+    - composicion empleo
+
+- Hacer mas rapida la carga
+
+- Boludeces tipo calculadora inflacion, cuotas (?

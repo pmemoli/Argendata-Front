@@ -33,7 +33,7 @@ export default function ShowcaseData({setTipo, datos, unidades, unidad, round, t
     }
     
     return (
-      <h3 className='p-1 z-[1] sm:text-xl'>
+      <h3 className='p-1 sm:text-xl'>
         {nombreDato(val)}: {setUnidades(val, parseFloat(datos[val.cronologia][val.nombreDatos].toFixed(round)))}
       </h3>                
     )
@@ -41,7 +41,7 @@ export default function ShowcaseData({setTipo, datos, unidades, unidad, round, t
 
   function renderDatoHistorico(val) {
     return (
-      <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm z-[1]`}>
+      <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm`}>
         <h3 className='sm:text-xl'>
           {nombreDato(val)}: {setUnidades(val, parseFloat(currentValue(val).toFixed(round)))}
         </h3>

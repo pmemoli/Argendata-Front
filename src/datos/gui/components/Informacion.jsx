@@ -14,7 +14,7 @@ const customStyles = {
     fontSize: '1rem',
   },
   overlay: {
-    backgroundColor: 'rgba(255, 255, 255, 0.40)',
+    backgroundColor: 'rgba(22, 25, 27, 0.40)',
     zIndex: 1000
   }
 }
@@ -31,20 +31,6 @@ function convertDateFormat(inputDate) {
   let outputDate = [day, month, parts[2]].join('-')
 
   return outputDate
-}
-
-function formatearFecha(date) {
-  let dia = date.getDate().toString()
-  let mes = (date.getMonth() + 1).toString() // Los meses en JavaScript empiezan en 0, por lo que se suma 1.
-  let año = date.getFullYear()
-
-  if (dia.length < 2) 
-     dia = '0' + dia
-  
-  if (mes.length < 2) 
-     mes = '0' + mes
-
-  return `${dia}-${mes}-${año}`
 }
 
 export default function Informacion({texto, createdAt}) {

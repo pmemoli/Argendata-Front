@@ -19,7 +19,7 @@ export default function Home({cacheData, setCacheData}) {
       </span>
 
       <DatoAnalitico modo='carta' nombre='trabajo' cacheData={cacheData} setCacheData={setCacheData}/>
-      <DatoAnalitico modo='carta' nombre='basemonetaria' cacheData={cacheData} setCacheData={setCacheData}/>
+      <DatoAnalitico modo='carta' nombre='riesgo' cacheData={cacheData} setCacheData={setCacheData}/>
 
       <span className='sm:col-span-2'>
         <DatoAnalitico modo='carta' nombre='ingresos' cacheData={cacheData} setCacheData={setCacheData}/>

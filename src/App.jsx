@@ -3,15 +3,18 @@ import {Route, Routes} from 'react-router-dom'
 import Footer from './layout/Footer'
 import Header from './layout/header/Header'
 import Home from './pages/Home'
-import Contribucion from './pages/Contribucion'
+import Donar from './pages/Donar'
 import DatoAnalitico from './datos/DatoAnalitico'
 import DatoGeografico from './datos/DatoGeografico'
 
-// Lunes empiezo a pasar a JS
-// Martes termino JS y pienso el disen(i)o del nuevo header
-// Miercoles termino el header y empiezo a pensar el sistema de busqueda...
-// ...
-// Sabado terminarlo! Pensar datos faciles para agregar.
+// Martes Arreglo los acentos y modulo la lectura de datos disponibles
+// Miercoles empiezo el sistema de busqueda (argendata y datos fijos)
+// Viernes termino el sist de busqueda (argendata y datos fijos)
+// Sabado empiezo agregando datos de datos.gob.ar (primeras busquedas)
+// Domingo terminar buscador!
+// En la semana posterior agregar datos tranqui y el sabado compartirlo en reddit.
+
+// Estaria bueno un sistema que parsee texto a worldbank
 
 const savedState = localStorage.getItem('cacheArgendata')
 
@@ -43,7 +46,7 @@ function App() {
     <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)] text-gray-200 font-fira font-thin'>
       <Header/>
     
-      <div className='flex-grow mt-4'>
+      <div className='flex-grow mt-3'>
         <Routes>
           <Route path='/' element={<Home cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           
@@ -103,7 +106,7 @@ function App() {
             <DatoGeografico key='cortes' nombre='cortes' modo='pagina' />
           }></Route>
 
-          <Route path='/contribucion' element={<Contribucion/>}></Route>
+          <Route path='/donar' element={<Donar/>}></Route>
         </Routes>
       </div>
 
