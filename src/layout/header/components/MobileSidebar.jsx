@@ -7,18 +7,19 @@ function setVisible(toggled) {
   else return 'invisible';
 }
 
-export const datosPosibles = [
-  {nombre: 'Dolar', path: 'dolar'}, {nombre: 'Inflacion', path: 'inflacion'}, {nombre: 'Base Monetaria', path: 'basemonetaria'},
-  {nombre: 'Crimen', path: 'crimen'}, {nombre: 'Pobreza', path: 'pobreza'}, {nombre: 'Producto', path: 'producto'},
-  {nombre: 'Trabajo', path: 'trabajo'}, {nombre: 'Merval', path: 'merval'}, {nombre: 'Riesgo Pais', path: 'riesgo'},
-  {nombre: 'Gasto Publico', path: 'gasto'}, {nombre: 'Ingresos Per Capita', path: 'ingresos'}, 
-  {nombre: 'Distribucion Ingreso', path: 'distribucion'},
-  {nombre: 'Barrios Populares', path: 'barrios'}, {nombre: 'Cortes de Luz', path: 'cortes'},
-]
-
-export default function MobileSidebar({setHeaderToggle}) {
+export default function MobileSidebar({setHeaderToggle, datosDisponibles}) {
   const [toggled, setToggle] = useState(false);
   useEffect(() => {setHeaderToggle(toggled)}, [toggled])
+
+  const datosSpreadeados = []
+  for (let key of Object.keys(datosDisponibles)) {
+    for (let valor of datosDisponibles[key]) {
+      datosSpreadeados.push(valor)
+    }
+  }
+
+  console.log(datosSpreadeados)
+  console.log(datosDisponibles)
 
   return (
     <div className=''>
@@ -28,7 +29,7 @@ export default function MobileSidebar({setHeaderToggle}) {
           <button className='mb-3 text-2xl sm:text-2xl sm:mb-6' onClick={() => setToggle(false)}>Cerrar</button>
 
           <ul className='text-xl mr-5 sm:text-2xl'>
-            {datosPosibles.map(dato => <li className='sm:mb-1' onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
+            {datosSpreadeados.map(dato => <li className='sm:mb-1' onClick={() => {setToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
           </ul>
 
           <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setToggle(false)}}>

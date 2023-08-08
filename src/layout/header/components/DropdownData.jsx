@@ -8,7 +8,7 @@ import {
 } from "@reach/menu-button"
 import "@reach/menu-button/styles.css"
 
-export default function DropdownData({nombre, options}) {
+export default function DropdownData({nombre, datosDisponibles}) {
     const navigate = useNavigate()
 
     function goToData(path) {
@@ -19,13 +19,16 @@ export default function DropdownData({nombre, options}) {
         <div className='relative'>
             <Menu>
                 <MenuButton>
-                    {nombre} <span aria-hidden>▾</span>
+                    <div className='flex items-center'>
+                        <div>{nombre}</div>
+                        <img className='w-2 h-2 ml-1 mr-2 sm:ml-2 sm:mr-0' src={require('../../../assets/dropdownIcon.png')} />
+                    </div>
                 </MenuButton>
 
                 <MenuList>
-                    {options.map(option => (
-                        <MenuItem onSelect={() => {goToData(option.path)}}>
-                            <span className='text-lg'>{option.nombre}</span>
+                    {datosDisponibles.map(dato => (
+                        <MenuItem onSelect={() => {goToData(dato.path)}}>
+                            <span className='text-lg'>{dato.nombre}</span>
                         </MenuItem>
                     ))}
                 </MenuList>

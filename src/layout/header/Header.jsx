@@ -3,13 +3,13 @@ import {useState} from 'react'
 import MobileSidebar from './components/MobileSidebar'
 import NavigationBar from './components/NavigationBar'
 
-export default function Header() {
+export default function Header({datosDisponibles}) {
   const [toggled, setHeaderToggle] = useState(false)
 
   return (
     <div className='pb-3'>
         <div className='flex justify-center'>
-          <MobileSidebar setHeaderToggle={setHeaderToggle}/>
+          <MobileSidebar setHeaderToggle={setHeaderToggle} datosDisponibles={datosDisponibles}/>
 
           <Link to='/'>
             <h2 className='text-5xl mt-3 relative z-[1] font-raleway'>Argendata</h2>
@@ -17,7 +17,7 @@ export default function Header() {
         </div>
 
         <div className='border-b border-gray-500 pb-3 pt-4 relative'>
-          <NavigationBar toggled={toggled}/>
+          <NavigationBar toggled={toggled} datosDisponibles={datosDisponibles}/>
         </div>
 
     </div>

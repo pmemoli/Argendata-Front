@@ -5,4 +5,4 @@ const apiPath = modo === 'production' ? 'https://argendata-back.vercel.app' : 'h
 
 export const api = axios.create({
   baseURL: apiPath,
-});
+})
