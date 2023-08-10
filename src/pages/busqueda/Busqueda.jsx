@@ -33,7 +33,7 @@ export default function Busqueda() {
         </div>
 
         <div className='absolute bottom-2 text-sm'>
-          La búsqueda se hace sobre muchas fuentes (Indec, BCRA, etc.), no solo Argendata.
+          La búsqueda se hace sobre el Indec, BCRA, etc.
         </div>
       </div>
     </div>
