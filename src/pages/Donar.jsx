@@ -3,11 +3,15 @@ export default function Donar() {
     <div className="flex justify-center break-words p-3 relative z-[1]">
       <div className="sm:w-3/5 sm:text-xl">
         <p className="mb-9">
-          Si aprecias el trabajo podés contribuir para que el laburo continúe!
+          ¡Si aprecias el trabajo podés contribuir para que el proyecto continúe!
         </p>
       
         <div className="flex justify-center">
-          <a href='https://cafecito.app/argendata' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_3.png 1x, https://cdn.cafecito.app/imgs/buttons/button_3_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_3_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_3.png' alt='Invitame un café en cafecito.app' /></a>
+
+        <a href='https://cafecito.app/argendata' rel='noopener' target='_blank'>
+          <img srcset='https://cdn.cafecito.app/imgs/buttons/button_3.png 1x, https://cdn.cafecito.app/imgs/buttons/button_3_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_3_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_3.png' alt='Invitame un café en cafecito.app' />
+        </a>
+
         </div>
         
         <h2 className="text-3xl mb-4 mt-9">To do:</h2>

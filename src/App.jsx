@@ -1,18 +1,22 @@
 import {useState, useEffect} from 'react'
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useSearchParams} from 'react-router-dom'
+import {datosDisponibles, pathesAnaliticos, pathesGeograficos} from './datos/fetch/getDatosDisponibles'
 import Footer from './layout/Footer'
 import Header from './layout/header/Header'
 import Home from './pages/Home'
 import Donar from './pages/Donar'
 import DatoAnalitico from './datos/DatoAnalitico'
 import DatoGeografico from './datos/DatoGeografico'
-import {datosDisponibles, pathesAnaliticos, pathesGeograficos} from './datos/fetch/getDatosDisponibles'
+import Busqueda from './pages/busqueda/Busqueda'
 
-// Martes Arreglo los acentos y modulo la lectura de datos disponibles
-// Miercoles empiezo el sistema de busqueda (argendata y datos fijos)
-// Viernes termino el sist de busqueda (argendata y datos fijos)
-// Sabado empiezo agregando datos de datos.gob.ar (primeras busquedas)
-// Domingo terminar buscador!
+// Jueves lleno datos offline. Tmb agrego el aviso de muchas fuentes y el limite de caracteres
+
+// Viernes ver si es factible y si lo es empiezo el sistema de agregado de datos de datos.gob.ar
+
+// ...
+
+// Domingo terminar buscador y dejar todo bien lindo!
+
 // En la semana posterior agregar datos tranqui y el sabado compartirlo en reddit.
 
 // Estaria bueno un sistema que parsee texto a worldbank
@@ -64,6 +68,8 @@ function App() {
           ))}
 
           <Route path='/donar' element={<Donar/>}></Route>
+
+          <Route path='/busqueda/:busquedaInicial' element={<Busqueda/>}></Route>
         </Routes>
       </div>
 
