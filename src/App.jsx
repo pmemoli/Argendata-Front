@@ -9,31 +9,31 @@ import DatoAnalitico from './datos/DatoAnalitico'
 import DatoGeografico from './datos/DatoGeografico'
 import Busqueda from './pages/busqueda/Busqueda'
 
-// Jueves lleno datos offline. Tmb agrego el aviso de muchas fuentes y el limite de caracteres
+/*
+Que queda: 
+  - Mas datos
+    (Deuda, Estadisticas BCRA, salarios por sector, composicion del trabajo, Datos de planes sociales)
+  - Reorganizar home
+  - Retocar todo lo que haga falta
+*/
 
-// Viernes ver si es factible y si lo es empiezo el sistema de agregado de datos de datos.gob.ar
+// Domingo terminar sistema de home.
 
-// ...
-
-// Domingo terminar buscador y dejar todo bien lindo!
-
-// En la semana posterior agregar datos tranqui y el sabado compartirlo en reddit.
-
-// Estaria bueno un sistema que parsee texto a worldbank
+// En la semana posterior mechar los datos que hagan falta.
 
 const savedState = localStorage.getItem('cacheArgendata')
-
-const test = JSON.parse(savedState, (key, value) => {
-  if (key === 'ultimaActualizacion') {
-    return new Date(value)
-  } else {
-    return value
-  }
-})
+const savedHomeOrg = localStorage.getItem('homeOrg')
 
 function App() {
   const [cacheData, setCacheData] = useState(JSON.parse(savedState))
-  
+  const [organizacionHome, setOrganizacionHome] = useState([
+    {id: 'dolar', name: 'Dólar'}, {id: 'inflacion', name: 'Inflación'},
+    {id: 'crimen', name: 'Crimen'}, {id: 'pobreza', name: 'Pobreza'},
+    {id: 'producto', name: 'Producto'}, {id: 'trabajo', name: 'Trabajo'}, 
+    {id: 'riesgo', name: 'Riesgo'}, {id: 'ingresos', name: 'Ingresos'}, 
+    {id: 'merval', name: 'Merval'}, {id: 'gasto', name: 'Gasto'}
+  ])
+
   useEffect(() => {
     if (cacheData !== null) {
       let cacheCopy = {...cacheData}
@@ -47,13 +47,25 @@ function App() {
     }
   }, [cacheData])
 
+  useEffect(() => {
+    const savedHomeParsed = JSON.parse(savedHomeOrg)
+    if (savedHomeParsed !== null) {
+      setOrganizacionHome(savedHomeParsed)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('homeOrg', JSON.stringify(organizacionHome))
+  }, [organizacionHome])
+
   return (
-    <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)] text-gray-200 font-fira font-thin'>
-      <Header datosDisponibles={datosDisponibles}/>
+    <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)]
+     text-gray-200 font-fira font-thin w-full'>
+      <Header datosDisponibles={datosDisponibles} setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
     
       <div className='flex-grow mt-3'>
         <Routes>
-          <Route path='/' element={<Home cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/' element={<Home organizacionHome={organizacionHome} cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
           
           {pathesAnaliticos.map(path => (
             <Route path={`/${path}`} element={

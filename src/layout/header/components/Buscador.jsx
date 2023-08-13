@@ -32,7 +32,7 @@ export default function Buscador() {
   return (
     <div className='z-[2]'>
       <button className='focus:outline-none' onClick={() => {setIsOpen(true)}}>
-        <img className='w-7 sm:w-8 mt-5 mr-2 sm:mr-3 ' src={require('../../../assets/buscador.png')}/>
+        <img className='w-7 sm:w-8 mt-6 mr-2 sm:mr-3 ' src={require('../../../assets/buscador.png')}/>
       </button>
 
       <Modal

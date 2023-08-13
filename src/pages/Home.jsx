@@ -1,35 +1,43 @@
+import { useEffect, useState } from "react"
 import DatoAnalitico from "../datos/DatoAnalitico"
 
-export default function Home({cacheData, setCacheData}) {
+export default function Home({cacheData, setCacheData, organizacionHome}) {
+  const [componentesHome, setComponentesHome] = useState([])
+
+  useEffect(() => {
+    console.log("OrganizacionHome changed:", organizacionHome);
+
+    let componentesTemp = []
+
+    let i = 0
+    let j = 0
+  
+    for (let dataCarta of organizacionHome) {
+      if ((i % 2 === 0 && j % 2 === 0) || (i % 2 === 1 && j % 2 === 1)) {
+        componentesTemp.push(
+          <span className='sm:col-span-2' key={dataCarta.id}>
+            <DatoAnalitico modo='carta' nombre={dataCarta.id} cacheData={cacheData} setCacheData={setCacheData}/>
+          </span>
+        )
+      }
+  
+      else if ((i % 2 === 1 && j % 2 === 0) || (i % 2 === 0 && j % 2 === 1)) {
+        componentesTemp.push(
+          <DatoAnalitico modo='carta' key={dataCarta.id} nombre={dataCarta.id} cacheData={cacheData} setCacheData={setCacheData}/>
+        )
+      }
+  
+      if (i % 2 === 1) j++
+  
+      i++
+    }  
+
+    setComponentesHome(componentesTemp)
+  }, [organizacionHome])
+
   return (
     <div className='flex flex-col min-h-full sm:grid lg:grid-cols-3 sm:gap-2 sm:ml-5 sm:mr-5'>
-      <span className='sm:col-span-2'>
-        <DatoAnalitico modo='carta' nombre='dolar' cacheData={cacheData} setCacheData={setCacheData}/>
-      </span>
-      
-      <DatoAnalitico modo='carta' nombre='inflacion' cacheData={cacheData} setCacheData={setCacheData}/>
-      <DatoAnalitico modo='carta' nombre='crimen' cacheData={cacheData} setCacheData={setCacheData}/>
-      
-      <span className='sm:col-span-2'>
-        <DatoAnalitico modo='carta' nombre='pobreza' cacheData={cacheData} setCacheData={setCacheData}/>
-      </span>
-      
-      <span className='sm:col-span-2'>
-        <DatoAnalitico modo='carta' nombre='producto' cacheData={cacheData} setCacheData={setCacheData}/>
-      </span>
-
-      <DatoAnalitico modo='carta' nombre='trabajo' cacheData={cacheData} setCacheData={setCacheData}/>
-      <DatoAnalitico modo='carta' nombre='riesgo' cacheData={cacheData} setCacheData={setCacheData}/>
-
-      <span className='sm:col-span-2'>
-        <DatoAnalitico modo='carta' nombre='ingresos' cacheData={cacheData} setCacheData={setCacheData}/>
-      </span>
-
-      <span className='sm:col-span-2'>
-        <DatoAnalitico modo='carta' nombre='merval' cacheData={cacheData} setCacheData={setCacheData}/>
-      </span>
-
-      <DatoAnalitico modo='carta' nombre='gasto' cacheData={cacheData} setCacheData={setCacheData}/>
-    </div>
+      {componentesHome}
+  </div>
   )
 }

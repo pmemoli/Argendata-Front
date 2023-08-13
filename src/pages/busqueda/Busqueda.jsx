@@ -28,12 +28,12 @@ export default function Busqueda() {
           </button>
         </div>
 
-        <div className='flex flex-col gap-3 p-4 border-t-2 border-zinc-600 text-base sm:text-lg'>
+        <div className='flex flex-col gap-3 p-4 border-t-2 border-zinc-600 text-base sm:text-lg mb-4'>
           <Resultados busqueda={busqueda}/>
         </div>
 
         <div className='absolute bottom-2 text-sm'>
-          La búsqueda se hace sobre el Indec, BCRA, etc.
+          La búsqueda se hace sobre multiples fuentes.
         </div>
       </div>
     </div>

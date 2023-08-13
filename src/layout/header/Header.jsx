@@ -9,11 +9,11 @@ function setVisible(toggled) {
   else return 'invisible';
 }
 
-export default function Header({datosDisponibles}) {
+export default function Header({datosDisponibles, setOrganizacionHome, organizacionHome}) {
   const [toggled, setHeaderToggle] = useState(false)
 
   return (
-    <div className='pb-3 w-full'>
+    <div className='w-full'>
         <MobileSidebar toggled={toggled} setHeaderToggle={setHeaderToggle} datosDisponibles={datosDisponibles}/>
 
         <div className='flex items-center justify-between'>
@@ -29,9 +29,9 @@ export default function Header({datosDisponibles}) {
         </div>
 
         <div className='border-b border-gray-500 pb-3 pt-4 relative'>
-          <NavigationBar toggled={toggled} datosDisponibles={datosDisponibles}/>
+          <NavigationBar toggled={toggled} datosDisponibles={datosDisponibles}
+          setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
         </div>
-
     </div>
   )
 }
