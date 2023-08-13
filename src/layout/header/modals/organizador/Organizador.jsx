@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Modal from 'react-modal'
 import DragTable from './DragTable'
 
-export default function OrganizadorHome({organizacionHome, setOrganizacionHome}) {
+export default function Organizador({organizacionHome, setOrganizacionHome}) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -28,7 +28,7 @@ export default function OrganizadorHome({organizacionHome, setOrganizacionHome})
       position: 'absolute', // Make sure this is relative
       margin: 'auto', // Centralize the modal in the overlay flex container
       maxWidth: windowWidth <= 600 ? '14.5rem' : '29rem',
-      maxHeight: windowWidth <= 600 ? '30rem' : '24rem',
+      maxHeight: windowWidth <= 600 ? '80%' : '25rem',
       whiteSpace: 'pre-line',
       wordBreak: 'break-word',
       fontSize: '1rem',
@@ -73,7 +73,7 @@ export default function OrganizadorHome({organizacionHome, setOrganizacionHome})
                 {id: 'merval', name: 'Merval'}, {id: 'gasto', name: 'Gasto'}
               ])
             }} 
-            className='bg-gray-800 p-1 w-[6.5rem] sm:w-auto rounded-md'>
+            className='bg-gray-800 p-1 w-[6.5rem] sm:w-auto rounded-md sm:p-2'>
               Reiniciar
             </button>
           </div>

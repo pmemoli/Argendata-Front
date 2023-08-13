@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import DropdownData from './DropdownData'
-import Instrucciones from './Instrucciones'
-import OrganizadorHome from './organizador/OrganizadorHome'
+import Instrucciones from '../modals/Instrucciones'
+import Organizador from '../modals/organizador/Organizador'
 
 function setZ(toggled) {
   if (toggled) return 'z-0'
@@ -17,7 +17,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
       overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar w-full
       ${setZ(toggled)}`
     }>
-      <OrganizadorHome setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
+      <Organizador setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
 
       <Instrucciones/>
 
@@ -30,8 +30,3 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
     </div>
   )
 }
-
-
-// Dolar y finanzas: Dolar, merval, riesgo pais
-// Macro: Producto, Inflacion, Trabajo, Ingresos, Gasto Publico
-// Mapas: Cortes de Luz, Barrios populares

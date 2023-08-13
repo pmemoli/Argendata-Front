@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import {useState} from 'react'
 import MobileSidebar from './components/MobileSidebar'
 import NavigationBar from './components/NavigationBar'
-import Buscador from './components/Buscador'
+import Buscador from './modals/Buscador'
 
 function setVisible(toggled) {
   if (toggled) return 'visible';
