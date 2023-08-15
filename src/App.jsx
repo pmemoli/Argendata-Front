@@ -13,13 +13,14 @@ import Busqueda from './pages/busqueda/Busqueda'
 Que queda: 
   - Mas datos
     (Deuda, Estadisticas BCRA, salarios por sector, composicion del trabajo, Datos de planes sociales)
-  - Reorganizar home
+  
+  - Mapas como cartas
+
   - Retocar todo lo que haga falta
 */
 
-// Domingo terminar sistema de home.
-
 // En la semana posterior mechar los datos que hagan falta.
+// Para la semana que viene dejar todo bien con los datos, los mapas como cartas y el estilo cute.
 
 const savedState = localStorage.getItem('cacheArgendata')
 const savedHomeOrg = localStorage.getItem('homeOrg')
@@ -75,7 +76,7 @@ function App() {
 
           {pathesGeograficos.map(path => (
             <Route path={`/${path}`} element={
-              <DatoGeografico key={path} nombre={path} modo='pagina' />
+              <DatoGeografico key={path} nombre={path}/>
             }></Route>
           ))}
 

@@ -60,9 +60,14 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   const datosEjeX = [...datos.datosHistoricos[tipo]];
 
-  if (faltaFecha && hayDatoActual && diaHabil && nombre !== 'Ingresos' && nombre !== 'Distribucion Ingreso') {
-    fechas.push(formattedDate)
-    datosEjeX.push(datos.datosActuales[tipo])
+  if (hayDatoActual && diaHabil && nombre !== 'Ingresos' && nombre !== 'Distribución Ingreso') {
+    if (faltaFecha) {
+      fechas.push(formattedDate)
+      datosEjeX.push(datos.datosActuales[tipo])  
+    }
+    else {
+      datosEjeX[datosEjeX.length - 1] = datos.datosActuales[tipo]  
+    }
   }
 
   const chartData = {

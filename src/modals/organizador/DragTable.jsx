@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {datosDisponibles} from '../../../../datos/fetch/getDatosDisponibles'
+import {datosDisponibles} from '../../datos/fetch/getDatosDisponibles'
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 function getDisponibles(organizacionActual) {
