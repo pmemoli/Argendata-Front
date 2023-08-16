@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import DropdownData from './DropdownData'
 import Instrucciones from '../modals/Instrucciones'
-import Organizador from '../../../modals/organizador/Organizador'
+import Organizador from '../modals/organizador/Organizador'
 
 function setZ(toggled) {
   if (toggled) return 'z-0'

@@ -29,10 +29,10 @@ function App() {
   const [cacheData, setCacheData] = useState(JSON.parse(savedState))
   const [organizacionHome, setOrganizacionHome] = useState([
     {id: 'dolar', name: 'Dólar'}, {id: 'inflacion', name: 'Inflación'},
-    {id: 'crimen', name: 'Crimen'}, {id: 'pobreza', name: 'Pobreza'},
-    {id: 'producto', name: 'Producto'}, {id: 'trabajo', name: 'Trabajo'}, 
-    {id: 'riesgo', name: 'Riesgo'}, {id: 'ingresos', name: 'Ingresos'}, 
-    {id: 'merval', name: 'Merval'}, {id: 'gasto', name: 'Gasto'}
+    {id: 'pobreza', name: 'Pobreza'}, {id: 'ingresos', name: 'Ingresos'},
+    {id: 'basemonetaria', name: 'Base Monetaria'}, {id: 'reservas', name: 'Reservas del BCRA'},  
+    {id: 'riesgo', name: 'Riesgo'}, {id: 'merval', name: 'Merval'},  
+    {id: 'producto', name: 'Producto'}, {id: 'gasto', name: 'Gasto'}
   ])
 
   useEffect(() => {

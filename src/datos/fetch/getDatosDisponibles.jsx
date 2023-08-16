@@ -41,6 +41,12 @@ export const datosDisponibles = {
     'BCRA': [
       {nombre: 'Base Monetaria', path: 'basemonetaria',
       descripcion: 'Base monetaria en activos y pasivos emitidos por el BCRA.'},
+
+      {nombre: 'Tasa de Interés', path: 'tasainteres',
+      descripcion: 'Tasa de interés, promedio mensual en porcentaje nominal anual. Por depósitos a plazo fijo de 30 a 59 días de plazo.'},
+
+      {nombre: 'Reservas del BCRA', path: 'reservas',
+      descripcion: 'Reservas internacionales del BCRA en millónes de dolares estadounidenses.'},
     ],
   
     'Mapas': [

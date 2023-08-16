@@ -8,6 +8,8 @@ export const tiemposCache = {
     "dolar": msEnMinuto * 10,
     "crimen": msEnMes * 1,
     "basemonetaria": msEnDia * 1,
+    "tasainteres": msEnDia * 1,
+    "reservas": msEnDia * 1,
     "trabajo": msEnDia * 1,
     "gasto": msEnDia * 1,
     "inflacion": msEnDia * 1,
