@@ -10,17 +10,18 @@ import DatoGeografico from './datos/DatoGeografico'
 import Busqueda from './pages/busqueda/Busqueda'
 
 /*
+night n night NJK Record/3L
+fly the night with you crazy beats
+
 Que queda: 
   - Mas datos
-    (Deuda, Estadisticas BCRA, salarios por sector, composicion del trabajo, Datos de planes sociales)
-  
+
   - Mapas como cartas
 
   - Retocar todo lo que haga falta
 */
 
-// En la semana posterior mechar los datos que hagan falta.
-// Para la semana que viene dejar todo bien con los datos, los mapas como cartas y el estilo cute.
+// En las semanas posteriores mechar los datos que hagan falta.
 
 const savedState = localStorage.getItem('cacheArgendata')
 const savedHomeOrg = localStorage.getItem('homeOrg')

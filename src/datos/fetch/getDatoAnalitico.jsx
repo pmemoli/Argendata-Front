@@ -28,6 +28,8 @@ export async function getDatoAnalitico(nombre, cacheData,
 
             let datosApi = res.data.datos
 
+            console.log(datosApi)
+
             // Datos puros
             const datos = datosApi.data
             setDatos(datos)

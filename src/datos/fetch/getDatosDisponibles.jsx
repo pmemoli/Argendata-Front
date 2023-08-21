@@ -48,6 +48,23 @@ export const datosDisponibles = {
       {nombre: 'Reservas del BCRA', path: 'reservas',
       descripcion: 'Reservas internacionales del BCRA en millónes de dolares estadounidenses.'},
     ],
+
+    'Demografia': [
+      {nombre: 'Cant. Habitantes', path: 'poblacion',
+      descripcion: 'Cantidad de habitantes.'},
+
+      {nombre: 'Migración', path: 'migracion',
+      descripcion: 'Inmigración total y como porcentaje de la población. Migración neta (inmigrantes - emigrantes) por año.'},
+
+      {nombre: 'Natalidad', path: 'natalidad',
+      descripcion: 'Tasa de natalidad, nacidos vivos en un año.'},
+
+      {nombre: 'Mortalidad', path: 'mortalidad',
+      descripcion: 'Tasa de mortalidad total e infantil en un año.'},
+
+      {nombre: 'Esperanza de vida', path: 'esperanza',
+      descripcion: 'Esperanza de vida.'},
+    ],
   
     'Mapas': [
       {nombre: 'Cortes de Luz AMBA', path: 'cortes',
