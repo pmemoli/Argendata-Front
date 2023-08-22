@@ -4,10 +4,7 @@
 - Modular la lectura de datos accesibles por el back
 
 Datos (backend):
-    - gini
     - canasta basica
-    - reservas
-    - deuda
     - planes sociales
     - composicion empleo
 

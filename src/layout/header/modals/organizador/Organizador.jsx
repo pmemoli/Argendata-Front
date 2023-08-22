@@ -69,8 +69,8 @@ export default function Organizador({organizacionHome, setOrganizacionHome}) {
                 {id: 'dolar', name: 'Dólar'}, {id: 'inflacion', name: 'Inflación'},
                 {id: 'pobreza', name: 'Pobreza'}, {id: 'ingresos', name: 'Ingresos'},
                 {id: 'basemonetaria', name: 'Base Monetaria'}, {id: 'reservas', name: 'Reservas del BCRA'},  
-                {id: 'riesgo', name: 'Riesgo'}, {id: 'merval', name: 'Merval'},  
-                {id: 'producto', name: 'Producto'}, {id: 'gasto', name: 'Gasto'}
+                {id: 'deuda', name: 'Deuda'}, {id: 'producto', name: 'Producto'},
+                {id: 'merval', name: 'Merval'}, {id: 'riesgo', name: 'Riesgo'},  
               ])
             }} 
             className='bg-gray-800 p-1 w-[6.5rem] sm:w-auto rounded-md sm:p-2'>

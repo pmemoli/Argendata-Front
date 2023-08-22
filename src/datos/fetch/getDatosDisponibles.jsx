@@ -16,7 +16,10 @@ export const datosDisponibles = {
 
       {nombre: 'Inflación', path: 'inflacion',
       descripcion: 'IPC mensual e interanual'},
-      
+
+      {nombre: 'Deuda', path: 'deuda',
+      descripcion: 'Deuda en millones de dólares y % del PBI.'},
+
       {nombre: 'Trabajo', path: 'trabajo',
       descripcion: 'Principales tasas de trabajo: empleo, desempleo y actividad.'},
       
