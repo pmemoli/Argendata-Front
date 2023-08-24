@@ -20,17 +20,11 @@ export const datosDisponibles = {
       {nombre: 'Deuda', path: 'deuda',
       descripcion: 'Deuda en millones de dólares y % del PBI.'},
 
-      {nombre: 'Trabajo', path: 'trabajo',
-      descripcion: 'Principales tasas de trabajo: empleo, desempleo y actividad.'},
-      
-      {nombre: 'Ingresos', path: 'ingresos',
-      descripcion: 'Ingresos por familia y per capita'},
-      
-      {nombre: 'Distribución Ingresos', path:'distribucion',
-      descripcion: 'Distribución de los ingresos segun deciles.'},
-      
       {nombre: 'Gasto Público', path: 'gasto', 
       descripcion: 'Gasto público consolidado en porcentaje del PBI.'},
+      
+      {nombre: 'Balanza Comercial', path: 'balanza',
+      descripcion: 'Balanza comercial en millones de dolares.'},
     ],
   
     'Sociedad': [
@@ -39,6 +33,15 @@ export const datosDisponibles = {
 
       {nombre: 'Crimen', path: 'crimen',
       descripcion: 'Tasa de homicidios y robos cada 100 mil personas.'},
+
+      {nombre: 'Ingresos', path: 'ingresos',
+      descripcion: 'Ingresos por familia y per capita'},
+
+      {nombre: 'Trabajo', path: 'trabajo',
+      descripcion: 'Principales tasas de trabajo: empleo, desempleo y actividad.'},
+
+      {nombre: 'Desigualdad', path:'distribucion',
+      descripcion: 'Distribución de los ingresos segun deciles.'},
     ],
   
     'BCRA': [

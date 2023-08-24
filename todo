@@ -1,13 +1,2 @@
-- Nuevo header mas bonito
-- Buscador (argendata, links seleccionados y datos.gob.ar)
-- Poner acentos
-- Modular la lectura de datos accesibles por el back
-
-Datos (backend):
-    - canasta basica
-    - planes sociales
-    - composicion empleo
-
-- Hacer mas rapida la carga
-
-- Boludeces tipo calculadora inflacion, cuotas (?
+- Mapas como cartas
+- Modular organizacion home

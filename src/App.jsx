@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div className='flex flex-col justify-between min-h-screen bg-[hsl(215,21%,11%)]
-     text-gray-200 font-fira font-thin w-full'>
+     text-gray-200 font-fira font-thin w-full relative'>
       <Header datosDisponibles={datosDisponibles} setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
     
       <div className='flex-grow mt-3'>
