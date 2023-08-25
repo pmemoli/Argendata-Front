@@ -21,6 +21,7 @@ export const tiemposCache = {
     "distribucion": msEnDia * 1,
     "producto": msEnDia * 1,
     "balanza": msEnDia * 1,
+    "canasta": msEnDia * 1,
     "deuda": msEnDia * 12,
     "esperanza": msEnDia * 1,
     "poblacion": msEnDia * 1,

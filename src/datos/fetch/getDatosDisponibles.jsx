@@ -40,6 +40,9 @@ export const datosDisponibles = {
       {nombre: 'Trabajo', path: 'trabajo',
       descripcion: 'Principales tasas de trabajo: empleo, desempleo y actividad.'},
 
+      {nombre: 'Canasta', path: 'canasta',
+      descripcion: 'Canasta básica y alimentaria en pesos por adulto individual y hogar.'},
+
       {nombre: 'Desigualdad', path:'distribucion',
       descripcion: 'Distribución de los ingresos segun deciles.'},
     ],
