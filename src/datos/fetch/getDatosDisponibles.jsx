@@ -45,6 +45,9 @@ export const datosDisponibles = {
 
       {nombre: 'Desigualdad', path:'distribucion',
       descripcion: 'Distribución de los ingresos segun deciles.'},
+
+      {nombre: 'Compos. Empleo', path: 'composempleo',
+      descripcion: 'Porcentaje de empleo no registrado, registrado privado y registrado público.'},
     ],
   
     'BCRA': [

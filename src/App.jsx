@@ -14,9 +14,13 @@ night n night NJK Record/3L
 fly the night with you crazy beats
 
 Que queda: 
-  - Mas datos
+  - Deficit fiscal
+
+  - Datos en un mismo grafico
 
   - Mapas como cartas
+
+  - Mas datos offline
 
   - Retocar todo lo que haga falta
 */
