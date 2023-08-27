@@ -41,7 +41,7 @@ export default function ShowcaseData({setTipo, datos, unidades, unidad, round, t
 
   function renderDatoHistorico(val) {
     return (
-      <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} p-1 rounded-sm`}>
+      <button onClick={() => setTipo(val.nombreDatos)} className={`${val.nombreDatos === tipo ? 'bg-gray-800': ''} hover:bg-gray-800 p-1 rounded-sm`}>
         <h3 className='sm:text-xl'>
           {nombreDato(val)}: {setUnidades(val, parseFloat(currentValue(val).toFixed(round)))}
         </h3>

@@ -7,7 +7,7 @@ export default function BotonEstado({manejoEstados, setIndiceEstado, indiceEstad
         <button onClick={() => {
           manejoEstados.setEstado(manejoEstados.estadosPosibles[(indiceEstado + 1) % (manejoEstados.estadosPosibles.length)]);
           setIndiceEstado((indiceEstado + 1) % (manejoEstados.estadosPosibles.length));
-          }} className='absolute ml-1 sm:text-xl sm:p-1'>
+          }} className='absolute ml-1 sm:text-xl sm:p-1 hover:font-light'>
           {manejoEstados.estadosPosibles[indiceEstado].charAt(0).toUpperCase() + manejoEstados.estadosPosibles[indiceEstado].slice(1)}
         </button>
       );

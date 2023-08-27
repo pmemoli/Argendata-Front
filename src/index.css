@@ -31,3 +31,7 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
+
+.hover\:text-stroke:hover {
+    -webkit-text-stroke: 0.2px #fff;
+}

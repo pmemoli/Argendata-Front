@@ -29,7 +29,7 @@ export default function Instrucciones() {
 
     return (
     <div>
-        <button onClick={() => setIsOpen(true)}>
+        <button onClick={() => setIsOpen(true)} className='hover:text-stroke'>
             Como usar
         </button>
 

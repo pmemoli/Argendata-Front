@@ -19,7 +19,7 @@ export default function DropdownData({nombre, datosDisponibles}) {
         <div className='relative'>
             <Menu>
                 <MenuButton>
-                    <div className='flex items-center'>
+                    <div className='flex items-center hover:text-stroke'>
                         <div>{nombre}</div>
                         <img className='w-2 h-[0.3rem] mt-[0.1rem] sm:mt-0 ml-1 mr-2 sm:ml-2 sm:mr-0' src={require('../../../assets/dropdownIcon.png')} />
                     </div>

@@ -12,6 +12,8 @@ export async function getDatoGeografico(nombre, setDatos, setUltimaActualizacion
     const datosBufferString = Buffer.from(datosApi.geoData, 'hex')
     const decompressedData = pako.ungzip(datosBufferString, { to: 'string' })
 
+    console.log(JSON.parse(decompressedData))
+
     setDatos(JSON.parse(decompressedData))
 
     // Metadata

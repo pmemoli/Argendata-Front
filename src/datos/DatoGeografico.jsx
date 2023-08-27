@@ -12,9 +12,7 @@ export default function DatoGeografico({nombre, modo}) {
   }, [])
 
   function onEachFeature(feature, layer) {
-    if (feature.properties) {
-      layer.bindPopup(feature.properties.nombre_barrio)
-    }
+    layer.bindPopup(feature.properties.popupData)
   }
   
   function renderContent() {

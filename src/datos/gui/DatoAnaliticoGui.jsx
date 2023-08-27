@@ -13,6 +13,7 @@ function getTipos(datos) {
     if (tipoTiempo !== 'fechas' && tipoTiempo !== '_id' && tipoTiempo !== 'updatedAt' && tipoTiempo !== 'createdAt' && tipoTiempo !== 'estado') {
       Object.keys(datos[tipoTiempo]).map((tipoDato) => {
         tipos.push({'cronologia': tipoTiempo, 'nombreDatos': tipoDato})
+
       })
     }
   })

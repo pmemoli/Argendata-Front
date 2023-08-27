@@ -45,7 +45,7 @@ export default function Organizador({organizacionHome, setOrganizacionHome}) {
   
   return (
     <div className=''>
-      <button onClick={() => setIsOpen(true)}>
+      <button onClick={() => setIsOpen(true)} className='hover:text-stroke'>
         Organizar Inicio
       </button>
 

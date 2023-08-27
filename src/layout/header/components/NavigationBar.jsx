@@ -25,7 +25,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
         <DropdownData nombre={key} datosDisponibles={datosDisponibles[key]}/>        
       ))}
 
-      <Link to='/donar'>Donar</Link>
+      <Link to='/donar'><span className='hover:text-stroke'>Donar</span></Link>
       
     </div>
   )
