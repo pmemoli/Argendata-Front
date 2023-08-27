@@ -27,8 +27,8 @@ export default function Organizador({organizacionHome, setOrganizacionHome}) {
     content: {
       position: 'absolute', // Make sure this is relative
       margin: 'auto', // Centralize the modal in the overlay flex container
-      maxWidth: windowWidth <= 600 ? '14.5rem' : '29rem',
-      maxHeight: windowWidth <= 600 ? '80%' : '25rem',
+      maxWidth: windowWidth <= 600 ? '14.5rem' : '30rem',
+      maxHeight: windowWidth <= 600 ? '80%' : '33rem',
       whiteSpace: 'pre-line',
       wordBreak: 'break-word',
       fontSize: '1rem',
@@ -60,7 +60,7 @@ export default function Organizador({organizacionHome, setOrganizacionHome}) {
           <DragTable organizacionHome={organizacionHome} setOrganizacionHome={setOrganizacionHome}/>
 
           <div className='mt-2 text-sm text-white flex justify-between items-center'>
-            <p>
+            <p className='mb-3 sm:mb-0'>
               Se pueden agregar hasta 10 datos.
             </p>
 

@@ -13,7 +13,7 @@ export default function Header({datosDisponibles, setOrganizacionHome, organizac
   const [toggled, setHeaderToggle] = useState(false)
 
   return (
-    <div className='w-full'>
+    <div className='w-full sm:mb-2'>
         <MobileSidebar toggled={toggled} setHeaderToggle={setHeaderToggle} datosDisponibles={datosDisponibles}/>
 
         <div className='flex items-center justify-between'>
