@@ -35,3 +35,7 @@
 .hover\:text-stroke:hover {
     -webkit-text-stroke: 0.2px #fff;
 }
+
+select {
+  max-width:100%;
+}

@@ -3,7 +3,7 @@ import {tiemposCache} from './tiemposCache'
 
 const hoy = new Date()
 
-const lastRebootDate = new Date(2023, 7, 5, 17, 26, 0)
+const lastRebootDate = new Date(2023, 7, 28, 17, 26, 0)
 
 export async function getDatoAnalitico(nombre, cacheData,
     setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado) {

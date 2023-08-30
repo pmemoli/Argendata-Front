@@ -35,6 +35,3 @@ export default function Header({datosDisponibles, setOrganizacionHome, organizac
     </div>
   )
 }
-
-{/* <MobileSidebar setHeaderToggle={setHeaderToggle}/> */}
-{/* <TopMenu toggled={toggled}/> */}

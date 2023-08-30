@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom';
-import Sidebar from "react-sidebar";
+import { Link } from 'react-router-dom'
+import Sidebar from "react-sidebar"
+import SidebarItem from './SidebarItem'
 
 function setVisible(toggled) {
-  if (toggled) return 'visible';
-  else return 'invisible';
+  if (toggled) return 'visible'
+  else return 'invisible'
 }
 
 export default function MobileSidebar({toggled, setHeaderToggle, datosDisponibles}) {
@@ -15,9 +15,6 @@ export default function MobileSidebar({toggled, setHeaderToggle, datosDisponible
     }
   }
 
-  console.log(datosSpreadeados)
-  console.log(datosDisponibles)
-
   return (
     <div className=''>
       <Sidebar
@@ -25,11 +22,11 @@ export default function MobileSidebar({toggled, setHeaderToggle, datosDisponible
         <div className={`p-3 min-h-full bg-[#161b22] text-white w-full ${setVisible(toggled)}`}>
           <button className='mb-3 text-2xl sm:text-2xl sm:mb-6' onClick={() => setHeaderToggle(false)}>Cerrar</button>
 
-          <ul className='text-xl mr-5 sm:text-2xl'>
-            {datosSpreadeados.map(dato => <li className='sm:mb-1' onClick={() => {setHeaderToggle(false)}}><Link to={'/' + dato.path}>{dato.nombre}</Link></li>)}
-          </ul>
+          {Object.keys(datosDisponibles).map(key => (
+            <SidebarItem nombre={key} datosDisponibles={datosDisponibles[key]} setHeaderToggle={setHeaderToggle}/>        
+          ))}
 
-          <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
+          <div className='text-2xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
             <Link to='/donar'>Donar</Link>
           </div>
         </div>
