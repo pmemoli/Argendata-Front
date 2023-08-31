@@ -12,6 +12,7 @@ export default function LineChart({chartData, bar}) {
     plugins: {
       legend: {
         position: 'bottom',
+        color: 'white',
         display: chartData.datasets.length > 1,
       },
     },
@@ -39,6 +40,11 @@ export default function LineChart({chartData, bar}) {
     }
   }
   
-  if (!bar) return <Line data={chartData} options={options} />
+  if (!bar) return (
+  <div className={`${chartData.datasets.length === 3 ? 'h-72' : 
+  chartData.datasets.length === 2 ? 'h-64' : 'h-52'} sm:h-full`}>
+    <Line data={chartData} options={options} />
+  </div>
+  )
   else return <Bar data={chartData} options={options}/>
 }

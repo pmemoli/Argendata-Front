@@ -86,15 +86,15 @@ export default function CompareOptions({setComparar, datos, bar}) {
           const newShow = [...prevShow]
           newShow[1] = !newShow[1]
           return newShow
-        })}} className=' justify-self-start ml-1 w-4' type="checkbox"/>
+        })}} className={`${!show[0] && !show[1] ? 'hidden' : ''} justify-self-start ml-1 w-4`} type="checkbox"/>
 
-        <select ref={refCategoria[1]} onChange={update} className='text-white bg-transparent'>
+        <select ref={refCategoria[1]} onChange={update} className={`${!show[0] && !show[1] ? 'hidden' : ''} text-white bg-transparent`}>
           {Object.keys(datos).map(dato => (
             <option className='text-black'>{dato}</option>
           ))}
         </select>
 
-        <select ref={refDato[1]} onChange={update} className='text-white bg-transparent'>
+        <select ref={refDato[1]} onChange={update} className={`${!show[0] && !show[1] ? 'hidden' : ''} text-white bg-transparent`}>
           {Object.keys(datos[Object.keys(datos)[0]]['datosHistoricos']).map(dato => (
             <option className='text-black'>{dato}</option>
           ))}

@@ -11,4 +11,16 @@ export const datosMisc = [
         descripcion: 'Estadísticas de actividad economica, finanzas públicas (resultado fiscal, reservas, deuda), precios y comercio exterior.',
         path: 'https://cancilleria.gob.ar/es/cei/estadisticas'
     },
+    {
+        nombre: 'Exámenes PISA',
+        fuente: 'gpseducation.oecd.org',
+        descripcion: 'Resultados y analisis del examen PISA en el país.',
+        path: 'https://gpseducation.oecd.org/CountryProfile?primaryCountry=ARG&treshold=5&topic=PI'
+    },
+    {
+        nombre: 'Pruebas Aprender',
+        fuente: 'argentina.gob.ar',
+        descripcion: 'Resultados y analisis de las pruebas Aprender en el país.',
+        path: 'https://www.argentina.gob.ar/educacion/evaluacion-informacion-educativa/aprender'
+    },
 ]

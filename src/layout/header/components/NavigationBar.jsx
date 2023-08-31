@@ -13,7 +13,7 @@ function setZ(toggled) {
 export default function NavigationBar({toggled, datosDisponibles, setOrganizacionHome, organizacionHome}) {
   return (
     <div id='slider' className={
-      `flex text-lg gap-5 ml-1 mr-2 sm:text-xl sm:justify-around sm:ml-0 sm:gap-0
+      `flex text-lg gap-5 pl-2 pr-4 sm:text-xl sm:justify-around sm:ml-0 sm:gap-0
       overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar w-full
       ${setZ(toggled)}`
     }>

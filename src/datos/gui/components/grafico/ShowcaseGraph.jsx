@@ -179,7 +179,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
   }
 
   return (
-    <div className={`mb-2 h-48 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
+    <div className={`mb-2 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
       <LineChart chartData={chartData} bar={bar}/>
     </div>
   )
