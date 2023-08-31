@@ -1,5 +1,5 @@
 import {MapContainer, TileLayer, GeoJSON, Marker} from 'react-leaflet';
-import Informacion from './components/Informacion'
+import Informacion from './components/comunicacion/Informacion'
 import L from 'leaflet';
 
 export default function DatoGeograficoGui({nombre, center, geoData, createdAt, textoInfo, onEachFeature}) {

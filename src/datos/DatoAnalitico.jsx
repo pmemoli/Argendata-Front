@@ -60,10 +60,12 @@ export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
           unidad={metadata['prefijos']}
           unidades={metadata['sufijos']}
           manejoEstados={setManejoEstados()}
+          estado={estado}
           round={metadata['round']}
           textoInfo={metadata['textoInfo']}
           ultimaActualizacion={ultimaActualizacion}
           bar={metadata['bar']}
+          datosCompletos={datos}
         />
     )}
   }

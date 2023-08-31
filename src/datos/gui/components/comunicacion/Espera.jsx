@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EstadoActualizacion({datos}) {
+export default function Espera({datos}) {
   function renderContent() {
     if (datos.estado === 'actualizando') {
       return <div>Actualizando...</div>

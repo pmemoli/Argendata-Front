@@ -43,7 +43,7 @@ export default function Informacion({texto, createdAt}) {
   return (
     <div className='p-1 absolute right-2'>
       <button onClick={() => setIsOpen(true)}>
-        <img className='w-5 sm:w-7' src={require('../../../assets/information.png')}></img>
+        <img className='w-5 sm:w-7' src={require('../../../../assets/information.png')}></img>
       </button>
 
       <div className='z-[2]'>

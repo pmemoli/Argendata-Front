@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom'
 import {useState, useEffect} from 'react'
-import Informacion from './components/Informacion'
-import BotonEstado from './components/BotonEstado'
-import ShowcaseOptions from './components/ShowcaseOptions'
+import Informacion from './components/comunicacion/Informacion'
+import BotonEstado from './components/estado/BotonEstado'
+import ShowcaseOptions from './components/opciones/ShowcaseOptions'
 import ShowcaseData from './components/ShowcaseData'
-import ShowcaseGraph from './components/ShowcaseGraph'
-import EstadoActualizacion from './components/EstadoActualizacion'
+import ShowcaseGraph from './components/grafico/ShowcaseGraph'
+import Espera from './components/comunicacion/Espera'
 
 function getTipos(datos) {
   const tipos = []
@@ -21,14 +21,15 @@ function getTipos(datos) {
   return tipos
 }
 
-export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, unidad,
-  manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion, bar}) {
+export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, unidad, estado,
+  manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion, bar, datosCompletos}) {
 
   const tipos = getTipos(datos)
 
   const [indiceEstado, setIndiceEstado] = useState(0)
   const [tipo, setTipo] = useState(tipos[0].nombreDatos)  
   const [rangoHistorico, setRangoHistorico] = useState(rangoInicial)
+  const [comparar, setComparar] = useState([null, null])
 
   useEffect(() => {setTipo(tipos[0].nombreDatos)}, [datos])
 
@@ -55,11 +56,12 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
       unidad={unidad} round={round} tipo={tipo} tipos={tipos}/>
 
       <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}
-      bar={bar}/>
+      bar={bar} comparar={comparar} estado={estado}/>
 
-      <ShowcaseOptions modo={modo} datos={datos} rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico}/>
+      <ShowcaseOptions modo={modo} setComparar={setComparar} datos={datosCompletos} 
+      rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico} bar={bar}/>
 
-      <EstadoActualizacion datos={datos}/>
+      <Espera datos={datos}/>
       </div>
     </div>
   )

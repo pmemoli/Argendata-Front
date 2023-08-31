@@ -6,12 +6,13 @@ Chart.register(...registerables)
 export default function LineChart({chartData, bar}) {
   const windowSize = useRef([window.innerWidth, window.innerHeight])
 
-  if (bar) chartData.datasets[0].label = 'Porcentaje'
+  // if (bar) chartData.datasets[0].label = 'Porcentaje'
 
   const options = {
     plugins: {
       legend: {
-        display: false,
+        position: 'bottom',
+        display: chartData.datasets.length > 1,
       },
     },
   
@@ -38,6 +39,6 @@ export default function LineChart({chartData, bar}) {
     }
   }
   
-  if (!bar) return <Line data={chartData} options={options}/>
+  if (!bar) return <Line data={chartData} options={options} />
   else return <Bar data={chartData} options={options}/>
 }

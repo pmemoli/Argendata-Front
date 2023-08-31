@@ -21,8 +21,14 @@ export default function Donar() {
         <li>Una categoría de datos ambientales</li>
         <li>Agregar datos historicos (pre 1990)</li>
         <li>Datos de planes sociales</li>
+        <li>Datos de educación (pruebas PISA y especialmente las Aprender)</li>
       </ul>
-
+      
+      <p className="mt-8">
+        Otra forma de contribuir además de donar, es compartir al mail debajo de la pagina (icono de carta) 
+        mapas o fuentes online de estadísticas en formato geojson/csv/xlsx que se actualicen periódicamente <b>solas</b>. 
+        ¡Especialmente de datos en la lista de To Do!
+      </p>
       </div>
     </div>
   )
