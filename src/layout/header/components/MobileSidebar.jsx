@@ -16,18 +16,22 @@ export default function MobileSidebar({toggled, setHeaderToggle, datosDisponible
   }
 
   return (
-    <div className=''>
+    <div>
       <Sidebar
         sidebar={
-        <div className={`p-3 min-h-full bg-[#161b22] text-white w-full ${setVisible(toggled)}`}>
+        <div className={`p-3 min-h-full bg-[#161b22] sm:text-2xl text-white sm:w-56 ${setVisible(toggled)}`}>
           <button className='mb-3 text-2xl sm:text-2xl sm:mb-6' onClick={() => setHeaderToggle(false)}>Cerrar</button>
 
           {Object.keys(datosDisponibles).map(key => (
             <SidebarItem nombre={key} datosDisponibles={datosDisponibles[key]} setHeaderToggle={setHeaderToggle}/>        
           ))}
 
-          <div className='text-xl mt-4 sm:text-2xl sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
+          <div className='text-xl mt-4 sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
             <Link to='/donar'>Contribuir / Donar</Link>
+          </div>
+
+          <div className='text-xl mt-2 sm:mt-2' onClick={() => {setHeaderToggle(false)}}>
+            <Link to='/otrasfuentes'>Otras Fuentes</Link>
           </div>
         </div>
         }

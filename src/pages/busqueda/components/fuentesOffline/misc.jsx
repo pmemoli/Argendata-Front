@@ -23,4 +23,22 @@ export const datosMisc = [
         descripcion: 'Resultados y analisis de las pruebas Aprender en el país.',
         path: 'https://www.argentina.gob.ar/educacion/evaluacion-informacion-educativa/aprender'
     },
+    {
+        nombre: 'Cotizaciones del dólar',
+        fuente: 'Dolarito',
+        descripcion: 'Cotizaciones de muchisimos tipos distintos de dólar',
+        path: 'https://www.dolarito.ar'
+    },
+    {
+        nombre: 'Estadisticas BCRA no oficial',
+        fuente: 'Estadisticas BCRA no oficial',
+        descripcion: 'Muchas estadísticas distintas que ofrece el Bcra',
+        path: 'https://estadisticasbcra.com/'
+    },
+    {
+        nombre: 'Estadisticas BCRA oficial',
+        fuente: 'Estadisticas BCRA oficial',
+        descripcion: 'Muchas estadísticas distintas que ofrece el Bcra',
+        path: 'https://www.bcra.gob.ar/PublicacionesEstadisticas/series_estadisticas_txt.asp'
+    },
 ]

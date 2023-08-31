@@ -8,6 +8,7 @@ import Donar from './pages/Donar'
 import DatoAnalitico from './datos/DatoAnalitico'
 import DatoGeografico from './datos/DatoGeografico'
 import Busqueda from './pages/busqueda/Busqueda'
+import OtrasFuentes from './pages/OtrasFuentes'
 
 /*
 night n night NJK Record/3L
@@ -75,6 +76,8 @@ function App() {
           ))}
 
           <Route path='/donar' element={<Donar/>}></Route>
+
+          <Route path='/otrasfuentes' element={<OtrasFuentes/>}></Route>
 
           <Route path='/busqueda/:busquedaInicial' element={<Busqueda/>}></Route>
         </Routes>

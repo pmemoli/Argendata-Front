@@ -49,7 +49,9 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
       <Informacion texto={textoInfo} createdAt={ultimaActualizacion}/>
 
       <Link to={path ? `/${path}` : `/${nombre.toLowerCase()}`}>
-        <h2 className="text-xl flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3">{nombre}</h2>    
+        <h2 className={`text-xl ${modo === 'carta' ? 'hover:text-stroke': ''} flex justify-center mt-1 mb-2 z-[1] sm:text-3xl sm:mb-3`}>
+          {nombre}
+        </h2>    
       </Link>
 
       <ShowcaseData setTipo={setTipo} datos={datos} unidades={unidades}

@@ -44,6 +44,8 @@ function intersectionIndices3(dates1, dates2, dates3) {
   return [indices1, indices2, indices3];
 }
 
+// El codigo de esto esta asqueroso e inescalable. Se modularizara en algun momento historico.
+
 export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, comparar, tipo, bar, estado}) {
   function setIndices(fechas, fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]) {
     let indiceDesde = 0
@@ -173,8 +175,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
       borderWidth: 2,
       pointRadius: 0.7,
       pointHitRadius: 12,
-      borderColor: 'rgba(0, 175, 64, 1)',
-      backgroundColor: 'rgba(0, 175, 64, 0.5)',
+      borderColor: 'rgba(139, 101, 223, 1)',
+      backgroundColor: 'rgba(139, 101, 223, 0.5)',
     })
   }
 
