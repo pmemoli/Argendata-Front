@@ -15,7 +15,11 @@ module.exports = {
         slate: {
           850: 'hsl(217, 33%, 16.5%)',
         }
-      }
+      },
+
+      screens: {
+        'xl15': '1370px',
+      },
     },
   },
   plugins: [

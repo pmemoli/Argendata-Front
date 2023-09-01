@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import DropdownData from './DropdownData'
 import Instrucciones from '../modals/Instrucciones'
 import Organizador from '../modals/organizador/Organizador'
+import ScrollButton from './ScrollButton'
 
 function setZ(toggled) {
   if (toggled) return 'z-0'
@@ -11,12 +12,22 @@ function setZ(toggled) {
 
 // Sociedad: Pobreza, Crimen, 
 export default function NavigationBar({toggled, datosDisponibles, setOrganizacionHome, organizacionHome}) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(touchDevice);
+  }, []);
+
   return (
     <div id='slider' className={
-      `flex text-lg gap-5 pl-2 pr-4 sm:text-xl sm:justify-around sm:ml-0 sm:gap-0
+      `flex text-lg gap-5 pl-2 pr-4 sm:text-xl lg:justify-around lg:ml-0 lg:gap-0
       overflow-x-scroll whitespace-nowrap scroll-smooth no-scrollbar w-full
+      xl:ml-0
       ${setZ(toggled)}`
     }>
+      {!isTouchDevice && <ScrollButton type='left'/>}
+
       <Organizador setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
 
       <Instrucciones/>
@@ -27,6 +38,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
 
       <Link to='/donar'><span className='hover:text-stroke'>Donar</span></Link>
       
+      {!isTouchDevice && <ScrollButton type='right'/>}
     </div>
   )
 }

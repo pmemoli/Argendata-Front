@@ -36,7 +36,7 @@ export default function Home({cacheData, setCacheData, organizacionHome}) {
   }, [organizacionHome])
 
   return (
-    <div className='flex flex-col min-h-full sm:grid lg:grid-cols-3 sm:gap-2 sm:ml-5 sm:mr-5'>
+    <div className='flex flex-col min-h-full lg:grid lg:grid-cols-2 xl15:grid-cols-3 md:gap-2 md:ml-5 md:mr-5'>
       {componentesHome}
   </div>
   )

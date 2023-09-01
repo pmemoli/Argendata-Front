@@ -17,7 +17,7 @@ export default function Footer() {
   }
 
   return (
-    <div className='border-t border-gray-500 mt-2'>
+    <div className='border-t border-gray-500 sm:mt-2'>
       <div className='flex justify-between'>
         <div className='flex items-center relative z-[1] ml-2 mb-1 mt-1 gap-2'>
           <a href="mailto:demnitth@gmail.com" target="_blank" className='mb-1 ml-1'>
