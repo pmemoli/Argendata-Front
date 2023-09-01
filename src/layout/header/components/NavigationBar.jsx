@@ -16,7 +16,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
 
   useEffect(() => {
     const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsTouchDevice(touchDevice);
+    setIsTouchDevice(false);
   }, []);
 
   return (

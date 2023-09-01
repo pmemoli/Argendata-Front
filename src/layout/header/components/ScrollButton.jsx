@@ -10,7 +10,7 @@ const updateButtonVisibility = () => {
   console.log(scrollLeft, scrollWidth, clientWidth, type)
 
   if (type === 'right') {
-    setIsVisible(scrollLeft < scrollWidth - clientWidth);
+    setIsVisible(scrollLeft + 3 < scrollWidth - clientWidth);
   } 
   
   else {
