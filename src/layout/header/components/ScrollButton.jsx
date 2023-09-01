@@ -41,7 +41,7 @@ const updateButtonVisibility = () => {
   return (
     <button
       onClick={handleClick}
-      className={`lg:hidden bg-[hsl(215,21%,11%)] z-[1] absolute top-[1.2rem] w-5 ${style} ${!isVisible && 'hidden'}`}
+      className={`xl:hidden bg-[hsl(215,21%,11%)] z-[1] absolute top-[1.2rem] w-5 ${style} ${!isVisible && 'hidden'}`}
     >
       <img src={require(type === 'right' ? '../../../assets/right.png' : '../../../assets/left.png')} />
     </button>
