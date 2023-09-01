@@ -22,9 +22,11 @@ const updateButtonVisibility = () => {
   useEffect(() => {
     const parentElement = document.getElementById('slider');
     parentElement.addEventListener('scroll', updateButtonVisibility);
+    window.addEventListener('resize', updateButtonVisibility);
     updateButtonVisibility();
     return () => {
-      parentElement.removeEventListener('scroll', updateButtonVisibility);
+        window.removeEventListener('resize', updateButtonVisibility);
+        parentElement.removeEventListener('scroll', updateButtonVisibility);
     };
   }, [type]);
 

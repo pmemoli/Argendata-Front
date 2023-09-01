@@ -12,13 +12,6 @@ function setZ(toggled) {
 
 // Sociedad: Pobreza, Crimen, 
 export default function NavigationBar({toggled, datosDisponibles, setOrganizacionHome, organizacionHome}) {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsTouchDevice(false);
-  }, []);
-
   return (
     <div id='slider' className={
       `flex text-lg gap-5 pl-2 pr-4 sm:text-xl lg:justify-around lg:ml-0 lg:gap-0
@@ -26,7 +19,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
       xl:ml-0
       ${setZ(toggled)}`
     }>
-      {!isTouchDevice && <ScrollButton type='left'/>}
+      <ScrollButton type='left'/>
 
       <Organizador setOrganizacionHome={setOrganizacionHome} organizacionHome={organizacionHome}/>
 
@@ -38,7 +31,7 @@ export default function NavigationBar({toggled, datosDisponibles, setOrganizacio
 
       <Link to='/donar'><span className='hover:text-stroke'>Donar</span></Link>
       
-      {!isTouchDevice && <ScrollButton type='right'/>}
+      <ScrollButton type='right'/>
     </div>
   )
 }
