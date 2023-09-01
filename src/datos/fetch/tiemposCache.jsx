@@ -24,7 +24,7 @@ export const tiemposCache = {
     "canasta": msEnDia * 1,
     "deficit": msEnDia * 1,
     "composempleo": msEnDia * 1,
-    "deuda": msEnDia * 3,
+    "deuda": msEnDia * 1,
     "esperanza": msEnDia * 1,
     "poblacion": msEnDia * 1,
     "mortalidad": msEnDia * 1,

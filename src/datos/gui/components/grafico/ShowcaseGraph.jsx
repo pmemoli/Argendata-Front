@@ -45,7 +45,6 @@ function intersectionIndices3(dates1, dates2, dates3) {
 }
 
 // El codigo de esto esta asqueroso e inescalable. Se modularizara en algun momento historico.
-
 export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, comparar, tipo, bar, estado}) {
   function setIndices(fechas, fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]) {
     let indiceDesde = 0

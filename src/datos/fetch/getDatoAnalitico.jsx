@@ -7,9 +7,7 @@ const lastRebootDate = new Date(2023, 7, 30, 22, 50, 0)
 
 export async function getDatoAnalitico(nombre, cacheData,
     setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado) {
-        
-    console.log((new Date(cacheData[nombre].ultimaActualizacion).getTime() > lastRebootDate.getTime()))
-    
+
     try {
         const dataEnCache = 
         (cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined) && // Cache con datos
