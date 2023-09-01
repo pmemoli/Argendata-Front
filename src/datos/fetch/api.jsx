@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const modo = 'test'
+const modo = 'production'
 const apiPath = modo === 'production' ? 'https://argendata-back.vercel.app' : 'http://localhost:5000'
 
 export const api = axios.create({
