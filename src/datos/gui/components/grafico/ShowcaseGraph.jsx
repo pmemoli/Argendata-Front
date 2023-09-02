@@ -64,7 +64,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     }
 
     const extremoInvalido = datos.datosHistoricos[tipo][indiceHasta] === 0 || datos.datosHistoricos[tipo][indiceHasta] === null;
-    
+
     if (extremoInvalido) {
       indiceHasta -= 1
     }
@@ -141,6 +141,9 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
       datosEjeX[datosEjeX.length - 1] = datos.datosActuales[tipo]  
     }
   }
+
+  console.log(datosEjeX)
+  console.log(datosEjeX.slice(...setIndices(fechas, ...rangoHistorico)))
 
   const chartData = {
     labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),

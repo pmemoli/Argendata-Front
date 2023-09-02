@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import Modal from 'react-modal'
+import linkifyHtml from 'linkify-html'
 
 const customStyles = {
   content: {
@@ -40,6 +41,12 @@ export default function Informacion({texto, createdAt}) {
     setIsOpen(false)
   }
 
+  const linkedText = linkifyHtml(texto, {
+    target: {
+      url: '_blank'
+    }
+  })
+
   return (
     <div className='p-1 absolute right-2'>
       <button onClick={() => setIsOpen(true)}>
@@ -54,7 +61,7 @@ export default function Informacion({texto, createdAt}) {
           style={customStyles}
           ariaHideApp={false}
         >
-          {texto + `\n\nUltima actualizacion: ${convertDateFormat(createdAt)}`}
+          <div dangerouslySetInnerHTML={{ __html: linkedText + `\n\nUltima actualizacion: ${convertDateFormat(createdAt)}` }} />
         </Modal>
       </div>
     </div>

@@ -11,6 +11,8 @@
     "buffer": "^6.0.3",
     "chart.js": "^4.3.3",
     "leaflet": "^1.9.4",
+    "linkify-html": "^4.1.1",
+    "linkifyjs": "^4.1.1",
     "pako": "^2.1.0",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
