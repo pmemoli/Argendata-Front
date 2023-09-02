@@ -45,7 +45,7 @@ export default function Informacion({texto, createdAt}) {
     target: {
       url: '_blank'
     }
-  })
+  }).replace(/<a /g, '<a rel="noopener" ')
 
   return (
     <div className='p-1 absolute right-2'>
