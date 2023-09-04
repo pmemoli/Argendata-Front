@@ -8,6 +8,12 @@ export default function LineChart({chartData, bar}) {
 
   // if (bar) chartData.datasets[0].label = 'Porcentaje'
 
+  const label = chartData.datasets[0].label
+  const esIngresos = label.includes('Mediana') || label.includes('Media')
+  const esDistribucion = label.includes('Distribución')
+
+  console.log(esDistribucion)
+
   const options = {
     plugins: {
       legend: {
@@ -27,7 +33,14 @@ export default function LineChart({chartData, bar}) {
           font: {
             size: windowSize.current[0] > 500 ? 13 : 10,
           }
-        }
+        },
+        title: {
+          display: esDistribucion ? true : false, 
+          text: esDistribucion ? 'Decil' : '',
+          font: {
+            size: 15,
+          },
+        },
       },
   
       y: {
@@ -35,7 +48,14 @@ export default function LineChart({chartData, bar}) {
           font: {
             size: windowSize.current[0] > 500 ? 13 : 10,
           }
-        }
+        },
+        title: {
+          display: esIngresos | esDistribucion ? true : false, 
+          text: esIngresos ? 'Pesos de 2017' : esDistribucion ? '% de ingresos totales' : '',
+          font: {
+            size: 15,
+          },
+        },
       }
     }
   }
