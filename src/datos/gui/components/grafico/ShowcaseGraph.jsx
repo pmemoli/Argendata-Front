@@ -142,9 +142,6 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     }
   }
 
-  console.log(datosEjeX)
-  console.log(datosEjeX.slice(...setIndices(fechas, ...rangoHistorico)))
-
   const chartData = {
     labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),
     datasets: [{
