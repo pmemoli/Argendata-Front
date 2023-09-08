@@ -20,8 +20,8 @@ export const datosDisponibles = {
       {nombre: 'Deuda', path: 'deuda',
       descripcion: 'Deuda en millones de dólares y % del PBI.'},
 
-      {nombre: 'Deficit Fiscal', path: 'deficit',
-      descripcion: 'Deficit fiscal financiero y primario.'},
+      {nombre: 'Déficit Fiscal', path: 'deficit',
+      descripcion: 'Déficit fiscal financiero y primario.'},
 
       {nombre: 'Gasto Público', path: 'gasto', 
       descripcion: 'Gasto público consolidado en porcentaje del PBI.'},
