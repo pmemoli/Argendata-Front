@@ -45,7 +45,7 @@ function intersectionIndices3(dates1, dates2, dates3) {
 }
 
 // El codigo de esto esta asqueroso e inescalable. Se modularizara en algun momento historico.
-export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, comparar, tipo, bar, estado}) {
+export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rangoInicial, comparar, tipo, bar, estado, labels}) {
   function setIndices(fechas, fechaDesde=rangoHistorico[0], fechaHasta=rangoHistorico[1]) {
     let indiceDesde = 0
     let indiceHasta = fechas.length - 1
@@ -71,6 +71,8 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
     if (datos.datosHistoricos[tipo][indiceDesde] === 0 || datos.datosHistoricos[tipo][indiceDesde] === null) {
       indiceDesde += 1
     }
+
+    console.log(indiceDesde, indiceHasta)
 
     if (fechaHasta === rangoInicial[1] && !extremoInvalido) return [indiceDesde]
     else return [indiceDesde, indiceHasta + 1]
@@ -181,7 +183,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
 
   return (
     <div className={`mb-2 ${modo === 'carta' ? 'sm:h-[17rem]' : 'sm:h-[20rem]'}`}>
-      <LineChart chartData={chartData} bar={bar}/>
+      <LineChart chartData={chartData} bar={bar} nombre={nombre} tipo={tipo} labels={labels}/>
     </div>
   )
 }

@@ -3,11 +3,11 @@ import {tiemposCache} from './tiemposCache'
 
 const hoy = new Date()
 
-const lastRebootDate = new Date(2023, 7, 30, 22, 50, 0)
+const lastRebootDate = new Date(2023, 8, 7, 21, 0, 0)
 
 export async function getDatoAnalitico(nombre, cacheData,
     setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado) {
-
+    
     try {
         const dataEnCache = 
         (cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined) && // Cache con datos
@@ -27,6 +27,8 @@ export async function getDatoAnalitico(nombre, cacheData,
             const res = await api.get(`/datos/${nombre}`)
 
             let datosApi = res.data.datos
+            
+            console.log(datosApi.data)
 
             // Datos puros
             const datos = datosApi.data

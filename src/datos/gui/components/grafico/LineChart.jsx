@@ -3,9 +3,21 @@ import {Line, Bar} from 'react-chartjs-2'
 import { Chart, registerables } from 'chart.js'
 Chart.register(...registerables)
 
-export default function LineChart({chartData, bar}) {
+export default function LineChart({chartData, bar, nombre, tipo, labels}) {
   const windowSize = useRef([window.innerWidth, window.innerHeight])
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    
+  function extractTextWithinBrackets(str) {
+      const matches = str.match(/\(([^)]+)\)/g)
+
+      if (!matches) return str
+
+      let extractedText = matches[0].slice(1, -1)
+      extractedText = extractedText.charAt(0).toUpperCase() + extractedText.slice(1)
+
+      return extractedText
+  }
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,11 +33,8 @@ export default function LineChart({chartData, bar}) {
     }
   }, [])
 
-  const label = chartData.datasets[0].label
-  const esIngresos = label.includes('Mediana') || label.includes('Media')
-  const esDistribucion = label.includes('Distribución')
-
-  console.log(esDistribucion)
+  const yLabelValue = labels.ylabel[tipo]
+  const textoYLabel = chartData.datasets.length > 1 ? extractTextWithinBrackets(yLabelValue) : yLabelValue 
 
   const options = {
     plugins: {
@@ -48,8 +57,8 @@ export default function LineChart({chartData, bar}) {
           }
         },
         title: {
-          display: esDistribucion ? true : false, 
-          text: esDistribucion ? 'Decil' : '',
+          display: labels.xlabel === undefined || Object.keys(labels.xlabel).length === 0 ? false : true, 
+          text: labels.xlabel[tipo],
           font: {
             size: isMobile ? 12 : 15,
           },
@@ -63,8 +72,8 @@ export default function LineChart({chartData, bar}) {
           }
         },
         title: {
-          display: esIngresos | esDistribucion ? true : false, 
-          text: esIngresos ? 'Pesos de 2017' : esDistribucion ? '% de ingresos totales' : '',
+          display: true,
+          text: textoYLabel,
           font: {
             size: isMobile ? 12 : 15,
           },
@@ -73,11 +82,11 @@ export default function LineChart({chartData, bar}) {
     }
   }
   
-  if (!bar) return (
+  return (
   <div className={`${chartData.datasets.length === 3 ? 'h-72' : 
   chartData.datasets.length === 2 ? 'h-64' : 'h-52'} sm:h-full`}>
-    <Line data={chartData} options={options} />
+    {!bar && <Line data={chartData} options={options} />}
+    {bar && <Bar data={chartData} options={options}/>}
   </div>
   )
-  else return <Bar data={chartData} options={options}/>
 }

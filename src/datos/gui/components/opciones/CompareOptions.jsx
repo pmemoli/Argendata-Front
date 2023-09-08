@@ -101,7 +101,7 @@ export default function CompareOptions({setComparar, datos, bar}) {
         </select>
       </div>
 
-      <div className='mt-4 sm:mt-3 text-xs sm:text-sm'>¡Cuidado con los datos en escalas distintas!</div>
+      <div className='mt-4 sm:mt-3 text-xs sm:text-sm'>¡Cuidado con los datos en unidades distintas!</div>
     </div>
   )
 }

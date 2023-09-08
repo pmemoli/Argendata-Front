@@ -6,7 +6,7 @@ const msEnMes = msEnDia * 30;
 
 export const tiemposCache = {
     "dolar": msEnMinuto * 10,
-    "crimen": msEnMes * 1,
+    "crimen": msEnDia * 1,
     "basemonetaria": msEnDia * 1,
     "tasainteres": msEnDia * 1,
     "reservas": msEnDia * 1,

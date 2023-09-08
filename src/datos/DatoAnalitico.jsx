@@ -63,6 +63,7 @@ export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
           estado={estado}
           round={metadata['round']}
           textoInfo={metadata['textoInfo']}
+          labels={{xlabel: metadata['xlabel'], ylabel: metadata['ylabel']}}
           ultimaActualizacion={ultimaActualizacion}
           bar={metadata['bar']}
           datosCompletos={datos}

@@ -3,21 +3,18 @@ import React, { useEffect, useState } from 'react';
 export default function ScrollButton({ type }) {
   const [isVisible, setIsVisible] = useState(true);
 
-const updateButtonVisibility = () => {
-  const parentElement = document.getElementById('slider');
-  const { scrollLeft, scrollWidth, clientWidth } = parentElement;
+  const updateButtonVisibility = () => {
+    const parentElement = document.getElementById('slider');
+    const { scrollLeft, scrollWidth, clientWidth } = parentElement;
 
-  console.log(scrollLeft, scrollWidth, clientWidth, type)
-
-  if (type === 'right') {
-    setIsVisible(scrollLeft + 3 < scrollWidth - clientWidth);
-  } 
-  
-  else {
-    setIsVisible(scrollLeft > 0)
+    if (type === 'right') {
+      setIsVisible(scrollLeft + 3 < scrollWidth - clientWidth);
+    } 
+    
+    else {
+      setIsVisible(scrollLeft > 0)
+    }
   }
-};
-
 
   useEffect(() => {
     const parentElement = document.getElementById('slider');

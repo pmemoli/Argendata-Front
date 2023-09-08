@@ -3,7 +3,7 @@ export default function Donar() {
     <div className="flex justify-center break-words p-3 relative">
       <div className="sm:w-3/5 sm:text-xl">
         <p className="mb-9">
-          ¡Si aprecias el trabajo podés contribuir para que el proyecto continúe! No hay plan de tener publicidades.
+          ¡Si aprecias el trabajo podés contribuir para que el proyecto continúe!
         </p>
       
         <div className="flex justify-center">

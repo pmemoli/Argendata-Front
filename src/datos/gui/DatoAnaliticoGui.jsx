@@ -22,7 +22,8 @@ function getTipos(datos) {
 }
 
 export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, unidad, estado,
-  manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion, bar, datosCompletos}) {
+  manejoEstados, round, unidades, textoInfo, path, ultimaActualizacion, bar, datosCompletos,
+  labels}) {
 
   const tipos = getTipos(datos)
 
@@ -58,7 +59,7 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
       unidad={unidad} round={round} tipo={tipo} tipos={tipos}/>
 
       <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}
-      bar={bar} comparar={comparar} estado={estado}/>
+      bar={bar} comparar={comparar} estado={estado} labels={labels}/>
 
       <ShowcaseOptions modo={modo} setComparar={setComparar} datos={datosCompletos} 
       rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico} bar={bar}/>
