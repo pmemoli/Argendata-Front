@@ -29,7 +29,7 @@ export default function Footer() {
           </a>
 
           <a href="https://twitter.com/ArgendataX" target="_blank" className='mb-1 ml-1'>
-            <img className='w-5' src={require('../assets/twitter.png')}/>  
+            <img className='w-4' src={require('../assets/twitter.png')}/>  
           </a>
         </div>
 
