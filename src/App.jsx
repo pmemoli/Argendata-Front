@@ -17,7 +17,7 @@ fly the night with you crazy beats
 
 // En las semanas posteriores mechar los datos que hagan falta.
 
-const savedState = localStorage.getItem('cacheArgendata')
+const savedState = localStorage.getItem('nothing')
 const savedHomeOrg = localStorage.getItem('homeOrg')
 
 function App() {
@@ -30,18 +30,18 @@ function App() {
     {id: 'merval', name: 'Merval'}, {id: 'riesgo', name: 'Riesgo'},  
   ])
 
-  useEffect(() => {
-    if (cacheData !== null) {
-      let cacheCopy = {...cacheData}
-      if (cacheData.barrios !== undefined) delete cacheCopy['barrios']
+  // useEffect(() => {
+  //   if (cacheData !== null) {
+  //     let cacheCopy = {...cacheData}
+  //     if (cacheData.barrios !== undefined) delete cacheCopy['barrios']
       
-      try {
-        localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy))
-      }
+  //     try {
+  //       localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy))
+  //     }
 
-      catch(e) {console.log(e)}
-    }
-  }, [cacheData])
+  //     catch(e) {console.log(e)}
+  //   }
+  // }, [cacheData])
 
   useEffect(() => {
     const savedHomeParsed = JSON.parse(savedHomeOrg)

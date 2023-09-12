@@ -15,7 +15,7 @@ export async function getDatoAnalitico(nombre, cacheData,
         (hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacion).getTime()) < tiemposCache[nombre] // Actualizado
 
         // Se esta en condiciones de extraer del cache en localstorage
-        if (dataEnCache) {
+        if (dataEnCache && false) {
             setDatos(cacheData[nombre]['datos'])
             setMetadata(cacheData[nombre]['metadata'])
             setUltimaActualizacion(cacheData[nombre].ultimaActualizacion)
