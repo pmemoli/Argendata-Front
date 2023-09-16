@@ -1,60 +1,26 @@
 import {api} from './api'
-import {tiemposCache} from './tiemposCache'
 
-const hoy = new Date()
-
-const lastRebootDate = new Date(2023, 8, 7, 21, 0, 0)
-
-export async function getDatoAnalitico(nombre, cacheData,
-    setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado) {
-    
+export async function getDatoAnalitico(
+    nombre, setDatos, setUltimaActualizacion, setMetadata, setEstado) {
     try {
-        const dataEnCache = 
-        (cacheData !== null && cacheData[nombre] !== null && cacheData[nombre] !== undefined) && // Cache con datos
-        (new Date(cacheData[nombre].ultimaActualizacion).getTime() > lastRebootDate.getTime()) && // Posterior a un reboot
-        (hoy.getTime() - new Date(cacheData[nombre].ultimaActualizacion).getTime()) < tiemposCache[nombre] // Actualizado
+        const res = await api.get(`/datos/${nombre}`)
 
-        // Se esta en condiciones de extraer del cache en localstorage
-        if (dataEnCache && false) {
-            setDatos(cacheData[nombre]['datos'])
-            setMetadata(cacheData[nombre]['metadata'])
-            setUltimaActualizacion(cacheData[nombre].ultimaActualizacion)
-            setEstado(cacheData[nombre]['metadata'].estadoManagement.estadoDefault)
-        }
+        let datosApi = res.data.datos
 
-        // Se extraen los datos del back
-        else {
-            const res = await api.get(`/datos/${nombre}`)
+        // Datos puros
+        const datos = datosApi.data
+        setDatos(datos)
+        
+        // Metadata
+        const metadata = datosApi.metadata
+        setMetadata(metadata)
 
-            let datosApi = res.data.datos
-            
-            console.log(datosApi.data)
+        // Estado Default
+        setEstado(metadata.estadoManagement.estadoDefault)
 
-            // Datos puros
-            const datos = datosApi.data
-            setDatos(datos)
-            
-            // Metadata
-            const metadata = datosApi.metadata
-            setMetadata(metadata)
-
-            // Estado Default
-            setEstado(metadata.estadoManagement.estadoDefault)
-
-            // Ultima actualizacion
-            const ultimaFecha = new Date(res.data.datos.updatedAt).toLocaleString()
-            setUltimaActualizacion(ultimaFecha)
-      
-            // Actualizacion Cache en localstorage
-            setCacheData(prevCache => ({
-                ...prevCache,
-                [nombre]: {
-                    datos: datos,
-                    metadata: metadata,
-                    ultimaActualizacion: ultimaFecha,
-                }
-            }))
-        }
+        // Ultima actualizacion
+        const ultimaFecha = new Date(res.data.datos.updatedAt).toLocaleString()
+        setUltimaActualizacion(ultimaFecha)
     }
 
     catch(e) {console.log(e)}

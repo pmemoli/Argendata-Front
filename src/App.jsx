@@ -10,18 +10,9 @@ import DatoGeografico from './datos/DatoGeografico'
 import Busqueda from './pages/busqueda/Busqueda'
 import OtrasFuentes from './pages/OtrasFuentes'
 
-/*
-night n night NJK Record/3L
-fly the night with you crazy beats
-*/
-
-// En las semanas posteriores mechar los datos que hagan falta.
-
-const savedState = localStorage.getItem('nothing')
 const savedHomeOrg = localStorage.getItem('homeOrg')
 
 function App() {
-  const [cacheData, setCacheData] = useState(JSON.parse(savedState))
   const [organizacionHome, setOrganizacionHome] = useState([
     {id: 'dolar', name: 'Dólar'}, {id: 'inflacion', name: 'Inflación'},
     {id: 'pobreza', name: 'Pobreza'}, {id: 'ingresos', name: 'Ingresos'},
@@ -29,19 +20,6 @@ function App() {
     {id: 'deuda', name: 'Deuda'}, {id: 'producto', name: 'Producto'},
     {id: 'merval', name: 'Merval'}, {id: 'riesgo', name: 'Riesgo'},  
   ])
-
-  // useEffect(() => {
-  //   if (cacheData !== null) {
-  //     let cacheCopy = {...cacheData}
-  //     if (cacheData.barrios !== undefined) delete cacheCopy['barrios']
-      
-  //     try {
-  //       localStorage.setItem('cacheArgendata', JSON.stringify(cacheCopy))
-  //     }
-
-  //     catch(e) {console.log(e)}
-  //   }
-  // }, [cacheData])
 
   useEffect(() => {
     const savedHomeParsed = JSON.parse(savedHomeOrg)
@@ -61,11 +39,11 @@ function App() {
     
       <div className='flex-grow mt-3'>
         <Routes>
-          <Route path='/' element={<Home organizacionHome={organizacionHome} cacheData={cacheData} setCacheData={setCacheData}/>}></Route>
+          <Route path='/' element={<Home organizacionHome={organizacionHome}/>}></Route>
           
           {pathesAnaliticos.map(path => (
             <Route path={`/${path}`} element={
-              <DatoAnalitico key={path} modo='pagina' nombre={path} cacheData={cacheData} setCacheData={setCacheData}/>}>
+              <DatoAnalitico key={path} modo='pagina' nombre={path}/>}>
             </Route>
           ))}
 

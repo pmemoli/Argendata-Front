@@ -17,8 +17,7 @@ export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
   const [metadata, setMetadata] = useState({})
 
   useEffect(() => {
-      getDatoAnalitico(nombre, cacheData,
-      setCacheData, setDatos, setUltimaActualizacion, setMetadata, setEstado)
+      getDatoAnalitico(nombre, setDatos, setUltimaActualizacion, setMetadata, setEstado)
   }, [])
 
   function setManejoEstados() {

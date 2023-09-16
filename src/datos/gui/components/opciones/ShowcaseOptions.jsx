@@ -15,8 +15,6 @@ export default function ShowcaseOptions({modo, datos, rangoHistorico, setRangoHi
     document.body.removeChild(link);
   }
 
-  console.log(Object.keys(datos[Object.keys(datos)[0]]['datosHistoricos']))
-
   if (modo === 'carta') return (<></>)
   
   else return (

@@ -72,7 +72,6 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
       indiceDesde += 1
     }
 
-    console.log(indiceDesde, indiceHasta)
 
     if (fechaHasta === rangoInicial[1] && !extremoInvalido) return [indiceDesde]
     else return [indiceDesde, indiceHasta + 1]
