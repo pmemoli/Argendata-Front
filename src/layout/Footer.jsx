@@ -27,10 +27,6 @@ export default function Footer() {
           <a href="https://github.com/pmemoli/Argendata-Front" target="_blank" className='mb-1 ml-1'>
             <img className='w-5' src={require('../assets/github.png')}/>  
           </a>
-
-          <a href="https://twitter.com/ArgendataX" target="_blank" className='mb-1 ml-1'>
-            <img className='w-4' src={require('../assets/twitter.png')}/>  
-          </a>
         </div>
 
         {renderCafecito()}
