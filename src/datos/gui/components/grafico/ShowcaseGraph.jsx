@@ -2,26 +2,26 @@ import LineChart from './LineChart'
 
 function equallySpacedItems(arr) {
   const breakpoint = 700
-    const numItems = (window.innerWidth <= breakpoint) ? 70 : 120;
+  const numItems = (window.innerWidth <= breakpoint) ? 80 : 120;
 
-    if (!arr || arr.length === 0) {
-        return [];
-    }
+  if (!arr || arr.length === 0) {
+      return [];
+  }
 
-    if (arr.length <= numItems) {
-        return arr;
-    }
+  if (arr.length <= numItems) {
+      return arr;
+  }
 
-    const spacing = (arr.length - 1) / (numItems - 1);
+  const spacing = (arr.length - 1) / (numItems - 1);
 
-    const result = [];
-    for (let i = 0; i < numItems - 1; i++) {
-        result.push(arr[Math.floor(i * spacing)]);
-    }
+  const result = [];
+  for (let i = 0; i < numItems - 1; i++) {
+      result.push(arr[Math.floor(i * spacing)]);
+  }
 
-    result.push(arr[arr.length - 1]);
+  result.push(arr[arr.length - 1]);
 
-    return result;
+  return result;
 }
 
 function parseDateString(dateString) {
