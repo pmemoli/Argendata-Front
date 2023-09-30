@@ -1,5 +1,29 @@
 import LineChart from './LineChart'
 
+function equallySpacedItems(arr) {
+  const breakpoint = 700
+    const numItems = (window.innerWidth <= breakpoint) ? 70 : 120;
+
+    if (!arr || arr.length === 0) {
+        return [];
+    }
+
+    if (arr.length <= numItems) {
+        return arr;
+    }
+
+    const spacing = (arr.length - 1) / (numItems - 1);
+
+    const result = [];
+    for (let i = 0; i < numItems - 1; i++) {
+        result.push(arr[Math.floor(i * spacing)]);
+    }
+
+    result.push(arr[arr.length - 1]);
+
+    return result;
+}
+
 function parseDateString(dateString) {
   // Split the string into [dd, mm, yyyy]
   let parts = dateString.split('-')
@@ -144,10 +168,10 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
   }
 
   const chartData = {
-    labels: fechas.slice(...setIndices(fechas, ...rangoHistorico)),
+    labels: equallySpacedItems(fechas.slice(...setIndices(fechas, ...rangoHistorico))),
     datasets: [{
       label: `${bar ? 'Distribución' : tipo} - ${estado}`,
-      data: datosEjeX.slice(...setIndices(fechas, ...rangoHistorico)),
+      data: equallySpacedItems(datosEjeX.slice(...setIndices(fechas, ...rangoHistorico))),
       borderWidth: 2,
       pointRadius: 0.7,
       borderColor: 'rgba(52, 153, 222, 1)',
@@ -159,7 +183,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
   if (comparar[0] !== null) {
     chartData['datasets'].push({
       label: comparar[0].nombre,
-      data: valoresComp1.slice(...setIndices(fechas, ...rangoHistorico)),
+      data: equallySpacedItems(valoresComp1.slice(...setIndices(fechas, ...rangoHistorico))),
       borderWidth: 2,
       pointRadius: 0.7,
       pointHitRadius: 12,
@@ -171,7 +195,7 @@ export default function ShowcaseGraph({modo, rangoHistorico, datos, nombre, rang
   if (comparar[1] !== null) {
     chartData['datasets'].push({
       label: comparar[1].nombre,
-      data: valoresComp2.slice(...setIndices(fechas, ...rangoHistorico)),
+      data: equallySpacedItems(valoresComp2.slice(...setIndices(fechas, ...rangoHistorico))),
       borderWidth: 2,
       pointRadius: 0.7,
       pointHitRadius: 12,
