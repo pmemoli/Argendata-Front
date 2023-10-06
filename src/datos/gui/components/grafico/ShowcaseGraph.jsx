@@ -2,33 +2,31 @@ import LineChart from './LineChart'
 
 function equallySpacedItems(arr) {
   const breakpoint = 700
-  const numItems = (window.innerWidth <= breakpoint) ? 80 : 120;
+  const numItems = (window.innerWidth <= breakpoint) ? 90 : 120
 
   if (!arr || arr.length === 0) {
-      return [];
+      return []
   }
 
   if (arr.length <= numItems) {
-      return arr;
+      return arr
   }
 
-  const spacing = (arr.length - 1) / (numItems - 1);
+  const spacing = (arr.length - 1) / (numItems - 1)
 
   const result = [];
   for (let i = 0; i < numItems - 1; i++) {
-      result.push(arr[Math.floor(i * spacing)]);
+      result.push(arr[Math.floor(i * spacing)])
   }
 
-  result.push(arr[arr.length - 1]);
+  result.push(arr[arr.length - 1])
 
-  return result;
+  return result
 }
 
 function parseDateString(dateString) {
-  // Split the string into [dd, mm, yyyy]
   let parts = dateString.split('-')
 
-  // Note: JavaScript counts months from 0, so we subtract 1 from the month number
   let date = new Date(parts[2], parts[1] - 1, parts[0])
 
   return date
