@@ -86,7 +86,10 @@ export const datosDisponibles = {
       descripcion: 'Cortes de luz en el AMBA a tiempo real.'},
 
       {nombre: 'Barrios Populares', path: 'barrios', 
-      descripcion: 'Ubicación de todos los barrios populares del país.'}
+      descripcion: 'Ubicación de todos los barrios populares del país.'},
+
+      {nombre: 'Comunidades Indigenas', path: 'comunidadesind',
+      descripcion: 'Mapa de las comunidades indigenas del país.'},
     ]
 }
 

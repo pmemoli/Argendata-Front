@@ -48,7 +48,7 @@ export default function Resultados({busqueda}) {
   }
 
   return (
-    <ul className='w-full flex flex-col gap-3'>    
+    <ul className='w-full flex flex-col gap-3'>
       {datosBuscados.map(dato => (
         <li>
           <a className='font-normal' href={dato.path} rel='noopener' target={dato.fuente === 'Argendata' ? '_self' : '_blank'}>
