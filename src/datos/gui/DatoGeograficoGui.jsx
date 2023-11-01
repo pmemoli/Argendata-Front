@@ -9,8 +9,23 @@ export default function DatoGeograficoGui({nombre, center, geoData, createdAt, t
     </div>
   )
 
+  // Zoom
   let zoom = 10
   if (nombre === 'Comunidades Indigenas') zoom = 6
+
+  // Marker 
+  const marker = (feature, latlng) => {
+    if (nombre === 'Comunidades Indigenas') return new L.CircleMarker(latlng, {
+        radius: 4,  // sets the size of the dots
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    })
+
+    else return new L.Marker
+  }
 
   return (
     <div className='sm:flex sm:justify-center'>
@@ -20,8 +35,27 @@ export default function DatoGeograficoGui({nombre, center, geoData, createdAt, t
         <h1 className='flex justify-center text-2xl mb-2'>{nombre}</h1>
 
         <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
+
           <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-          <GeoJSON data={geoData} onEachFeature={onEachFeature}/>
+          <GeoJSON data={geoData} onEachFeature={onEachFeature} 
+            pointToLayer={(feature, latlng) => {
+              if (nombre === 'Comunidades Indigenas') {
+                return new L.CircleMarker(latlng, {
+                    radius: 5,  // sets the size of the dots
+                    fillColor: "#3498db", // shade of blue
+                    color: "#000",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                });
+              }
+
+              else {
+                return new L.Marker(latlng)
+              }
+            }}
+          />
+
         </MapContainer>
       </div>
     </div>
