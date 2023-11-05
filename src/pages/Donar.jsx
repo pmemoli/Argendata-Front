@@ -16,10 +16,7 @@ export default function Donar() {
       <h2 className="text-3xl mb-4 mt-9">To do:</h2>
 
       <ul className="list-disc ml-5">
-        <li>Más datos de otras fuentes en el buscador</li>
         <li>Mapa con incendios actuales y/o riesgo de incendio</li>
-        <li>Una categoría de datos ambientales</li>
-        <li>Agregar datos historicos (pre 1990)</li>
         <li>Datos de planes sociales</li>
         <li>Datos de educación (pruebas PISA y especialmente las Aprender)</li>
       </ul>

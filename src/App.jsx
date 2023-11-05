@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Route, Routes, useSearchParams} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 import {datosDisponibles, pathesAnaliticos, pathesGeograficos} from './datos/fetch/getDatosDisponibles'
 import Footer from './layout/Footer'
 import Header from './layout/header/Header'
