@@ -26,11 +26,11 @@ export default function MobileSidebar({toggled, setHeaderToggle, datosDisponible
             <SidebarItem nombre={key} datosDisponibles={datosDisponibles[key]} setHeaderToggle={setHeaderToggle}/>        
           ))}
 
-          <div className='text-xl mt-4 sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
+          <div className='text-xl sm:text-2xl mt-4 sm:mt-6' onClick={() => {setHeaderToggle(false)}}>
             <Link to='/donar'>Contribuir / Donar</Link>
           </div>
 
-          <div className='text-xl mt-2 sm:mt-2' onClick={() => {setHeaderToggle(false)}}>
+          <div className='text-xl sm:text-2xl mt-2 sm:mt-2' onClick={() => {setHeaderToggle(false)}}>
             <Link to='/otrasfuentes'>Otras Fuentes</Link>
           </div>
         </div>
