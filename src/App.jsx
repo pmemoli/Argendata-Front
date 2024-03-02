@@ -15,10 +15,10 @@ const savedHomeOrg = localStorage.getItem('homeOrg')
 function App() {
   const [organizacionHome, setOrganizacionHome] = useState([
     {id: 'dolar', name: 'Dólar'}, {id: 'inflacion', name: 'Inflación'},
+    {id: 'riesgo', name: 'Riesgo'}, {id: 'merval', name: 'Merval'},   
+    {id: 'reservas', name: 'Reservas del BCRA'}, {id: 'basemonetaria', name: 'Base Monetaria'},   
     {id: 'pobreza', name: 'Pobreza'}, {id: 'ingresos', name: 'Ingresos'},
-    {id: 'basemonetaria', name: 'Base Monetaria'}, {id: 'reservas', name: 'Reservas del BCRA'},  
     {id: 'deuda', name: 'Deuda'}, {id: 'producto', name: 'Producto'},
-    {id: 'merval', name: 'Merval'}, {id: 'riesgo', name: 'Riesgo'},  
   ])
 
   useEffect(() => {
