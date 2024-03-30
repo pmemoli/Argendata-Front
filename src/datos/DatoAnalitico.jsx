@@ -42,8 +42,8 @@ export default function DatoAnalitico({nombre, modo, cacheData, setCacheData}) {
   function renderContent() {
     // No cargaron los datos
     if (Object.keys(datos).length === 0) return (
-      <div className='sm:text-xl'>
-        Cargando...
+      <div className='sm:text-xl pl-5'>
+        Cargando {nombre}...
       </div>
     )
 

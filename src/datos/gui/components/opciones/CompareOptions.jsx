@@ -57,7 +57,7 @@ export default function CompareOptions({setComparar, datos, bar}) {
   }, [show])
 
   return (
-    <div className='mb-5 sm:mt-5'>
+    <div className='mb-5'>
       <div className='grid grid-cols-3 gap-2 justify-between'>
         <span>Comparar</span>
         <span>Categoria</span>

@@ -6,6 +6,7 @@ import ShowcaseOptions from './components/opciones/ShowcaseOptions'
 import ShowcaseData from './components/ShowcaseData'
 import ShowcaseGraph from './components/grafico/ShowcaseGraph'
 import Espera from './components/comunicacion/Espera'
+import UltimaActualizacion from './components/UltimaActualizacion'
 
 function getTipos(datos) {
   const tipos = []
@@ -26,7 +27,7 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
   labels}) {
 
   const tipos = getTipos(datos)
-
+  
   const [indiceEstado, setIndiceEstado] = useState(0)
   const [tipo, setTipo] = useState(tipos[0].nombreDatos)  
   const [rangoHistorico, setRangoHistorico] = useState(rangoInicial)
@@ -36,7 +37,7 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
 
   if (datos === undefined) return (
     <div className='sm:text-xl'>
-      Cargando...
+      Cargando {nombre}...
     </div>
   )
     
@@ -60,12 +61,15 @@ export default function DatoAnaliticoGui({nombre, modo, datos, rangoInicial, uni
 
       <ShowcaseGraph modo={modo} rangoHistorico={rangoHistorico} datos={datos} nombre={nombre} rangoInicial={rangoInicial} tipo={tipo}
       bar={bar} comparar={comparar} estado={estado} labels={labels}/>
+      
+      <UltimaActualizacion datos={datos}/>
 
       <ShowcaseOptions modo={modo} setComparar={setComparar} datos={datosCompletos} 
       rangoHistorico={rangoHistorico} setRangoHistorico={setRangoHistorico} bar={bar}/>
 
       <Espera datos={datos}/>
       </div>
+
     </div>
   )
 }

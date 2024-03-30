@@ -71,14 +71,16 @@ export const datosDisponibles = {
       {nombre: 'Migración', path: 'migracion',
       descripcion: 'Inmigración total y como porcentaje de la población. Migración neta (inmigrantes - emigrantes) por año.'},
 
-      {nombre: 'Natalidad', path: 'natalidad',
-      descripcion: 'Tasa de natalidad, nacidos vivos en un año.'},
+      // FIXEAR XD
 
-      {nombre: 'Mortalidad', path: 'mortalidad',
-      descripcion: 'Tasa de mortalidad total e infantil en un año.'},
+      // {nombre: 'Natalidad', path: 'natalidad',
+      // descripcion: 'Tasa de natalidad, nacidos vivos en un año.'},
 
-      {nombre: 'Esperanza de vida', path: 'esperanza',
-      descripcion: 'Esperanza de vida.'},
+      // {nombre: 'Mortalidad', path: 'mortalidad',
+      // descripcion: 'Tasa de mortalidad total e infantil en un año.'},
+
+      // {nombre: 'Esperanza de vida', path: 'esperanza',
+      // descripcion: 'Esperanza de vida.'},
     ],
   
     'Mapas': [
