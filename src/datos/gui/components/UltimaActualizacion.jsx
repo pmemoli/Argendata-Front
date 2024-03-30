@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function UltimaActualizacion({datos}) {
-    console.log(datos)
     var fechas = datos.fechas
     
     if (!Array.isArray(fechas)) {
@@ -13,7 +12,7 @@ export default function UltimaActualizacion({datos}) {
     if (ultimaFecha == '10') return (<></>)
 
     return (
-        <div className='text-neutral-400 text-xs sm:text-sm sm:mt-4'>
+        <div className='text-neutral-400 text-xs sm:text-sm sm:p-1'>
             Último dato: {ultimaFecha}
         </div>
     )
